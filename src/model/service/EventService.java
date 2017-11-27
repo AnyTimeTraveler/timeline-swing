@@ -7,7 +7,7 @@ import model.Actor;
 import model.Event;
 import model.repository.*;
 
-public class EventService{
+public class EventService implements Service{
 
 	private EventRepository eventRepository; 
 

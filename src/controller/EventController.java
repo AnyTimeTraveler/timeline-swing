@@ -4,10 +4,15 @@ import model.service.EventService;
 import model.service.Service;
 import ui.View;
 
-public class EventController extends Controller{
+public class EventController implements Controller{
 
+	private View view; 
+	private Service service; 
+	
 	public EventController(){
-		super(new EventService(), new View() ); 
+		String repositoryType = "Memory";
+		this.service = new EventService(repositoryType);
+		View view = new View();
 	}
 	
 	
