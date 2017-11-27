@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Event;
+import model.repository.exception.RepositoryException;
 
 public class MemoryEventRepository implements EventRepository {
 
@@ -23,7 +24,7 @@ public class MemoryEventRepository implements EventRepository {
 		try{
 			this.events.add(event);
 			return true;
-		}catch(Exception e){
+		}catch(RepositoryException e){
 			System.out.println("Error" + e.getMessage());
 			return false;	
 		}
@@ -42,7 +43,7 @@ public class MemoryEventRepository implements EventRepository {
 			}
 			//Return false if no event was deleted during loop
 			return false; 
-		}catch(Exception e){
+		}catch(RepositoryException e){
 			System.out.println("Error" + e.getMessage());
 			return false;	
 		}
@@ -56,7 +57,7 @@ public class MemoryEventRepository implements EventRepository {
 				return this.events.get(i);
 				}
 			}
-		}catch(Exception e){
+		}catch(RepositoryException e){
 			System.out.println("Error: "+e.getMessage());
 			return null; 
 		}
