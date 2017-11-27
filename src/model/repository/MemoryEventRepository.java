@@ -17,11 +17,11 @@ public class MemoryEventRepository implements EventRepository {
 		this.events = new ArrayList<Event>(); 
 		
 		//add sample events
-		Event event1 = new Event("Event 1", "This is the first event", new Date(), new Date());
+		Event event1 = new Event("Event 1", "This is the first event", "5 Sep 2010", "8 Sep 2010");
 		event1.addActor(new Actor("Dave"));
-		Event event2 = new Event("Event 2", "This is the second event", new Date(), new Date());
+		Event event2 = new Event("Event 2", "This is the second event", "5 Sep 2010", "8 Sep 2010");
 		event2.addActor(new Actor("John"));
-		Event event3 = new Event("Event 3", "This is the thrid event", new Date(), new Date());
+		Event event3 = new Event("Event 3", "This is the thrid event", "5 Sep 2010", "8 Sep 2010");
 		event3.addActor(new Actor("Kate"));
 		this.addEvent(event1);
 		this.addEvent(event2);

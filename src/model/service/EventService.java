@@ -7,7 +7,7 @@ import model.Actor;
 import model.Event;
 import model.repository.*;
 
-public class EventService implements Service{
+public class EventService extends Service {
 
 	private EventRepository eventRepository; 
 
@@ -24,7 +24,8 @@ public class EventService implements Service{
 		this.eventRepository = new MemoryEventRepository(); 
 	}
 	
-	public boolean addEvent(Event event){
+	public boolean addEvent(String title, String description, String startDate, String endDate){
+		Event event = new Event(title, description, startDate, endDate); 
 		return this.eventRepository.addEvent(event);
 	}
 	

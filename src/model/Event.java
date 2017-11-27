@@ -13,11 +13,11 @@ public class Event {
 	private String title; 
 	private String description;
 	private int id;
-	private Date startDate; 
-	private Date EndDate; 
+	private String startDate; 
+	private String EndDate; 
 	private static AtomicInteger ID_GENERATOR;
 	
-	public Event(String title, String description, Date startDate, Date endDate) {
+	public Event(String title, String description, String startDate, String endDate) {
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
 		this.setTitle(title);
@@ -26,7 +26,7 @@ public class Event {
 		this.id = ID_GENERATOR.getAndIncrement();
 	}
 	
-	public Event(List<Actor> actors, String title, String description, Date startDate, Date endDate) {
+	public Event(List<Actor> actors, String title, String description, String startDate, String endDate) {
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
 		this.setActors(actors); 
@@ -34,19 +34,20 @@ public class Event {
 		this.setDescription(description);
 	}
 	
-	public Date getStartDate() {
+	//TODO change type
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return EndDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		EndDate = endDate;
 	}
 

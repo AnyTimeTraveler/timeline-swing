@@ -1,5 +1,5 @@
 package model.service;
 
-public interface Service {
+public class Service {
 
 }

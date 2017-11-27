@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controller.actionlisteners.AddEventButtonActionListener;
+import controller.actionlisteners.SaveNewEventActionListener;
+
 public class NewEventPanel extends JPanel{
 
 	JLabel eventTitleLabel; 
@@ -36,8 +39,9 @@ public class NewEventPanel extends JPanel{
 		this.eventEndDateLabel = new JLabel("End Date"); 
 		
 		this.saveEventButton = new JButton("Save"); 
+		this.saveEventButton.addActionListener(new SaveNewEventActionListener(this.eventTitleField, this.eventDescriptionField, this.eventStartDateField, this.eventEndDateField));
 		
-	
+		
 		//GridbagLayout init
 		GridBagLayout gbl = new GridBagLayout(); 
 		GridBagConstraints gbc = new GridBagConstraints(); 
@@ -89,6 +93,8 @@ public class NewEventPanel extends JPanel{
 		
 	}	
 	
-	
+	public String getEventTitle(){
+		return this.eventTitleField.getText();
+	}
 	
 }

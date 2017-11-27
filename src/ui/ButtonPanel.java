@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import ui.actionlisteners.*;
+import controller.actionlisteners.*;
 
 public class ButtonPanel extends JPanel {
 
