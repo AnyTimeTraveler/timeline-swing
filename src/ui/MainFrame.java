@@ -44,7 +44,7 @@ public class MainFrame extends JFrame implements Observer{
 	  	this.setRightPanelGridBagLayoutConstraints();
 	    
 	    //Set default right panel
-	    this.currentPanel = getTimelinePanel(); 
+	    this.currentPanel = this.getNewEventPanel(); 
 	    this.add(this.currentPanel, this.gbcRight);
 	}
 	
