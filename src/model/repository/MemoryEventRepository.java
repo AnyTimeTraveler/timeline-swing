@@ -3,6 +3,7 @@ package model.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Actor;
 import model.Event;
 import model.repository.exception.RepositoryException;
 
@@ -11,7 +12,19 @@ public class MemoryEventRepository implements EventRepository {
 	private List<Event> events; 
 	
 	public MemoryEventRepository(){
+		//Inititale Arraylist of Events
 		this.events = new ArrayList<Event>(); 
+		
+		//add sample events
+		Event event1 = new Event("Event 1", "This is the first event");
+		event1.addActor(new Actor("Dave"));
+		Event event2 = new Event("Event 2", "This is the second event");
+		event2.addActor(new Actor("John"));
+		Event event3 = new Event("Event 3", "This is the thrid event");
+		event3.addActor(new Actor("Kate"));
+		this.addEvent(event1);
+		this.addEvent(event2);
+		this.addEvent(event3);
 	}
 	
 	@Override
