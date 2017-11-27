@@ -1,6 +1,7 @@
 package model; 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -12,22 +13,43 @@ public class Event {
 	private String title; 
 	private String description;
 	private int id;
+	private Date startDate; 
+	private Date EndDate; 
 	private static AtomicInteger ID_GENERATOR;
 	
-	public Event(String title, String description) {
+	public Event(String title, String description, Date startDate, Date endDate) {
+		this.setStartDate(startDate);
+		this.setEndDate(endDate);
 		this.setTitle(title);
 		this.setDescription(description);
 		ID_GENERATOR = new AtomicInteger(1000);
 		this.id = ID_GENERATOR.getAndIncrement();
 	}
 	
-	public Event(List<Actor> actors, String title, String description) {
+	public Event(List<Actor> actors, String title, String description, Date startDate, Date endDate) {
+		this.setStartDate(startDate);
+		this.setEndDate(endDate);
 		this.setActors(actors); 
 		this.setTitle(title);
 		this.setDescription(description);
-		
 	}
 	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return EndDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		EndDate = endDate;
+	}
+
 	public int getId(){
 		return id; 
 	}

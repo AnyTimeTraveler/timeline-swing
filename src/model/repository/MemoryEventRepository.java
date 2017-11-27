@@ -1,6 +1,7 @@
 package model.repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.Actor;
@@ -16,11 +17,11 @@ public class MemoryEventRepository implements EventRepository {
 		this.events = new ArrayList<Event>(); 
 		
 		//add sample events
-		Event event1 = new Event("Event 1", "This is the first event");
+		Event event1 = new Event("Event 1", "This is the first event", new Date(), new Date());
 		event1.addActor(new Actor("Dave"));
-		Event event2 = new Event("Event 2", "This is the second event");
+		Event event2 = new Event("Event 2", "This is the second event", new Date(), new Date());
 		event2.addActor(new Actor("John"));
-		Event event3 = new Event("Event 3", "This is the thrid event");
+		Event event3 = new Event("Event 3", "This is the thrid event", new Date(), new Date());
 		event3.addActor(new Actor("Kate"));
 		this.addEvent(event1);
 		this.addEvent(event2);
