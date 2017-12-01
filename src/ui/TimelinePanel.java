@@ -49,13 +49,13 @@ public class TimelinePanel extends JPanel{
 	public TimelinePanel (){
 		super(); 
 		setData();
-		timelineStartPosX = 200.00;
-		timelineEndPosX = 3000.0;
-		timelineHeightPosY =500.0; 
+		timelineEndPosX = 2000.0;
+		eventOffset = (timelineEndPosX/this.events.size());
+		timelineStartPosX = eventOffset*0.75+0.00;
+		eventVerticalStripeHeight = 100; 
+		timelineHeightPosY =eventVerticalStripeHeight*2; 
 		eventStartPosX = timelineStartPosX;
 		eventHeightPosY = timelineHeightPosY; 
-		eventOffset = (timelineEndPosX/this.events.size());
-		eventVerticalStripeHeight = 200; 
 		RectangleWitdh = (eventOffset*2)*0.75; 
 		rectangleStartPosX = timelineStartPosX-(RectangleWitdh/2);
 		rectangleHeightPosY1 = timelineHeightPosY; 

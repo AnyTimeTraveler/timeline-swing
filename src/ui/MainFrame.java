@@ -29,7 +29,7 @@ public class MainFrame extends JFrame implements Observer{
 		
 		//Set Screen same as screen
 		Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension frameDim = screenDim; 
+		Dimension frameDim = new Dimension(screenDim.width-300, screenDim.height-300); 
 		
 		this.setSize(frameDim);
 		
