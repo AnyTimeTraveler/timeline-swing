@@ -89,7 +89,7 @@ public class TimelinePanel extends JPanel {
 				RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(
 						(int) (rectangleStartPosX + i * eventOffset),
 						(int) (rectangleHeightPosY1 - 2 * eventVerticalStripeHeight), (int) RectangleWitdh,
-						(int) rectangleHeight, 100, 100);
+						(int) rectangleHeight, 50, 50);
 
 				g2.draw(roundedRectangle);
 				int textX = (int) (rectangleStartPosX + i * eventOffset) + 30;
@@ -107,7 +107,7 @@ public class TimelinePanel extends JPanel {
 				RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(
 						(int) (rectangleStartPosX + i * eventOffset),
 						(int) (rectangleHeightPosY1 + eventVerticalStripeHeight), (int) RectangleWitdh,
-						(int) rectangleHeight, 100, 100);
+						(int) rectangleHeight, 50, 50);
 				g2.draw(roundedRectangle);
 				int textX = (int) (rectangleStartPosX + i * eventOffset) + 30;
 				int textY = (int) (rectangleHeightPosY1 + eventVerticalStripeHeight);

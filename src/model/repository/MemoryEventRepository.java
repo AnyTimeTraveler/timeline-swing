@@ -21,9 +21,18 @@ public class MemoryEventRepository implements EventRepository {
 		event2.addActor(new Actor("John"));
 		Event event3 = new Event("Event 3", "This is the thrid event", "5 Sep 2010", "8 Sep 2010");
 		event3.addActor(new Actor("Kate"));
+		Event event4 = new Event("Event 1", "This is the first event", "5 Sep 2010", "8 Sep 2010");
+		event1.addActor(new Actor("Dave"));
+		Event event5 = new Event("Event 2", "This is the second event", "5 Sep 2010", "8 Sep 2010");
+		event2.addActor(new Actor("John"));
+		Event event6 = new Event("Event 3", "This is the thrid event", "5 Sep 2010", "8 Sep 2010");
+		event3.addActor(new Actor("Kate"));
 		this.addEvent(event1);
 		this.addEvent(event2);
 		this.addEvent(event3);
+		this.addEvent(event4);
+		this.addEvent(event5);
+		this.addEvent(event6);
 	}
 	
 	@Override
