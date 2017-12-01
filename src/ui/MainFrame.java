@@ -1,12 +1,17 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import model.service.Subject;
 
@@ -15,19 +20,24 @@ public class MainFrame extends JFrame implements Observer{
 	private JPanel currentPanel;
 	private GridBagConstraints gbcLeft = new GridBagConstraints(); 
 	private GridBagConstraints gbcRight = new GridBagConstraints(); 
+	private JPanel timelinePanel = new TimelinePanel();
 
 	
 	public MainFrame(String title){
 		super();
 		this.setTitle(title);
-		this.setSize(new Dimension(2000, 1400));
+		
+		//Set Screen same as screen
+		Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameDim = screenDim; 
+		
+		this.setSize(frameDim);
 		
 		//Close Application properly
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//Center Frame on screen
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		this.setLocation(screenDim.width/2-this.getSize().width/2, screenDim.height/2-this.getSize().height/2);
 		
 		//Initiate Flexible GridBagLayout
 		GridBagLayout gbl = new GridBagLayout(); 
@@ -43,9 +53,14 @@ public class MainFrame extends JFrame implements Observer{
 	    //Set Position aka GridBagLayout for RIGHT panel
 	  	this.setRightPanelGridBagLayoutConstraints();
 	    
-	    //Set default right panel
-	    this.currentPanel = this.getTimelinePanel(); 
-	    this.add(this.currentPanel, this.gbcRight);
+	    //Set default right panel scrollable
+	    this.currentPanel = this.getTimelinePanel();
+        
+	     JScrollPane scrollPane = new JScrollPane(this.currentPanel);
+	     this.getContentPane().add(scrollPane, this.gbcRight);
+		
+        
+	    
 	}
 	
 	private JPanel getButtonPanel(){
@@ -54,7 +69,6 @@ public class MainFrame extends JFrame implements Observer{
 	}
 	
 	private JPanel getTimelinePanel(){
-		JPanel timelinePanel = new TimelinePanel();
 		return timelinePanel;
 	}
 	
@@ -78,7 +92,7 @@ public class MainFrame extends JFrame implements Observer{
 		gbcRight.gridx = 1;
 		gbcRight.gridy = 0;
 		gbcRight.weighty = 1;
-		gbcRight.weightx = 0.7;
+		gbcRight.weightx = 1;
 	}
 
 	public void updateRightPanel(Subject subject){

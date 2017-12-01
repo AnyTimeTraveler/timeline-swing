@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import model.Event;
 
@@ -22,50 +24,81 @@ public class TimelinePanel extends JPanel{
 	
 	//testing purposes only 
 	List<Event> events = new ArrayList<Event>();
-	
+	private Graphics2D g2; 
+	//Start position timeline on screen
+			private double timelineStartPosX;
+			//Preferred total Width timeline (offset from timelineX1)
+			private double timelineEndPosX;
+			//Hight position on screen of timeline
+			private double timelineHeightPosY; 
+			
+			//start position first event line
+			private double eventStartPosX;
+			//Start position height event line
+			private double eventHeightPosY; 
+			//Draw line for one event depending on number of events in DB
+			private double eventOffset;
+			private double eventVerticalStripeHeight; 
+			
+			//Width Rectangle (equally wide as one event on timeline)
+			private double RectangleWitdh; 
+			private double rectangleStartPosX;
+			private double rectangleHeightPosY1; 
+			private double rectangleHeight; 
+			
 	public TimelinePanel (){
 		super(); 
-		this.setBackground(Color.YELLOW);
+		setData();
+		timelineStartPosX = 200.00;
+		timelineEndPosX = 3000.0;
+		timelineHeightPosY =500.0; 
+		eventStartPosX = timelineStartPosX;
+		eventHeightPosY = timelineHeightPosY; 
+		eventOffset = (timelineEndPosX/this.events.size());
+		eventVerticalStripeHeight = 200; 
+		RectangleWitdh = (eventOffset*2)*0.75; 
+		rectangleStartPosX = timelineStartPosX-(RectangleWitdh/2);
+		rectangleHeightPosY1 = timelineHeightPosY; 
+		rectangleHeight = eventVerticalStripeHeight; 
+	}
+	
+	private void setData(){
+		List<Event> newEvents = new ArrayList<Event>();
 		Event e1 = new Event("Title1", "desc", "121212", "121212"); 
 		Event e2 = new Event("Title1", "desc", "121212", "121212"); 
 		Event e3 = new Event("Title1", "desc", "121212", "121212"); 
 		Event e4 = new Event("Title1", "desc", "121212", "121212"); 
-		events.add(e1); 
-		events.add(e2); 
-		events.add(e3); 
-		events.add(e4);
+		newEvents.add(e1); 
+		newEvents.add(e2); 
+		newEvents.add(e3); 
+		newEvents.add(e4);
+		newEvents.add(e1); 
+		newEvents.add(e2); 
+		newEvents.add(e3); 
+		newEvents.add(e4);
+		newEvents.add(e1); 
+		newEvents.add(e2); 
+		newEvents.add(e3); 
+		newEvents.add(e4);
+		this.events = newEvents; 
 	}
 	
+	@Override
+	    public Dimension getPreferredSize() {
+			int w =(int) ((timelineEndPosX-timelineStartPosX)+RectangleWitdh)+50;
+			int h = (int) (timelineHeightPosY+this.eventVerticalStripeHeight+this.rectangleHeight)+50;
+	        return new Dimension(w, h);
+	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
+		super.paintComponent(g);
+		g2 = (Graphics2D) g;
 		
 		AffineTransform restoreTransform = g2.getTransform();
 		
-		// Draw axis lines
+		// Set timeline color
 		g2.setColor(Color.BLACK);
-		
-		//Start position timeline on screen
-		double timelineStartPosX = 200.00;
-		//Preferred total Width timeline (offset from timelineX1)
-		double timelineEndPosX = 1000.0;
-		//Hight position on screen of timeline
-		double timelineHeightPosY =500.0; 
-		
-		//start position first event line
-		double eventStartPosX = timelineStartPosX;
-		//Start position height event line
-		double eventHeightPosY = timelineHeightPosY; 
-		//Draw line for one event depending on number of events in DB
-		double eventOffset = (timelineEndPosX/this.events.size());
-		double eventVerticalStripeHeight = 200; 
-		
-		//Width Rectangle (equally wide as one event on timeline)
-		double RectangleWitdh = (eventOffset*2)*0.75; 
-		double rectangleStartPosX = timelineStartPosX-(RectangleWitdh/2);
-		double rectangleHeightPosY1 = timelineHeightPosY; 
-		double rectangleHeight = eventVerticalStripeHeight; 
 		
 		for(int i = 0;i<events.size() ; i++){
 			//Draw line for every event depending on preferred width of timeline
@@ -113,6 +146,7 @@ public class TimelinePanel extends JPanel{
 		g2.setTransform(restoreTransform);
 		
 
+		
 	}
 }
 	
