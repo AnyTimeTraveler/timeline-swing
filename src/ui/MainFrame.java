@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 
 import ui.datasets.timeline.Event;
 
-public class MainFrame extends JFrame implements Observer{
+public class MainFrame extends JFrame{
 	
 	private JPanel currentPanel;
 	private GridBagConstraints gbcLeft = new GridBagConstraints(); 
@@ -20,10 +20,10 @@ public class MainFrame extends JFrame implements Observer{
 	private TimelinePanel timelinePanel;
 
 	
-	public MainFrame(String title){
+	public MainFrame(){
 		super();
 		System.out.println("MainFraime: constructor (na super())");
-		this.setTitle(title);
+		this.setTitle("Timeline");
 		setLayoutContent();
 	}
 	
@@ -97,11 +97,5 @@ public class MainFrame extends JFrame implements Observer{
 	
 	public void setEvents(List<Event> events){
 		this.timelinePanel.setEvents(events);
-	}
-	
-	@Override
-	public void update() {
-		 getContentPane().removeAll();
-		 this.setLayoutContent();
 	}
 }

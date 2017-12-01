@@ -9,13 +9,13 @@ import com.google.gson.reflect.TypeToken;
 
 import ui.datasets.timeline.Event;
 
-public class View{
+public class View implements Observer{
 
 	private MainFrame frame; 
 	
 	public View(){
 		System.out.println("View: constructor");
-		frame = new MainFrame("Timeline Jeroen Vandevenne"); 
+		frame = new MainFrame(); 
 	}
 	
 	public void setVisible(){
@@ -29,5 +29,10 @@ public class View{
 		Gson gson = gsonBuilder.create();
 		List<Event> events = gson.fromJson(timelineJson,  new TypeToken<ArrayList<Event>>(){}.getType());
 		this.frame.setEvents(events);
+	}
+	
+	@Override
+	public void update() {
+		//TODO
 	}
 }

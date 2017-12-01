@@ -6,19 +6,14 @@ import java.util.List;
 import model.Actor;
 import model.Event;
 import model.repository.exception.RepositoryException;
-import ui.Observer;
 
-public class MemoryEventRepository implements EventRepository, Subject {
+public class MemoryEventRepository implements EventRepository {
 
-	private List<Observer> observers; 
 	private List<Event> events; 
 	
 	public MemoryEventRepository(){
-		observers = new ArrayList<Observer>();
-		
 		//Inititale Arraylist of Events
 		this.events = new ArrayList<Event>(); 
-		
 		//add sample events
 		Event event1 = new Event("Event 1", "This is the first event", "5 Sep 2010", "8 Sep 2010");
 		event1.addActor(new Actor("Dave"));
@@ -29,7 +24,6 @@ public class MemoryEventRepository implements EventRepository, Subject {
 		this.addEvent(event1);
 		this.addEvent(event2);
 		this.addEvent(event3);
-		
 	}
 	
 	@Override
@@ -41,7 +35,6 @@ public class MemoryEventRepository implements EventRepository, Subject {
 	public boolean addEvent(Event event) {
 		try{
 			this.events.add(event);
-			this.notifyObservers();
 			return true;
 		}catch(RepositoryException e){
 			System.out.println("Error" + e.getMessage());
@@ -57,7 +50,6 @@ public class MemoryEventRepository implements EventRepository, Subject {
 				if(id == this.events.get(i).getId()){
 				this.events.remove(i);
 				//Return true after event deleted
-				this.notifyObservers();
 				return true;
 				}
 			}
@@ -82,27 +74,6 @@ public class MemoryEventRepository implements EventRepository, Subject {
 			return null; 
 		}
 		return null; 
-	}
-
-	@Override
-	public void notifyObservers() {
-		for(Observer o : observers){
-			o.update();
-		}
-	}
-
-	@Override
-	public void register(Observer observer) {
-		this.observers.add(observer);
-	}
-
-	@Override
-	public void removeRegister(Observer observer) {
-		for(int i = 0;i<this.observers.size() ; i++){
-			if(this.observers.get(i) == observer){
-				this.observers.remove(i);
-			}
-		}
 	}
 
 }

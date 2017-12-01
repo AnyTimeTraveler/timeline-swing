@@ -22,6 +22,8 @@ public class Controller {
 		this.eventService = new EventService(repositoryType);
 		this.view = new View(); 
 		init();
+		//Add observers
+		eventService.register(view);
 		this.view.setVisible();
 	}
 	
@@ -36,6 +38,10 @@ public class Controller {
 		String jsonInString = gson.toJson(toJson);
 	    return jsonInString;
 	    
+	}
+	
+	public void addEvent(String title, String description, String startDate, String endDate){
+		eventService.addEvent(title, description, startDate, endDate); 
 	}
 	
 	

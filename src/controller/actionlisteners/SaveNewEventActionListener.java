@@ -7,8 +7,6 @@ import java.util.List;
 import javax.swing.JTextField;
 
 import controller.Controller;
-import model.service.EventService;
-import model.Event;
 
 public class SaveNewEventActionListener extends Controller implements ActionListener {
 
@@ -30,7 +28,7 @@ public class SaveNewEventActionListener extends Controller implements ActionList
 		String description = this.eventDescriptionField.getText(); 
 		String startDate = this.eventStartDateField.getText(); 
 		String endDate = this.eventEndDateField.getText();
-		super.eventService.addEvent(title, description, startDate, endDate); 
+		super.addEvent(title, description, startDate, endDate); 
 	}
 
 }

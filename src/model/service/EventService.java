@@ -3,14 +3,15 @@ package model.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Actor;
 import model.Event;
-import model.repository.*;
+import model.repository.EventRepository;
+import model.repository.MemoryEventRepository;
+import ui.Observer;
 
-public class EventService extends Service {
+public class EventService implements Subject {
 
-	private EventRepository eventRepository; 
-
+	private EventRepository eventRepository;
+	
 	public EventService(String repositoryType){
 		switch(repositoryType){
 		case "memory" : 
@@ -26,16 +27,37 @@ public class EventService extends Service {
 	
 	public boolean addEvent(String title, String description, String startDate, String endDate){
 		Event event = new Event(title, description, startDate, endDate); 
-		return this.eventRepository.addEvent(event);
+		boolean result = this.eventRepository.addEvent(event);
+		this.notifyObservers();
+		return result;
 	}
 	
 	public boolean removeEvent(int id){
-		return this.eventRepository.removeEvent(id);
+		boolean result = this.eventRepository.removeEvent(id);
+		this.notifyObservers();
+		return result;
 	}
 	
 	public List<Event> getAllEvents(){
 		return this.eventRepository.getEvents();
 	}
 	
-	
+	//Observer pattern
+	public void notifyObservers() {
+		for(Observer o : observers){
+			o.update();
+		}
+	}
+
+	public void register(Observer observer) {
+		this.observers.add(observer);
+	}
+
+	public void removeRegister(Observer observer) {
+		for(int i = 0;i<this.observers.size() ; i++){
+			if(this.observers.get(i) == observer){
+				this.observers.remove(i);
+			}
+		}
+	}
 }
