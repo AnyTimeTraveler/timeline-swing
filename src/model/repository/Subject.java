@@ -1,12 +1,10 @@
-package model.service;
-
-import java.util.List;
+package model.repository;
 
 import ui.Observer;
 
 public interface Subject {
   
-	public void notifyObservers();
+public void notifyObservers();
 
   public void register(Observer obs);
 

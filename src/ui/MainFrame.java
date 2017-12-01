@@ -1,32 +1,35 @@
 package ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import model.service.Subject;
+import ui.datasets.timeline.Event;
 
 public class MainFrame extends JFrame implements Observer{
 	
 	private JPanel currentPanel;
 	private GridBagConstraints gbcLeft = new GridBagConstraints(); 
 	private GridBagConstraints gbcRight = new GridBagConstraints(); 
-	private JPanel timelinePanel = new TimelinePanel();
+	private TimelinePanel timelinePanel;
 
 	
 	public MainFrame(String title){
 		super();
+		System.out.println("MainFraime: constructor (na super())");
 		this.setTitle(title);
-		
+		setLayoutContent();
+	}
+	
+	private void setLayoutContent(){
+		System.out.println("MainFraim: setLayoutContent");
+		timelinePanel= new TimelinePanel();
 		//Set Screen same as screen
 		Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameDim = new Dimension(screenDim.width-300, screenDim.height-300); 
@@ -58,10 +61,7 @@ public class MainFrame extends JFrame implements Observer{
         
 	     JScrollPane scrollPane = new JScrollPane(this.currentPanel);
 	     this.getContentPane().add(scrollPane, this.gbcRight);
-		
-        
-	    
-	}
+	     }
 	
 	private JPanel getButtonPanel(){
 		JPanel leftPanel = new ButtonPanel();
@@ -94,14 +94,14 @@ public class MainFrame extends JFrame implements Observer{
 		gbcRight.weighty = 1;
 		gbcRight.weightx = 1;
 	}
-
-	public void updateRightPanel(Subject subject){
-		
+	
+	public void setEvents(List<Event> events){
+		this.timelinePanel.setEvents(events);
 	}
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		 getContentPane().removeAll();
+		 this.setLayoutContent();
 	}
 }

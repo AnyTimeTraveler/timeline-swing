@@ -4,11 +4,11 @@ import ui.View;
 public class App {
 
 	public App(){
-		
+		System.out.println("App: constructor");
 	}
 	
 	public void run(){
-		View view = new View(); 
-		
+		System.out.println("App: run");
+		Controller controller = new Controller(); 
 	}
 }
