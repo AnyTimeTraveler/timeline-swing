@@ -8,25 +8,32 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JPanel;
 
+import model.Event;
+
 public class TimelinePanel extends JPanel{
 	
 	//testing purposes only 
-	Map<String, Date> events = new HashMap<String, Date>(); 
+	List<Event> events = new ArrayList<Event>();
 	
 	public TimelinePanel (){
 		super(); 
 		this.setBackground(Color.YELLOW);
-		events.put("EventName", new Date());
-
-		events.put("EventName2", new Date());
-
-		events.put("EventName3", new Date());
+		Event e1 = new Event("Title1", "desc", "121212", "121212"); 
+		Event e2 = new Event("Title1", "desc", "121212", "121212"); 
+		Event e3 = new Event("Title1", "desc", "121212", "121212"); 
+		Event e4 = new Event("Title1", "desc", "121212", "121212"); 
+		events.add(e1); 
+		events.add(e2); 
+		events.add(e3); 
+		events.add(e4);
 	}
 	
 	
@@ -73,12 +80,25 @@ public class TimelinePanel extends JPanel{
 			System.out.println("H Y2 = "+rectangleHeight);
 			RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float((int) (rectangleStartPosX+i*eventOffset), (int) (rectangleHeightPosY1-2*eventVerticalStripeHeight), (int) RectangleWitdh, (int) rectangleHeight, 100, 100);
 	        
-			g2.draw(roundedRectangle);  
+			g2.draw(roundedRectangle); 
+			int textX = (int) (rectangleStartPosX+i*eventOffset)+30;
+			int textY = (int) (rectangleHeightPosY1-eventVerticalStripeHeight);
+			g2.drawString("Title : "+events.get(i).getTitle(), textX , textY -140 );
+			g2.drawString("Description : "+events.get(i).getDescription(), textX , textY-110 );
+			g2.drawString("Start Date : "+events.get(i).getStartDate(), textX , textY -80);
+			g2.drawString("End Date : "+events.get(i).getEndDate(), textX , textY -50);
+		
 			g2.draw(new Line2D.Double(eventStartPosX+i*eventOffset,eventHeightPosY,eventStartPosX + i*eventOffset , eventHeightPosY -eventVerticalStripeHeight));
 			}else{
 				g2.draw(new Line2D.Double(eventStartPosX+i*eventOffset,eventHeightPosY,eventStartPosX + i*eventOffset , eventHeightPosY +eventVerticalStripeHeight));
 				RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float((int) (rectangleStartPosX+i*eventOffset), (int) (rectangleHeightPosY1+eventVerticalStripeHeight), (int) RectangleWitdh, (int) rectangleHeight, 100, 100);  		
 				g2.draw(roundedRectangle);
+				int textX = (int) (rectangleStartPosX+i*eventOffset)+30;
+				int textY = (int) (rectangleHeightPosY1+eventVerticalStripeHeight);
+				g2.drawString("Title : "+events.get(i).getTitle(), textX , textY +50 );
+				g2.drawString("Description : "+events.get(i).getDescription(), textX , textY+80 );
+				g2.drawString("Start Date : "+events.get(i).getStartDate(), textX , textY +110);
+				g2.drawString("End Date : "+events.get(i).getEndDate(), textX , textY +140);
 			}
 		}
 		
