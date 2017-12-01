@@ -20,7 +20,7 @@ public class MainFrame extends JFrame implements Observer{
 	public MainFrame(String title){
 		super();
 		this.setTitle(title);
-		this.setSize(new Dimension(800, 500));
+		this.setSize(new Dimension(2000, 1400));
 		
 		//Close Application properly
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
