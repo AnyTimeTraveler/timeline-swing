@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import ui.datasets.timeline.Event;
 
@@ -33,12 +34,12 @@ public class MainFrame extends JFrame{
 	
 	private void setLayoutContent(){
 		System.out.println("MainFraim: setLayoutContent");
-		timelinePanel= new TimelinePanel(this.getWidth(), this.getHeight());
 		//Set Screen same as screen
 		Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameDim = new Dimension(screenDim.width-200, screenDim.height-200); 
 		
 		this.setSize(frameDim);
+		timelinePanel= new TimelinePanel(frameDim.width,frameDim.height/2);
 		
 		//Close Application properly
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -63,6 +64,8 @@ public class MainFrame extends JFrame{
 	  	this.currentPanel = this.getTimelinePanel();
 	  	currentPanel.setBackground(this.defaultColor);
 	    JScrollPane scrollPane = new JScrollPane(this.currentPanel);
+	    //TODO style scollbar
+
 	    this.getContentPane().add(scrollPane, gbc);
 		
 		JPanel buttonPanel = new ButtonPanel();

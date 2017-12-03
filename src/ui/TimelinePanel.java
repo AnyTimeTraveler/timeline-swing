@@ -2,14 +2,15 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.JPanel;
 
@@ -19,37 +20,156 @@ public class TimelinePanel extends JPanel {
 
 	List<Event> events = new ArrayList<Event>();
 
-	private Graphics2D g2;
-	// Start position timeline on screen
-	private double timelineStartPosX;
-	// Preferred total Width timeline (offset from timelineX1)
-	private double timelineEndPosX;
-	// Hight position on screen of timeline
-	private double timelineHeightPosY;
-
-	// start position first event line
-	private double eventStartPosX;
-	// Start position height event line
-	private double eventHeightPosY;
-	// Draw line for one event depending on number of events in DB
-	private double eventOffset;
-	private double eventVerticalStripeHeight;
-
-	// Width Rectangle (equally wide as one event on timeline)
-	private double RectangleWitdh;
-	private double rectangleStartPosX;
-	private double rectangleHeightPosY1;
-	private double rectangleHeight;
+	private int timelineHeight = 450;
+	private int timelineWidth = 2000;
 	
+	
+	//Timeline Dimensions
+	private int getTimelineY1(){
+		return this.timelineHeight/2; 
+	}
+	
+	private int getTimelineY2(){
+		return this.getTimelineY1(); 
+	}
+	
+	private int getTimelineX1(){
+		return this.getRectangleWidth()/2; 
+	}
+	
+	private int getTimelineX2(){
+		return timelineWidth + this.getRectangleWidth()/2; 
+	}
+	
+	//Rectangle Dimensions
+	private int getRectangleWidth(){
+		return this.getEventWidth(); 
+	}
+	
+	private int getRectangleHeight(){
+		//rectangle rectangles equals 3/7th of timeline.
+		return (int) (this.timelineHeight*(3.0/7.0)); 
+	}
+	
+	private int getRectangleX1(int eventSequenceNumber){
+		return eventSequenceNumber*this.getEventWidth(); 
+	}
+	
+	private int getRectangleY1(String direction){
+		int y1; 
+		switch(direction){
+		case "up":
+			y1 = this.getTimelineX1()-(this.getRectangleWidth()/2); 
+			break; 
+		case "down":
+			y1 = this.getTimelineX1()-(this.getRectangleWidth()/2)+this.getTimelineEventStripeHeight()*2+this.getRectangleHeight()+1; 
+			break;
+		default: 
+			y1 =  this.getTimelineX1()-(this.getRectangleWidth()/2); 
+		}
+		return y1; 
+		
+	}
+	
+	//Vertical event stripe dimensions
+	private int getTimelineEventStripeHeight(){
+		//The timeline between the 2 rectangles equals 1/7th of timeline. The horizontal stripe is negligible
+		return (int) (this.timelineHeight*(1.0/7.0)/2); 
+	}
+	
+	private int getTimelineEventStripeX1(int eventSequenceNumber){
+		return this.getTimelineX1()+eventSequenceNumber*this.getEventWidth(); 
+	}
+	
+	private int getTimelineEventStripeX2(int eventSequenceNumber){
+		return this.getTimelineEventStripeX1(eventSequenceNumber);
+	}
+
+	private int getTimelineEventStripeY1(){
+		return this.getTimelineY1(); 
+	}
+	
+	private int getTimelineEventStripeY2(String direction){
+		int y2; 
+		switch(direction){
+		case "down":
+			y2 = this.getTimelineEventStripeY1() + this.getTimelineEventStripeHeight();
+			break; 
+		case "up":
+			y2 = this.getTimelineEventStripeY1() - this.getTimelineEventStripeHeight();
+			break; 
+		default: 
+			y2 = 0;  
+		}
+		return y2; 
+	}
+	
+	private int getEventWidth(){
+		return this.timelineWidth/this.events.size(); 
+	}
+	
+	//Year label position
+	private int getYearLabelX1(int eventSequenceNumber){
+		return this.getTimelineEventStripeX1(eventSequenceNumber);
+	}
+	
+	private int getYearLabelY1(String direction){
+		int y1; 
+		switch(direction){ 
+			case "up": 
+				y1 = this.getTimelineEventStripeY1() +20; 
+				break; 
+			case "down": 
+				y1 = this.getTimelineEventStripeY1() -10; 
+				break; 
+			default: 
+				y1 = this.getTimelineEventStripeY1() +10; 
+		}
+			
+		return y1; 
+	}
+	
+	
+	
+	//Transform data to arraylist with events per year
+	private Map<Integer, List<Event>> getEventsPerYear(){
+		//Use of Treemap to achieve sorted values
+		Map<Integer, List<Event>> eventsPerYear= new TreeMap<Integer, List<Event>>();
+		for(Event event : this.events){
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy");
+			int year = Integer.parseInt(sdf2.format(event.startDate));
+			if(eventsPerYear.containsKey(year)){
+				eventsPerYear.get(year).add(event);
+			}else{
+				List<Event> newYearList = new ArrayList<Event>();
+				newYearList.add(event);
+				eventsPerYear.put(year, newYearList);
+			}
+		}
+
+
+		
+		return eventsPerYear; 
+	}
+	
+	
+	
+	
+	
+	
+	
+	private Graphics2D g2;
 	
 	private int panelHeight; 
 	private int panelWidth; 
 	
 	public TimelinePanel(int panelWidth, int panelHeight) {
 		super();	
-		System.out.println("TimelinePanel: constructor (na super())");
+		
 		this.panelHeight = panelHeight; 
-		this.panelWidth = 2000; 
+		this.panelWidth = 2000;
+		this.timelineHeight = panelHeight; 
+		
 	}
 
 	@Override
@@ -59,79 +179,95 @@ public class TimelinePanel extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		System.out.println("TimelinePanel: paintComponent");
-		timelineEndPosX = 2000.0;
-		eventOffset = (timelineEndPosX / this.events.size());
-		timelineStartPosX = eventOffset * 0.75 + 0.00;
-		eventVerticalStripeHeight = 100;
-		timelineHeightPosY = eventVerticalStripeHeight * 2;
-		eventStartPosX = timelineStartPosX;
-		eventHeightPosY = timelineHeightPosY;
-		RectangleWitdh = (eventOffset * 2) * 0.75;
-		rectangleStartPosX = timelineStartPosX - (RectangleWitdh / 2);
-		rectangleHeightPosY1 = timelineHeightPosY;
-		rectangleHeight = eventVerticalStripeHeight;
+		getEventsPerYear();
 		
 		super.paintComponent(g);
 		g2 = (Graphics2D) g;
-
-		AffineTransform restoreTransform = g2.getTransform();
-
+		
+		//Draw horizontal Timeline line
+		g2.draw(new Line2D.Double(this.getTimelineX1(), this.getTimelineY1(), this.getTimelineX2(), this.getTimelineY2()));
+		
 		// Set timeline color
 		g2.setColor(Color.BLACK);
 
-		for (int i = 0; i < events.size(); i++) {
-			// Draw line for every event depending on preferred width of
-			// timeline
-			g2.draw(new Line2D.Double(eventStartPosX + i * eventOffset, eventHeightPosY,
-					eventStartPosX + (i + 1) * eventOffset, eventHeightPosY));
-
-			// If event index
-			if (i == 0 || i % 2 == 0) {
-
+		boolean isOdd = false; 
+		int i = 0;
+		for (Map.Entry<Integer, List<Event>> entry : this.getEventsPerYear().entrySet())
+		{
+		    if (isOdd) {
+		    
+		    	//Draw vertical stripe
+				g2.draw(new Line2D.Double(this.getTimelineEventStripeX1(i), this.getTimelineEventStripeY1(),
+						this.getTimelineEventStripeX2(i), this.getTimelineEventStripeY2("down")));
+			
+		    	
+		    	//Draw Rectangle
 				RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(
-						(int) (rectangleStartPosX + i * eventOffset),
-						(int) (rectangleHeightPosY1 - 2 * eventVerticalStripeHeight), (int) RectangleWitdh,
-						(int) rectangleHeight, 50, 50);
-
+						this.getRectangleX1(i),
+						this.getRectangleY1("down"), 
+						this.getRectangleWidth(),
+						this.getRectangleHeight(), 
+						25, 
+						25);
 				g2.draw(roundedRectangle);
-				int textX = (int) (rectangleStartPosX + i * eventOffset) + 30;
-				int textY = (int) (rectangleHeightPosY1 - eventVerticalStripeHeight);
-				g2.drawString("Title : " + events.get(i).getTitle(), textX, textY - 140);
-				g2.drawString("Description : " + events.get(i).getDescription(), textX, textY - 110);
-				g2.drawString("Start Date : " + events.get(i).getStartDate(), textX, textY - 80);
-				g2.drawString("End Date : " + events.get(i).getEndDate(), textX, textY - 50);
-
-				g2.draw(new Line2D.Double(eventStartPosX + i * eventOffset, eventHeightPosY,
-						eventStartPosX + i * eventOffset, eventHeightPosY - eventVerticalStripeHeight));
-			} else {
-				g2.draw(new Line2D.Double(eventStartPosX + i * eventOffset, eventHeightPosY,
-						eventStartPosX + i * eventOffset, eventHeightPosY + eventVerticalStripeHeight));
-				RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(
-						(int) (rectangleStartPosX + i * eventOffset),
-						(int) (rectangleHeightPosY1 + eventVerticalStripeHeight), (int) RectangleWitdh,
-						(int) rectangleHeight, 50, 50);
-				g2.draw(roundedRectangle);
-				int textX = (int) (rectangleStartPosX + i * eventOffset) + 30;
-				int textY = (int) (rectangleHeightPosY1 + eventVerticalStripeHeight);
-				g2.drawString("Title : " + events.get(i).getTitle(), textX, textY + 50);
-				g2.drawString("Description : " + events.get(i).getDescription(), textX, textY + 80);
-				g2.drawString("Start Date : " + events.get(i).getStartDate(), textX, textY + 110);
-				g2.drawString("End Date : " + events.get(i).getEndDate(), textX, textY + 140);
-			}
+		    
+				//Draw year
+				g2.drawString(String.valueOf(entry.getKey()), this.getYearLabelX1(i)-15, this.getYearLabelY1("down"));
+				
+				
+				for(int event_i=0; event_i<entry.getValue().size(); event_i++){
+					//Draw text in rectangle
+					SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+					String dateString = sdf1.format(entry.getValue().get(event_i).getStartDate());
+					g2.drawString(dateString+" : "+entry.getValue().get(event_i).getTitle(), this.getRectangleX1(i), this.getRectangleY1("down")+event_i*20+20);			
+				}
+				
+				
+				
+				}else{
+					//Draw vertical stripe
+					g2.draw(new Line2D.Double(this.getTimelineEventStripeX1(i), this.getTimelineEventStripeY1(),
+							this.getTimelineEventStripeX2(i), this.getTimelineEventStripeY2("up")));
+				
+			    	
+			    	//Draw Rectangle
+					RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(
+							this.getRectangleX1(i),
+							this.getRectangleY1("up"), 
+							this.getRectangleWidth(),
+							this.getRectangleHeight(), 
+							25, 
+							25);
+					g2.draw(roundedRectangle);
+			    
+					//Draw year
+					g2.drawString(String.valueOf(entry.getKey()), this.getYearLabelX1(i)-15, this.getYearLabelY1("up"));
+					
+					for(int event_i=0; event_i<entry.getValue().size(); event_i++){
+						
+						
+						
+						//Draw text in rectangle
+						SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+						String dateString = sdf1.format(entry.getValue().get(event_i).getStartDate());
+						g2.drawString(dateString+" : "+entry.getValue().get(event_i).getTitle(), this.getRectangleX1(i), this.getRectangleY1("up")+event_i*20+20);			
+					}
+					
+				}
+		    
+		    
+		    i++;
+		    if(isOdd == false){
+		    	isOdd = true; 
+		    }
+		    else{
+		    	isOdd = false;
+		    }
 		}
-
-		// Draw axis labels
-		Font F = new Font("Arial", Font.PLAIN, 18);
-		g2.setFont(F);
-
-		// Restore transformation (since we don't want everything else rotated!)
-		g2.setTransform(restoreTransform);
 
 	}
 
 	public void setEvents(List<Event> events) {
-		System.out.println("TimelinePanel: setEvents");
 		this.events = events;
 	}
 }

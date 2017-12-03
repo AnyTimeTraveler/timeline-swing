@@ -1,19 +1,19 @@
 package ui.datasets.timeline;
 
+import java.util.Date;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-
+import ui.datasets.timeline.Event;
 import ui.datasets.actor.Actor;
 
-public class Event {
+public class Event{
 
 	public List<Actor> actors;
 	public String title; 
 	public String description;
 	public int id;
-	public String startDate; 
-	public String EndDate; 
+	public Date startDate; 
+	public Date EndDate; 
 
 	public Event(){}
 
@@ -49,22 +49,20 @@ public class Event {
 		this.id = id;
 	}
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return EndDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		EndDate = endDate;
 	}
-	
-	
 	
 }

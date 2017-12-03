@@ -1,6 +1,6 @@
 package model.service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.Event;
@@ -25,7 +25,7 @@ public class EventService implements Subject {
 		this.eventRepository = new MemoryEventRepository(); 
 	}
 	
-	public boolean addEvent(String title, String description, String startDate, String endDate){
+	public boolean addEvent(String title, String description, Date startDate, Date endDate){
 		Event event = new Event(title, description, startDate, endDate); 
 		boolean result = this.eventRepository.addEvent(event);
 		this.notifyObservers();

@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -27,7 +28,7 @@ public class View implements Observer{
 	}
 	
 	public void setEvents(String timelineJson){
-		System.out.println("Vie: setEvents");
+		System.out.println("View: setEvents");
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		Gson gson = gsonBuilder.create();
 		List<Event> events = gson.fromJson(timelineJson,  new TypeToken<ArrayList<Event>>(){}.getType());

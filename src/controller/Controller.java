@@ -1,13 +1,9 @@
 package controller;
 
-import java.util.List;
+import java.util.Date;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import model.Event;
 import model.service.EventService;
 import ui.View;
 
@@ -40,7 +36,7 @@ public class Controller {
 	    
 	}
 	
-	public void addEvent(String title, String description, String startDate, String endDate){
+	public void addEvent(String title, String description, Date startDate, Date endDate){
 		eventService.addEvent(title, description, startDate, endDate); 
 		view.setEvents(toJson(eventService.getAllEvents()));
 	}
