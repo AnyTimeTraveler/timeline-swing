@@ -2,13 +2,13 @@ package controller.actionlisteners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.JTextField;
 
 import controller.Controller;
+import ui.NewEventPanel;
 
-public class SaveNewEventActionListener extends Controller implements ActionListener {
+public class SaveNewEventActionListener implements ActionListener {
 
 	private JTextField eventTitleField;  
 	private JTextField eventDescriptionField; 
@@ -28,7 +28,9 @@ public class SaveNewEventActionListener extends Controller implements ActionList
 		String description = this.eventDescriptionField.getText(); 
 		String startDate = this.eventStartDateField.getText(); 
 		String endDate = this.eventEndDateField.getText();
-		super.addEvent(title, description, startDate, endDate); 
+		NewEventPanel j = (NewEventPanel) arg0.getSource();
+		System.out.println(j.getEventTitle());; 
+		//super.addEvent(title, description, startDate, endDate); 
 	}
 
 }

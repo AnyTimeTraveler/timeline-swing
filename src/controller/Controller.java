@@ -16,15 +16,15 @@ public class Controller {
 	public View view; 
 	protected EventService eventService; 
 	
-	public Controller(){
+	public Controller(EventService eventservice, View view){
 		System.out.println("Controller: constructor");
-		String repositoryType = "Memory";
-		this.eventService = new EventService(repositoryType);
-		this.view = new View(); 
+		this.eventService = eventservice; 
+		this.view = view; 
 		init();
-		//Add observers
-		eventService.register(view);
+		
 		this.view.setVisible();
+		
+		
 	}
 	
 	public void init(){
@@ -42,7 +42,10 @@ public class Controller {
 	
 	public void addEvent(String title, String description, String startDate, String endDate){
 		eventService.addEvent(title, description, startDate, endDate); 
+		view.setEvents(toJson(eventService.getAllEvents()));
 	}
+	
+	
 	
 	
 }

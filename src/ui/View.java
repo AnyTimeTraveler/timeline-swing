@@ -3,6 +3,8 @@ package ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -19,6 +21,7 @@ public class View implements Observer{
 	}
 	
 	public void setVisible(){
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		System.out.println("View: setVisible");
 		frame.setVisible(true);
 	}
@@ -33,6 +36,6 @@ public class View implements Observer{
 	
 	@Override
 	public void update() {
-		//TODO
+		
 	}
 }

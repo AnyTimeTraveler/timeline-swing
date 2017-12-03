@@ -1,4 +1,5 @@
 import controller.Controller;
+import model.service.EventService;
 import ui.View;
 
 public class App {
@@ -9,6 +10,10 @@ public class App {
 	
 	public void run(){
 		System.out.println("App: run");
-		Controller controller = new Controller(); 
+		String repositoryType = "memory";
+		EventService eventService = new EventService(repositoryType); 
+		View view = new View();
+		eventService.register(view);
+		Controller controller = new Controller(eventService, view); 
 	}
 }

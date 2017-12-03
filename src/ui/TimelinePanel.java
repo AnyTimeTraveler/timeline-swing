@@ -42,16 +42,19 @@ public class TimelinePanel extends JPanel {
 	private double rectangleHeight;
 	
 	
-	public TimelinePanel() {
+	private int panelHeight; 
+	private int panelWidth; 
+	
+	public TimelinePanel(int panelWidth, int panelHeight) {
 		super();	
 		System.out.println("TimelinePanel: constructor (na super())");
+		this.panelHeight = panelHeight; 
+		this.panelWidth = 2000; 
 	}
 
 	@Override
 	public Dimension getPreferredSize() {
-		int w = 4000;
-		int h = 500;
-		return new Dimension(w, h);
+		return new Dimension(this.panelWidth, this.panelHeight);
 	}
 
 	@Override

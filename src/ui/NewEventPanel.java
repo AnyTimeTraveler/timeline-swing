@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import controller.actionlisteners.AddEventButtonActionListener;
 import controller.actionlisteners.SaveNewEventActionListener;
@@ -28,6 +29,7 @@ public class NewEventPanel extends JPanel{
 	
 	public NewEventPanel(){
 		super(); 
+		this.setBorder(new EmptyBorder(30, 30, 30, 30));
 		this.eventTitleField = new JTextField();
 		this.eventDescriptionField = new JTextField();
 		this.eventStartDateField = new JTextField();
