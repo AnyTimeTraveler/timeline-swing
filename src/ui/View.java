@@ -1,7 +1,6 @@
 package ui;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -10,15 +9,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import controller.Controller;
 import ui.datasets.timeline.Event;
 
 public class View implements Observer{
 
 	private MainFrame frame; 
+	private Controller controller; 
 	
-	public View(){
+	public View(Controller controller){
+		this.controller = controller; 
 		System.out.println("View: constructor");
-		frame = new MainFrame(); 
+		frame = new MainFrame(controller); 
 	}
 	
 	public void setVisible(){
@@ -37,6 +39,7 @@ public class View implements Observer{
 	
 	@Override
 	public void update() {
-		
+		this.frame.getContentPane().validate();
+		this.frame.getContentPane().repaint();
 	}
 }

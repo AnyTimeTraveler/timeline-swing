@@ -11,9 +11,6 @@ public class App {
 	public void run(){
 		System.out.println("App: run");
 		String repositoryType = "memory";
-		EventService eventService = new EventService(repositoryType); 
-		View view = new View();
-		eventService.register(view);
-		Controller controller = new Controller(eventService, view); 
+		Controller controller = new Controller(repositoryType); 
 	}
 }

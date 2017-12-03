@@ -1,5 +1,6 @@
 package model.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import ui.Observer;
 public class EventService implements Subject {
 
 	private EventRepository eventRepository;
+	private List<Observer> observers = new ArrayList<Observer>(); 
+	
 	
 	public EventService(String repositoryType){
 		switch(repositoryType){

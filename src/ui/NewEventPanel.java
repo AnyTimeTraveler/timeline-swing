@@ -7,28 +7,35 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
-import controller.actionlisteners.AddEventButtonActionListener;
+import controller.Controller;
 import controller.actionlisteners.SaveNewEventActionListener;
+
+
 
 public class NewEventPanel extends JPanel{
 
-	JLabel eventTitleLabel; 
-	JLabel eventDescriptionLabel; 
-	JLabel eventStartDateLabel; 
-	JLabel eventEndDateLabel; 
+	private JLabel eventTitleLabel; 
+	private JLabel eventDescriptionLabel; 
+	private JLabel eventStartDateLabel; 
+	private JLabel eventEndDateLabel; 
 	
-	JTextField eventTitleField;  
-	JTextField eventDescriptionField; 
+	private JTextField eventTitleField;  
+	private JTextField eventDescriptionField; 
 	//TODO implement date picker
-	JTextField eventStartDateField; 
-	JTextField eventEndDateField; 
+	private JTextField eventStartDateField; 
+	private JTextField eventEndDateField; 
 	
-	JButton saveEventButton; 
+	private JButton saveEventButton; 
 	
-	public NewEventPanel(){
+	private MainFrame frame; 
+	
+	private Controller controller; 
+	
+	public NewEventPanel(Controller controller, MainFrame frame){
 		super(); 
+		this.frame = frame; 
+		this.controller = controller; 
 		this.eventTitleField = new JTextField();
 		this.eventDescriptionField = new JTextField();
 		this.eventStartDateField = new JTextField();
@@ -40,8 +47,7 @@ public class NewEventPanel extends JPanel{
 		this.eventEndDateLabel = new JLabel("End Date"); 
 		
 		this.saveEventButton = new JButton("Save"); 
-		this.saveEventButton.addActionListener(new SaveNewEventActionListener(this.eventTitleField, this.eventDescriptionField, this.eventStartDateField, this.eventEndDateField));
-		
+		this.saveEventButton.addActionListener(new SaveNewEventActionListener(this.controller, this.eventTitleField, this.eventDescriptionField, this.eventStartDateField, this.eventEndDateField));
 		
 		//GridbagLayout init
 		GridBagLayout gbl = new GridBagLayout(); 

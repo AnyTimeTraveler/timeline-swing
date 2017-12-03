@@ -10,8 +10,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
+import controller.Controller;
 import ui.datasets.timeline.Event;
 
 public class MainFrame extends JFrame{
@@ -20,11 +20,16 @@ public class MainFrame extends JFrame{
 	private GridBagConstraints gbcLeft = new GridBagConstraints(); 
 	private GridBagConstraints gbcRight = new GridBagConstraints(); 
 	private TimelinePanel timelinePanel;
-	private Color defaultColor; 
+	private Color defaultColor;
+	private JPanel workingPanel; 
+	private JPanel eventPanel; 
+	private JPanel importPanel; 
+	private Controller controller; 
 
 	
-	public MainFrame(){
+	public MainFrame(Controller controller){
 		super();
+		this.controller = controller;
 		System.out.println("MainFraime: constructor (na super())");
 		this.setTitle("Timeline");
 		this.defaultColor = Color.WHITE;
@@ -68,11 +73,14 @@ public class MainFrame extends JFrame{
 
 	    this.getContentPane().add(scrollPane, gbc);
 		
-		JPanel buttonPanel = new ButtonPanel();
+		JPanel buttonPanel = new ButtonPanel(this);
 		buttonPanel.setBackground(this.defaultColor);
 		
-		JPanel workingPanel = new NewEventPanel(); 
-		workingPanel.setBackground(this.defaultColor);
+		this.eventPanel = new NewEventPanel(this.controller, this); 
+		this.importPanel = new ImportPanel(this); 
+		
+		workingPanel = this.eventPanel; 
+		workingPanel.setBackground(Color.RED);
 		
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 0;
@@ -88,7 +96,6 @@ public class MainFrame extends JFrame{
 		gbc.weighty = 0.5;
 		gbc.weightx = 0.9;
 		this.add(workingPanel, gbc);
-	
 	}
 	
 	
@@ -98,5 +105,43 @@ public class MainFrame extends JFrame{
 	
 	public void setEvents(List<Event> events){
 		this.timelinePanel.setEvents(events);
+	}
+	
+	public void changeToImportPanel(){
+		GridBagConstraints gbc = new GridBagConstraints(); 
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		gbc.weighty = 0.5;
+		gbc.weightx = 0.9;
+		this.getContentPane().remove(this.workingPanel);
+		
+		this.workingPanel = new ImportPanel(this); 
+		this.getContentPane().add(workingPanel, gbc);
+		this.workingPanel.repaint();
+		this.revalidate();
+		this.repaint();
+		this.getContentPane().validate();
+		this.getContentPane().repaint();
+		System.out.println("CHANGE TO IMPORT PANEL");
+	}
+	
+	public void changeToAddNewEventPanel(){
+		GridBagConstraints gbc = new GridBagConstraints(); 
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		gbc.weighty = 0.5;
+		gbc.weightx = 0.9;
+		this.getContentPane().remove(this.workingPanel);
+		
+		this.workingPanel = this.eventPanel; 
+		this.getContentPane().add(workingPanel, gbc);
+		this.workingPanel.repaint();
+		this.revalidate();
+		this.repaint();
+		this.getContentPane().validate();
+		this.getContentPane().repaint();
+		System.out.println("CHANGE TO NEW EVENT PANEL");
 	}
 }

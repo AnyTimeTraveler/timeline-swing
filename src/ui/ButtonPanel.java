@@ -6,9 +6,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import controller.actionlisteners.AddEventButtonActionListener;
 import controller.actionlisteners.ImportEventsButtonActionListener;
@@ -17,22 +17,21 @@ import controller.actionlisteners.TimelineButtonActionListener;
 public class ButtonPanel extends JPanel {
 
 	private Color buttonBackground; 
+	private MainFrame frame; 
 	
-	public ButtonPanel(){
+	public ButtonPanel(MainFrame frame){
 		super();
+		this.frame = frame;
 		
 		this.buttonBackground = new Color(29, 84, 173);
 		
 		GridLayout experimentLayout = new GridLayout(3,0);
 		this.setLayout(experimentLayout);
-		
-	    JButton timelineButton = this.getButton("Timeline", new TimelineButtonActionListener());
-	  	this.add(timelineButton);
 		  
-	    JButton addEventButton = this.getButton("Add Event", new AddEventButtonActionListener());
+	    JButton addEventButton = this.getButton("Add Event", new AddEventButtonActionListener(frame));
 	    this.add(addEventButton);
 
-	    JButton importEventsButton = this.getButton("Import Events", new ImportEventsButtonActionListener());
+	    JButton importEventsButton = this.getButton("Import Events", new ImportEventsButtonActionListener(frame));
 	    this.add(importEventsButton );
 	    
 	}

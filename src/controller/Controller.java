@@ -12,10 +12,10 @@ public class Controller {
 	public View view; 
 	protected EventService eventService; 
 	
-	public Controller(EventService eventservice, View view){
-		System.out.println("Controller: constructor");
-		this.eventService = eventservice; 
-		this.view = view; 
+	public Controller(String repositoryType){
+		eventService = new EventService(repositoryType); 
+		view = new View(this);
+		eventService.register(view);
 		init();
 		
 		this.view.setVisible();
