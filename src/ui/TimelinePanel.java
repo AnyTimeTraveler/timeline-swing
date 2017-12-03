@@ -105,7 +105,7 @@ public class TimelinePanel extends JPanel {
 	}
 	
 	private int getEventWidth(){
-		return this.timelineWidth/this.events.size(); 
+		return this.timelineWidth/this.getEventsPerYear().size(); 
 	}
 	
 	//Year label position
