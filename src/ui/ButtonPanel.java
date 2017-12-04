@@ -20,6 +20,7 @@ public class ButtonPanel extends JPanel {
 	public ButtonPanel(){
 		super();
 		
+		this.setBackground(Color.WHITE);
 		this.buttonBackground = new Color(29, 84, 173);
 		
 		GridLayout experimentLayout = new GridLayout(3,0);

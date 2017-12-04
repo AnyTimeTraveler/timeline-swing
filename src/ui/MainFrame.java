@@ -21,6 +21,7 @@ public class MainFrame extends JFrame{
 	
 	private TimelinePanel timelinePanel;
 	private Color defaultColor;
+	private Color orange = new Color(240,129,15); 
 	private JPanel workingPanel; 
 	private NewEventPanel newEventPanel; 
 	private ImportPanel importPanel; 
@@ -75,12 +76,12 @@ public class MainFrame extends JFrame{
 		
 		//Set scrollable timeline panel
 	  	this.timelinePanel.setBackground(this.defaultColor);
+	  	this.timelinePanel.setBackground(Color.white);
 	    JScrollPane scrollPane = new JScrollPane(this.timelinePanel);
 	    this.getContentPane().add(scrollPane, gbc);
 		
 	    //Initialise ButtonPanel & add to frame
 		this.buttonPanel = new ButtonPanel();
-		this.buttonPanel.setBackground(this.defaultColor);
 		
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 0;
@@ -95,7 +96,7 @@ public class MainFrame extends JFrame{
 		this.importPanel = new ImportPanel(); 
 		
 		workingPanel = this.importPanel; 
-		workingPanel.setBackground(Color.RED);
+		workingPanel.setBackground(this.orange);
 		
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 1;
@@ -180,6 +181,10 @@ public class MainFrame extends JFrame{
 		//add New panel to frame
 		this.getContentPane().add(workingPanel, gbc);
 		}
+	}
+	
+	public void colorRectangleWithcoordinates(){
+		this.timelinePanel.colorRectangleWithcoordinates();
 	}
 
 }

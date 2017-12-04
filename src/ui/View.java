@@ -89,4 +89,11 @@ public class View implements Observer{
 		this.mainFrame.setEventDetailsPanelByCoordinates(x, y);
 		this.repaint();
 	}
+	
+	public void colorRectangleWithcoordinates(){
+		this.mainFrame.colorRectangleWithcoordinates();
+		this.repaint();
+	}
+	
+	
 }

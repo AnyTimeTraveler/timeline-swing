@@ -24,6 +24,7 @@ public class TimelinePanel extends JPanel {
 
 	private int timelineHeight = 450;
 	private int timelineWidth = 2000;
+	private Color blue = new Color(29, 84, 173);
 	
 	
 	//Timeline Dimensions
@@ -187,8 +188,8 @@ public class TimelinePanel extends JPanel {
 		g2 = (Graphics2D) g;
 		
 		// Set timeline color
-		g2.setColor(Color.BLACK);
-		 g2.setStroke(new BasicStroke(3.0f));
+		g2.setColor(this.blue);
+		 g2.setStroke(new BasicStroke(4.0f));
 
 		//Draw horizontal Timeline line
 			g2.draw(new Line2D.Double(this.getTimelineX1(), this.getTimelineY1(), this.getTimelineX2(), this.getTimelineY2()));
@@ -269,7 +270,6 @@ public class TimelinePanel extends JPanel {
 		    	isOdd = false;
 		    }
 		}
-
 	}
 
 	public void setEvents(List<Event> events) {
@@ -312,6 +312,19 @@ public class TimelinePanel extends JPanel {
 	  
 	}
 		 return null; 
+	}
+	
+	public void colorRectangleWithcoordinates(){
+		g2.setColor(Color.RED);
+		RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(
+				this.getRectangleX1(0),
+				this.getRectangleY1("up"), 
+				this.getRectangleWidth(),
+				this.getRectangleHeight(), 
+				25, 
+				25);
+		g2.draw(roundedRectangle);
+		g2.setColor(Color.BLACK);
 	}
 	
 }

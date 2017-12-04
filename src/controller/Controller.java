@@ -99,4 +99,7 @@ public class Controller {
 		this.view.setEventDetailsPanelByCoordinates(x, y); 
 	} 
 	
+	public void colorRectangleWithcoordinates(){
+		this.view.colorRectangleWithcoordinates(); 
+	}
 }
