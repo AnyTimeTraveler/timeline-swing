@@ -3,19 +3,22 @@ package controller.actionlisteners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import ui.MainFrame;
+import model.service.EventService;
+import ui.View;
 
 public class AddEventButtonActionListener implements ActionListener {
 
-	private MainFrame frame; 
+	private View view; 
+	private EventService eventService; 
 	
-	public AddEventButtonActionListener(MainFrame frame){
-		this.frame = frame; 
+	public AddEventButtonActionListener(View view, EventService eventService){
+		this.view = view; 
+		this.eventService = eventService; 
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.changeToAddNewEventPanel();
+	//	frame.changeToAddNewEventPanel();
 	}
 
 }

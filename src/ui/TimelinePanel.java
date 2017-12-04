@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -184,12 +185,14 @@ public class TimelinePanel extends JPanel {
 		super.paintComponent(g);
 		g2 = (Graphics2D) g;
 		
-		//Draw horizontal Timeline line
-		g2.draw(new Line2D.Double(this.getTimelineX1(), this.getTimelineY1(), this.getTimelineX2(), this.getTimelineY2()));
-		
 		// Set timeline color
 		g2.setColor(Color.BLACK);
+		 g2.setStroke(new BasicStroke(3.0f));
 
+		//Draw horizontal Timeline line
+			g2.draw(new Line2D.Double(this.getTimelineX1(), this.getTimelineY1(), this.getTimelineX2(), this.getTimelineY2()));
+			
+		 
 		boolean isOdd = false; 
 		int i = 0;
 		for (Map.Entry<Integer, List<Event>> entry : this.getEventsPerYear().entrySet())
@@ -219,7 +222,7 @@ public class TimelinePanel extends JPanel {
 					//Draw text in rectangle
 					SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
 					String dateString = sdf1.format(entry.getValue().get(event_i).getStartDate());
-					g2.drawString(dateString+" : "+entry.getValue().get(event_i).getTitle(), this.getRectangleX1(i), this.getRectangleY1("down")+event_i*20+20);			
+					g2.drawString(dateString+" : "+entry.getValue().get(event_i).getTitle(), this.getRectangleX1(i)+10, this.getRectangleY1("down")+event_i*20+20);			
 				}
 				
 				
@@ -239,6 +242,7 @@ public class TimelinePanel extends JPanel {
 							25, 
 							25);
 					g2.draw(roundedRectangle);
+					
 			    
 					//Draw year
 					g2.drawString(String.valueOf(entry.getKey()), this.getYearLabelX1(i)-15, this.getYearLabelY1("up"));
@@ -250,7 +254,7 @@ public class TimelinePanel extends JPanel {
 						//Draw text in rectangle
 						SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
 						String dateString = sdf1.format(entry.getValue().get(event_i).getStartDate());
-						g2.drawString(dateString+" : "+entry.getValue().get(event_i).getTitle(), this.getRectangleX1(i), this.getRectangleY1("up")+event_i*20+20);			
+						g2.drawString(dateString+" : "+entry.getValue().get(event_i).getTitle(), this.getRectangleX1(i)+10, this.getRectangleY1("up")+event_i*20+20);			
 					}
 					
 				}

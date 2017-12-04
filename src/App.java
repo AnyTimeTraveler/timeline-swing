@@ -5,12 +5,11 @@ import ui.View;
 public class App {
 
 	public App(){
-		System.out.println("App: constructor");
 	}
 	
 	public void run(){
-		System.out.println("App: run");
-		String repositoryType = "memory";
-		Controller controller = new Controller(repositoryType); 
+		View view = new View();
+		EventService eventService = new EventService(); 
+		Controller controller = new Controller(view, eventService); 
 	}
 }

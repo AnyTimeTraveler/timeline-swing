@@ -15,7 +15,8 @@ public class EventService implements Subject {
 	private List<Observer> observers = new ArrayList<Observer>(); 
 	
 	
-	public EventService(String repositoryType){
+	public EventService(){
+		String repositoryType = "memory"; 
 		switch(repositoryType){
 		case "memory" : 
 			this.setUpMemoryRepository();

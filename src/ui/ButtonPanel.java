@@ -17,34 +17,42 @@ import controller.actionlisteners.TimelineButtonActionListener;
 public class ButtonPanel extends JPanel {
 
 	private Color buttonBackground; 
-	private MainFrame frame; 
+	private JButton importEventsButton; 
+	private JButton addEventButton;
 	
-	public ButtonPanel(MainFrame frame){
+	
+	public ButtonPanel(){
 		super();
-		this.frame = frame;
 		
 		this.buttonBackground = new Color(29, 84, 173);
 		
 		GridLayout experimentLayout = new GridLayout(3,0);
 		this.setLayout(experimentLayout);
 		  
-	    JButton addEventButton = this.getButton("Add Event", new AddEventButtonActionListener(frame));
+	    this.addEventButton = this.getButton("Add Event");
 	    this.add(addEventButton);
 
-	    JButton importEventsButton = this.getButton("Import Events", new ImportEventsButtonActionListener(frame));
+	    this.importEventsButton = this.getButton("Import Events");
 	    this.add(importEventsButton );
 	    
 	}
 	
-	public JButton getButton(String buttonName, ActionListener al){
+	public JButton getButton(String buttonName){
 		JButton button = new JButton();
-		button.addActionListener(al);
 		button.setBackground(this.buttonBackground);
 		JLabel label = new JLabel(buttonName); 
 		label.setFont(new Font("Arial", Font.BOLD, 18));
 		label.setForeground(Color.white);
 		button.add(label);
 		return button;
+	}
+	
+	public void addImportButtonActionListener(ActionListener importButtonActionListener){
+		this.importEventsButton.addActionListener(importButtonActionListener); 
+	}
+	
+	public void addAddNewEventButtonActionListener(ActionListener addNewEventButtonActionListener){
+		this.addEventButton.addActionListener(addNewEventButtonActionListener); 
 	}
 	
 }

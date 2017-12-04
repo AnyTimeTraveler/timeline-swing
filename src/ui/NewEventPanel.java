@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -9,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.Controller;
-import controller.actionlisteners.SaveNewEventActionListener;
 
 
 
@@ -28,14 +28,8 @@ public class NewEventPanel extends JPanel{
 	
 	private JButton saveEventButton; 
 	
-	private MainFrame frame; 
-	
-	private Controller controller; 
-	
-	public NewEventPanel(Controller controller, MainFrame frame){
+	public NewEventPanel(){
 		super(); 
-		this.frame = frame; 
-		this.controller = controller; 
 		this.eventTitleField = new JTextField();
 		this.eventDescriptionField = new JTextField();
 		this.eventStartDateField = new JTextField();
@@ -47,7 +41,7 @@ public class NewEventPanel extends JPanel{
 		this.eventEndDateLabel = new JLabel("End Date"); 
 		
 		this.saveEventButton = new JButton("Save"); 
-		this.saveEventButton.addActionListener(new SaveNewEventActionListener(this.controller, this.eventTitleField, this.eventDescriptionField, this.eventStartDateField, this.eventEndDateField));
+		
 		
 		//GridbagLayout init
 		GridBagLayout gbl = new GridBagLayout(); 
@@ -99,6 +93,10 @@ public class NewEventPanel extends JPanel{
 		this.add(this.saveEventButton, gbc);
 		
 	}	
+	
+	public void addSaveButtonActionListener(ActionListener addButtonActionListener){
+		this.saveEventButton.addActionListener(addButtonActionListener); 
+	}
 	
 	public String getEventTitle(){
 		return this.eventTitleField.getText();

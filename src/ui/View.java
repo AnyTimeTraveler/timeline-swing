@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,32 +15,41 @@ import ui.datasets.timeline.Event;
 
 public class View implements Observer{
 
-	private MainFrame frame; 
-	private Controller controller; 
+	private MainFrame mainFrame; 
 	
-	public View(Controller controller){
-		this.controller = controller; 
-		System.out.println("View: constructor");
-		frame = new MainFrame(controller); 
+	public View(){
+		mainFrame = new MainFrame(); 
 	}
 	
 	public void setVisible(){
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		System.out.println("View: setVisible");
-		frame.setVisible(true);
+		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		mainFrame.setVisible(true);
 	}
 	
 	public void setEvents(String timelineJson){
-		System.out.println("View: setEvents");
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		Gson gson = gsonBuilder.create();
 		List<Event> events = gson.fromJson(timelineJson,  new TypeToken<ArrayList<Event>>(){}.getType());
-		this.frame.setEvents(events);
+		this.mainFrame.setEvents(events);
 	}
 	
 	@Override
 	public void update() {
-		this.frame.getContentPane().validate();
-		this.frame.getContentPane().repaint();
+		this.mainFrame.getContentPane().validate();
+		this.mainFrame.getContentPane().repaint();
 	}
+	
+	public void addImportButtonActionListener(ActionListener importButtonActionListener){
+		mainFrame.addImportButtonActionListener(importButtonActionListener); 
+	}
+	
+	public void addAddNewEventButtonActionListener(ActionListener addNewEventButtonActionListener){
+		mainFrame.addAddNewEventButtonActionListener(addNewEventButtonActionListener);
+	}
+	
+	public void addUploadFileButtonActionListener(ActionListener uploadFileButtonActionListener){
+		this.mainFrame.addUploadFileButtonActionListener(uploadFileButtonActionListener);
+	}
+	
+	
 }

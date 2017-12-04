@@ -5,11 +5,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
 import ui.datasets.timeline.Event;
@@ -23,13 +25,12 @@ public class MainFrame extends JFrame{
 	private Color defaultColor;
 	private JPanel workingPanel; 
 	private JPanel eventPanel; 
-	private JPanel importPanel; 
-	private Controller controller; 
+	private ImportPanel importPanel; 
+	private ButtonPanel buttonPanel; 
 
 	
-	public MainFrame(Controller controller){
+	public MainFrame(){
 		super();
-		this.controller = controller;
 		System.out.println("MainFraime: constructor (na super())");
 		this.setTitle("Timeline");
 		this.defaultColor = Color.WHITE;
@@ -73,11 +74,11 @@ public class MainFrame extends JFrame{
 
 	    this.getContentPane().add(scrollPane, gbc);
 		
-		JPanel buttonPanel = new ButtonPanel(this);
-		buttonPanel.setBackground(this.defaultColor);
+		this.buttonPanel = new ButtonPanel();
+		this.buttonPanel.setBackground(this.defaultColor);
 		
-		this.eventPanel = new NewEventPanel(this.controller, this); 
-		this.importPanel = new ImportPanel(this); 
+		this.eventPanel = new NewEventPanel(); 
+		this.importPanel = new ImportPanel(); 
 		
 		workingPanel = this.eventPanel; 
 		workingPanel.setBackground(Color.RED);
@@ -116,7 +117,7 @@ public class MainFrame extends JFrame{
 		gbc.weightx = 0.9;
 		this.getContentPane().remove(this.workingPanel);
 		
-		this.workingPanel = new ImportPanel(this); 
+		this.workingPanel = this.importPanel;  
 		this.getContentPane().add(workingPanel, gbc);
 		this.workingPanel.repaint();
 		this.revalidate();
@@ -144,4 +145,17 @@ public class MainFrame extends JFrame{
 		this.getContentPane().repaint();
 		System.out.println("CHANGE TO NEW EVENT PANEL");
 	}
+	
+	public void addImportButtonActionListener(ActionListener importButtonActionListener){
+		this.buttonPanel.addImportButtonActionListener(importButtonActionListener); 
+	}
+	
+	public void addAddNewEventButtonActionListener(ActionListener addNewEventButtonActionListener){
+		this.buttonPanel.addAddNewEventButtonActionListener(addNewEventButtonActionListener); 
+	}
+	
+	public void addUploadFileButtonActionListener(ActionListener uploadFileButtonActionListener){
+		this.importPanel.addUploadFileButtonActionListener(uploadFileButtonActionListener);
+	}
+	
 }
