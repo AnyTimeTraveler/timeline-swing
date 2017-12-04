@@ -125,11 +125,20 @@ public class NewEventPanel extends JPanel{
 	}
 
 	public Map<String, String> getSaveNewEventData(){
+		DateLabelFormatter dlf = new DateLabelFormatter(); 
 		Map<String, String> result = new HashMap<String, String>(); 
-		result.put("title",this.eventDescriptionField.getText() ); 
+		result.put("title",this.eventTitleField.getText() ); 
 		result.put("description", this.eventDescriptionField.getText()); 
-		result.put("startDate", this.eventStartDateField.toString()); 
-		result.put("endDate", this.eventEndDateField.toString()); 
+		result.put("startDate", eventStartDateField.getJFormattedTextField().getText()); 
+		result.put("endDate", eventStartDateField.getJFormattedTextField().getText()); 
+		
+		//Clear inserted data from view
+		this.eventTitleField.setText("");
+		this.eventDescriptionField.setText("");
+		this.eventStartDateField.getJFormattedTextField().setText("");
+		this.eventEndDateField.getJFormattedTextField().setText("");
+		
+		//return the Map
 		return result; 
 	}
 }

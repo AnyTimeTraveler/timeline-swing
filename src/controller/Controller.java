@@ -1,6 +1,8 @@
 package controller;
 
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -74,8 +76,16 @@ public class Controller {
 	
 	public void saveNewEvent(){
 		Map<String, String> newEvent = this.view.getSaveNewEventData(); 
-		System.out.println(newEvent.get("startDate")+" ..........................");
-		this.eventService.addEvent(newEvent.get("title"), newEvent.get("description"), new Date(), new Date()); 
+		Date startDate; 
+		Date endDate; 
+		try {
+			startDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
+			endDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
+			this.eventService.addEvent(newEvent.get("title"), newEvent.get("description"), startDate, endDate); 
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
