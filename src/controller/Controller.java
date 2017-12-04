@@ -6,7 +6,6 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 import controller.actionlisteners.AddEventButtonActionListener;
-import controller.actionlisteners.ImportCSVFileEventListener;
 import controller.actionlisteners.ImportEventsButtonActionListener;
 import controller.actionlisteners.SaveNewEventActionListener;
 import model.service.EventService;
@@ -23,10 +22,9 @@ public class Controller {
 		eventService.register(view);
 		
 		//Add initial actionlisteners
-		this.addImportButtonActionListener(new ImportEventsButtonActionListener(this.view, this.eventService));
-		this.addAddNewEventButtonActionListener(new AddEventButtonActionListener(this.view, this.eventService));
-		this.addUploadFileButtonActionListener(new ImportCSVFileEventListener(this.view, this.eventService)); 
-		this.saveNewEventButtonActionListener(new SaveNewEventActionListener(this.view, this.eventService));
+		this.addImportButtonActionListener(new ImportEventsButtonActionListener(this));
+		this.addAddNewEventButtonActionListener(new AddEventButtonActionListener(this));
+		this.saveNewEventButtonActionListener(new SaveNewEventActionListener(this));
 		
 		//Get initial data from model into view
 		init();
@@ -47,8 +45,8 @@ public class Controller {
 	}
 	
 	public void addEvent(String title, String description, Date startDate, Date endDate){
-		eventService.addEvent(title, description, startDate, endDate); 
-		view.setEvents(toJson(eventService.getAllEvents()));
+		this.eventService.addEvent(title, description, startDate, endDate); 
+		//this.view.setEvents(toJson(eventService.getAllEvents()));
 	}
 	
 	public void addImportButtonActionListener(ActionListener importButtonActionListener){
@@ -64,6 +62,14 @@ public class Controller {
 	
 	public void saveNewEventButtonActionListener(ActionListener saveNewEventActionListener){
 		this.view.addSaveNewEventButtonActionListener(saveNewEventActionListener);
+	}
+	
+	public void changeToAddNewEventPanel(){
+		this.view.changeToAddNewEventPanel();
+	}
+	
+	public void changeToImportPanel(){
+		this.view.changeToImportPanel();
 	}
 	
 }

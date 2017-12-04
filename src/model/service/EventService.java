@@ -9,11 +9,10 @@ import model.repository.EventRepository;
 import model.repository.MemoryEventRepository;
 import ui.Observer;
 
+
 public class EventService implements Subject {
 
 	private EventRepository eventRepository;
-	//private List<Observer> observers = new ArrayList<Observer>(); 
-	
 	
 	public EventService(){
 		String repositoryType = "memory"; 

@@ -4,23 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
-import model.service.EventService;
-import ui.View;
+import controller.Controller;
 
 public class SaveNewEventActionListener implements ActionListener {
 
-	private View view; 
-	private EventService eventService; 
+	private Controller controller; 
 	
-	public SaveNewEventActionListener(View view, EventService eventService){
-		this.view = view; 
-		this.eventService = eventService;  
+	public SaveNewEventActionListener(Controller controller){
+		this.controller = controller; 
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) { 
-		
-		eventService.addEvent("Niewetitle", "DXFHCGJVHKBNK", new Date(), new Date());
+		//test
+		this.controller.addEvent("Niewetitle", "DXFHCGJVHKBNK", new Date(), new Date());
 		System.out.println("Nieuwe toegevoedg");
 		/*
 		String title = this.eventTitleField.getText(); 
