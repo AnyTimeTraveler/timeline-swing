@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,8 @@ public class MainFrame extends JFrame{
 	private JPanel workingPanel; 
 	private NewEventPanel newEventPanel; 
 	private ImportPanel importPanel; 
-	private ButtonPanel buttonPanel; 
+	private ButtonPanel buttonPanel;
+	private EventDetailsPanel eventDetailsPanel; 
 	private Dimension screenDim;
 	private Dimension frameDim; 
 
@@ -156,4 +158,28 @@ public class MainFrame extends JFrame{
 	public Map<String, String> getSaveNewEventData(){
 		return this.newEventPanel.getSaveNewEventData();
 	}
+	
+	public void addTimelineEventActionListener(MouseListener timelineEventMouseListener){
+		this.timelinePanel.addTimelineEventActionListener(timelineEventMouseListener);
+	}
+	
+	public void setEventDetailsPanelByCoordinates(int x, int y){
+		List<Event> eventsInSpecificYear = this.timelinePanel.getEventYearByCoordinates(x, y);
+		if(eventsInSpecificYear!=null){
+		GridBagConstraints gbc = new GridBagConstraints(); 
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		gbc.weighty = 0.5;
+		gbc.weightx = 0.9;
+		//Remove current panel
+		this.getContentPane().remove(this.workingPanel);
+		//Assing new panel as workingPanel
+		this.eventDetailsPanel = new EventDetailsPanel(eventsInSpecificYear); 
+		this.workingPanel = this.eventDetailsPanel;
+		//add New panel to frame
+		this.getContentPane().add(workingPanel, gbc);
+		}
+	}
+
 }

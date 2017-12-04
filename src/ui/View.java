@@ -1,6 +1,8 @@
 package ui;
 
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -77,5 +79,14 @@ public class View implements Observer{
 	
 	public Map<String, String> getSaveNewEventData(){
 		return mainFrame.getSaveNewEventData();
+	}
+	
+	public void addTimelineEventActionListener(MouseListener timelineEventMouseListener){
+		this.mainFrame.addTimelineEventActionListener(timelineEventMouseListener);
+	}
+	
+	public void setEventDetailsPanelByCoordinates(int x, int y){
+		this.mainFrame.setEventDetailsPanelByCoordinates(x, y);
+		this.repaint();
 	}
 }

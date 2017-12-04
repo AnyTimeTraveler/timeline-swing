@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import controller.actionlisteners.AddEventButtonActionListener;
 import controller.actionlisteners.ImportEventsButtonActionListener;
 import controller.actionlisteners.SaveNewEventActionListener;
+import controller.mouselisteners.TimelineEventMouseListener;
 import model.service.EventService;
 import ui.View;
 
@@ -28,6 +30,7 @@ public class Controller {
 		this.addImportButtonActionListener(new ImportEventsButtonActionListener(this));
 		this.addAddNewEventButtonActionListener(new AddEventButtonActionListener(this));
 		this.saveNewEventButtonActionListener(new SaveNewEventActionListener(this));
+		this.addTimelineEventActionListener(new TimelineEventMouseListener(this));
 		
 		//Get initial data from model into view
 		init();
@@ -66,6 +69,10 @@ public class Controller {
 		this.view.addSaveNewEventButtonActionListener(saveNewEventActionListener);
 	}
 	
+	public void addTimelineEventActionListener(MouseListener timelineEventMouseListener){
+		this.view.addTimelineEventActionListener(timelineEventMouseListener);
+	}
+	
 	public void changeToAddNewEventPanel(){
 		this.view.changeToAddNewEventPanel();
 	}
@@ -87,5 +94,9 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
+	
+	public void openEventDetailsPanel(int x, int y){
+		this.view.setEventDetailsPanelByCoordinates(x, y); 
+	} 
 	
 }

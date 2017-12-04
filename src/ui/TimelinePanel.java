@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
 import java.text.SimpleDateFormat;
@@ -274,4 +275,43 @@ public class TimelinePanel extends JPanel {
 	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
+	
+	public void addTimelineEventActionListener(MouseListener timelineEventMouseListener){
+		this.addMouseListener(timelineEventMouseListener);
+	}
+	
+	public List<Event> getEventYearByCoordinates(int x, int y){
+		boolean isOdd = false; 
+		int i = 0;
+		for (Map.Entry<Integer, List<Event>> entry : this.getEventsPerYear().entrySet())
+		{
+			int xMinValue =this.getRectangleX1(i); 
+	    	int xMaxValue = this.getRectangleX1(i)+this.getRectangleWidth(); 
+			int yMinValue = 0; 
+			int yMaxValue = 0; 
+			
+		    if (isOdd) {
+		    	yMinValue = this.getRectangleY1("down"); 
+		    	yMaxValue = this.getRectangleY1("down")+this.getRectangleHeight(); 
+		    }else{
+		    	yMinValue = this.getRectangleY1("up"); 
+		    	yMaxValue = this.getRectangleY1("up")+this.getRectangleHeight(); 
+		    }
+		    
+		    if(x>=xMinValue && x<=xMaxValue && y>=yMinValue && y<=yMaxValue){
+		    	return  entry.getValue(); 
+		    }
+		  
+	    i++;
+	    if(isOdd == false){
+	    	isOdd = true; 
+	    }
+	    else{
+	    	isOdd = false;
+	    }
+	  
+	}
+		 return null; 
+	}
+	
 }

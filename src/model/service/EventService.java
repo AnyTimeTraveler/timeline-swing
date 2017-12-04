@@ -47,6 +47,12 @@ public class EventService implements Subject {
 		return jsonInString; 
 	}
 	
+	public String getEventById(int id){
+		Gson gson = new Gson();
+		String jsonInString = gson.toJson(this.eventRepository.getEvent(id));
+		return jsonInString; 
+	}
+	
 	//Observer pattern
 	public void notifyObservers() {
 
