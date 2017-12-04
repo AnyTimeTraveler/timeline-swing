@@ -2,12 +2,8 @@ package controller.actionlisteners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-
-import javax.swing.JFileChooser;
 
 import model.service.EventService;
-import ui.ImportPanel;
 import ui.View;
 
 public class ImportCSVFileEventListener implements ActionListener{

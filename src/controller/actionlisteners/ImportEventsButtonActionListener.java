@@ -18,7 +18,7 @@ public class ImportEventsButtonActionListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		this.view.changeToImportPanel(); 
 	}
 
 }

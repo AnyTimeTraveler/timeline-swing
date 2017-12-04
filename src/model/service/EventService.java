@@ -1,8 +1,8 @@
 package model.service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
+import com.google.gson.Gson;
 
 import model.Event;
 import model.repository.EventRepository;
@@ -12,7 +12,7 @@ import ui.Observer;
 public class EventService implements Subject {
 
 	private EventRepository eventRepository;
-	private List<Observer> observers = new ArrayList<Observer>(); 
+	//private List<Observer> observers = new ArrayList<Observer>(); 
 	
 	
 	public EventService(){
@@ -42,25 +42,28 @@ public class EventService implements Subject {
 		return result;
 	}
 	
-	public List<Event> getAllEvents(){
-		return this.eventRepository.getEvents();
+	public String getAllEvents(){
+		Gson gson = new Gson();
+		String jsonInString = gson.toJson(this.eventRepository.getEvents());
+		return jsonInString; 
 	}
 	
 	//Observer pattern
 	public void notifyObservers() {
-		for(Observer o : observers){
-			o.update();
+
+		for(Observer o : Subject.observers){
+			o.update(this.getAllEvents());
 		}
 	}
 
 	public void register(Observer observer) {
-		this.observers.add(observer);
+		Subject.observers.add(observer);
 	}
 
 	public void removeRegister(Observer observer) {
-		for(int i = 0;i<this.observers.size() ; i++){
-			if(this.observers.get(i) == observer){
-				this.observers.remove(i);
+		for(int i = 0;i<Subject.observers.size() ; i++){
+			if(Subject.observers.get(i) == observer){
+				Subject.observers.remove(i);
 			}
 		}
 	}

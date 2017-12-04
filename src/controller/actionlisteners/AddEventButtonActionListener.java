@@ -18,7 +18,7 @@ public class AddEventButtonActionListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	//	frame.changeToAddNewEventPanel();
+		view.changeToAddNewEventPanel();
 	}
 
 }

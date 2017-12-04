@@ -19,8 +19,11 @@ public class SaveNewEventActionListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) { 
+		
+		eventService.addEvent("Niewetitle", "DXFHCGJVHKBNK", new Date(), new Date());
+		System.out.println("Nieuwe toegevoedg");
 		/*
-		 String title = this.eventTitleField.getText(); 
+		String title = this.eventTitleField.getText(); 
 		String description = this.eventDescriptionField.getText(); 
 		String startDate = this.eventStartDateField.getText(); 
 		String endDate = this.eventEndDateField.getText();

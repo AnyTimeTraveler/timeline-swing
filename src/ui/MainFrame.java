@@ -11,40 +11,44 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 
-import controller.Controller;
 import ui.datasets.timeline.Event;
+
 
 public class MainFrame extends JFrame{
 	
-	private JPanel currentPanel;
-	private GridBagConstraints gbcLeft = new GridBagConstraints(); 
-	private GridBagConstraints gbcRight = new GridBagConstraints(); 
 	private TimelinePanel timelinePanel;
 	private Color defaultColor;
 	private JPanel workingPanel; 
-	private JPanel eventPanel; 
+	private NewEventPanel newEventPanel; 
 	private ImportPanel importPanel; 
 	private ButtonPanel buttonPanel; 
+	private Dimension screenDim;
+	private Dimension frameDim; 
 
 	
 	public MainFrame(){
 		super();
-		System.out.println("MainFraime: constructor (na super())");
-		this.setTitle("Timeline");
-		this.defaultColor = Color.WHITE;
-		setLayoutContent();
+		//Title of application/frame
+		this.setTitle("Timeline Jeroen Vandevenne");
 		
+		//Default background color
+		this.defaultColor = Color.WHITE;
+		
+		//Set initial content
+		setLayoutContent();
 	}
 	
 	private void setLayoutContent(){
-		System.out.println("MainFraim: setLayoutContent");
-		//Set Screen same as screen
-		Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension frameDim = new Dimension(screenDim.width-200, screenDim.height-200); 
 		
+		//Set Screen same as screen
+		screenDim = Toolkit.getDefaultToolkit().getScreenSize();
+		frameDim = new Dimension(screenDim.width-200, screenDim.height-200); 
+		
+		//Set Size of Frame
 		this.setSize(frameDim);
+		
+		//Initiate timelinePanel 
 		timelinePanel= new TimelinePanel(frameDim.width,frameDim.height/2);
 		
 		//Close Application properly
@@ -57,8 +61,8 @@ public class MainFrame extends JFrame{
 		GridBagLayout gbl = new GridBagLayout(); 
 		this.setLayout(gbl);        
 	    
+		//Initiate GridBagConstraints for positioning
 		GridBagConstraints gbc = new GridBagConstraints(); 
-		//gbc.anchor = GridBagConstraints.PAGE_END;
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -66,22 +70,14 @@ public class MainFrame extends JFrame{
 		gbc.weightx = 1;
 		gbc.gridwidth = 2;
 		
-		 //Set default right panel scrollable
-	  	this.currentPanel = this.getTimelinePanel();
-	  	currentPanel.setBackground(this.defaultColor);
-	    JScrollPane scrollPane = new JScrollPane(this.currentPanel);
-	    //TODO style scollbar
-
+		//Set scrollable timeline panel
+	  	this.timelinePanel.setBackground(this.defaultColor);
+	    JScrollPane scrollPane = new JScrollPane(this.timelinePanel);
 	    this.getContentPane().add(scrollPane, gbc);
 		
+	    //Initialise ButtonPanel & add to frame
 		this.buttonPanel = new ButtonPanel();
 		this.buttonPanel.setBackground(this.defaultColor);
-		
-		this.eventPanel = new NewEventPanel(); 
-		this.importPanel = new ImportPanel(); 
-		
-		workingPanel = this.eventPanel; 
-		workingPanel.setBackground(Color.RED);
 		
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 0;
@@ -89,19 +85,21 @@ public class MainFrame extends JFrame{
 		gbc.weighty = 0.5;
 		gbc.weightx = 0.1;
 		gbc.gridwidth = 1;
-		this.add(buttonPanel, gbc);
+		this.getContentPane().add(buttonPanel, gbc);
+		
+		//Initialise workingPanels and display newEventPanel on init
+		this.newEventPanel = new NewEventPanel(); 
+		this.importPanel = new ImportPanel(); 
+		
+		workingPanel = this.importPanel; 
+		workingPanel.setBackground(Color.RED);
 		
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		gbc.weighty = 0.5;
 		gbc.weightx = 0.9;
-		this.add(workingPanel, gbc);
-	}
-	
-	
-	private JPanel getTimelinePanel(){
-		return timelinePanel;
+		this.getContentPane().add(workingPanel, gbc);
 	}
 	
 	public void setEvents(List<Event> events){
@@ -119,11 +117,7 @@ public class MainFrame extends JFrame{
 		
 		this.workingPanel = this.importPanel;  
 		this.getContentPane().add(workingPanel, gbc);
-		this.workingPanel.repaint();
-		this.revalidate();
-		this.repaint();
-		this.getContentPane().validate();
-		this.getContentPane().repaint();
+		
 		System.out.println("CHANGE TO IMPORT PANEL");
 	}
 	
@@ -134,16 +128,12 @@ public class MainFrame extends JFrame{
 		gbc.gridy = 1;
 		gbc.weighty = 0.5;
 		gbc.weightx = 0.9;
+		//Remove current panel
 		this.getContentPane().remove(this.workingPanel);
-		
-		this.workingPanel = this.eventPanel; 
+		//Assing new panel as workingPanel
+		this.workingPanel = this.newEventPanel;
+		//add New panel to frame
 		this.getContentPane().add(workingPanel, gbc);
-		this.workingPanel.repaint();
-		this.revalidate();
-		this.repaint();
-		this.getContentPane().validate();
-		this.getContentPane().repaint();
-		System.out.println("CHANGE TO NEW EVENT PANEL");
 	}
 	
 	public void addImportButtonActionListener(ActionListener importButtonActionListener){
@@ -158,4 +148,7 @@ public class MainFrame extends JFrame{
 		this.importPanel.addUploadFileButtonActionListener(uploadFileButtonActionListener);
 	}
 	
+	public void addSaveNewEventButtonActionListener(ActionListener saveNewEventActionListener){
+		this.newEventPanel.addSaveButtonActionListener(saveNewEventActionListener);
+	}
 }

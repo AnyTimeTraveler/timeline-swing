@@ -9,8 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controller.Controller;
-
 
 
 public class NewEventPanel extends JPanel{
