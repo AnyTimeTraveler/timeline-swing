@@ -3,11 +3,18 @@ package ui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 
 
@@ -21,8 +28,8 @@ public class NewEventPanel extends JPanel{
 	private JTextField eventTitleField;  
 	private JTextField eventDescriptionField; 
 	//TODO implement date picker
-	private JTextField eventStartDateField; 
-	private JTextField eventEndDateField; 
+	private JDatePickerImpl eventStartDateField; 
+	private JDatePickerImpl eventEndDateField; 
 	
 	private JButton saveEventButton; 
 	
@@ -30,15 +37,33 @@ public class NewEventPanel extends JPanel{
 		super(); 
 		this.eventTitleField = new JTextField();
 		this.eventDescriptionField = new JTextField();
-		this.eventStartDateField = new JTextField();
-		this.eventEndDateField = new JTextField();
-		
+
 		this.eventTitleLabel = new JLabel("Title");
 		this.eventDescriptionLabel = new JLabel("Description");
 		this.eventStartDateLabel = new JLabel("Start Date"); 
 		this.eventEndDateLabel = new JLabel("End Date"); 
 		
 		this.saveEventButton = new JButton("Save"); 
+		
+		
+
+		//Initialize datepickers
+
+		UtilDateModel model = new UtilDateModel();
+		Properties p = new Properties();
+		p.put("text.today", "Today");
+		p.put("text.month", "Month");
+		p.put("text.year", "Year");
+		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+		this.eventStartDateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		
+		model = new UtilDateModel();
+		p = new Properties();
+		p.put("text.today", "Today");
+		p.put("text.month", "Month");
+		p.put("text.year", "Year");
+		datePanel = new JDatePanelImpl(model, p);
+		this.eventEndDateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		
 		
 		//GridbagLayout init
@@ -89,7 +114,6 @@ public class NewEventPanel extends JPanel{
 		gbc.gridx = 0;
 		
 		this.add(this.saveEventButton, gbc);
-		
 	}	
 	
 	public void addSaveButtonActionListener(ActionListener addButtonActionListener){
@@ -99,5 +123,13 @@ public class NewEventPanel extends JPanel{
 	public String getEventTitle(){
 		return this.eventTitleField.getText();
 	}
-	
+
+	public Map<String, String> getSaveNewEventData(){
+		Map<String, String> result = new HashMap<String, String>(); 
+		result.put("title",this.eventDescriptionField.getText() ); 
+		result.put("description", this.eventDescriptionField.getText()); 
+		result.put("startDate", this.eventStartDateField.toString()); 
+		result.put("endDate", this.eventEndDateField.toString()); 
+		return result; 
+	}
 }

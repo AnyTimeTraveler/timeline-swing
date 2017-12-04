@@ -3,6 +3,7 @@ package ui;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 
@@ -72,5 +73,9 @@ public class View implements Observer{
 		System.out.println("EVENTSJSON : "+ eventsJson);
 		this.setEvents(eventsJson);
 		this.repaint();
+	}
+	
+	public Map<String, String> getSaveNewEventData(){
+		return mainFrame.getSaveNewEventData();
 	}
 }

@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.Map;
 
 import com.google.gson.Gson;
 
@@ -46,7 +47,6 @@ public class Controller {
 	
 	public void addEvent(String title, String description, Date startDate, Date endDate){
 		this.eventService.addEvent(title, description, startDate, endDate); 
-		//this.view.setEvents(toJson(eventService.getAllEvents()));
 	}
 	
 	public void addImportButtonActionListener(ActionListener importButtonActionListener){
@@ -70,6 +70,12 @@ public class Controller {
 	
 	public void changeToImportPanel(){
 		this.view.changeToImportPanel();
+	}
+	
+	public void saveNewEvent(){
+		Map<String, String> newEvent = this.view.getSaveNewEventData(); 
+		System.out.println(newEvent.get("startDate")+" ..........................");
+		this.eventService.addEvent(newEvent.get("title"), newEvent.get("description"), new Date(), new Date()); 
 	}
 	
 }

@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -150,5 +151,9 @@ public class MainFrame extends JFrame{
 	
 	public void addSaveNewEventButtonActionListener(ActionListener saveNewEventActionListener){
 		this.newEventPanel.addSaveButtonActionListener(saveNewEventActionListener);
+	}
+	
+	public Map<String, String> getSaveNewEventData(){
+		return this.newEventPanel.getSaveNewEventData();
 	}
 }
