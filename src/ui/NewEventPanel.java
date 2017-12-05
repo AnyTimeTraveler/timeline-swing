@@ -16,37 +16,62 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-
-
+/**
+ * @author Jeroen Vandevenne
+ * @version 1.0
+ */
 public class NewEventPanel extends JPanel{
 
+	/**
+	 * Label for event title
+	 */
 	private JLabel eventTitleLabel; 
+	/**
+	 * Label for event description
+	 */
 	private JLabel eventDescriptionLabel; 
+	/**
+	 * Label for event start date
+	 */
 	private JLabel eventStartDateLabel; 
+	/**
+	 * Label for event end date
+	 */
 	private JLabel eventEndDateLabel; 
-	
-	private JTextField eventTitleField;  
+	/**
+	 * Field to enter event title
+	 */
+	private JTextField eventTitleField; 
+	/**
+	 * Field to enter event description
+	 */
 	private JTextField eventDescriptionField; 
-	//TODO implement date picker
+	/**
+	 * Field to pick an event start date
+	 */
 	private JDatePickerImpl eventStartDateField; 
+	/**
+	 * Field to pick an event end date
+	 */
 	private JDatePickerImpl eventEndDateField; 
-	
+	/**
+	 * Button to save and add an event
+	 */
 	private JButton saveEventButton; 
 	
+	/**
+	 * Initialise fields and set config setting
+	 */
 	public NewEventPanel(){
 		super(); 
 		this.eventTitleField = new JTextField();
 		this.eventDescriptionField = new JTextField();
-
 		this.eventTitleLabel = new JLabel("Title");
 		this.eventDescriptionLabel = new JLabel("Description");
 		this.eventStartDateLabel = new JLabel("Start Date"); 
 		this.eventEndDateLabel = new JLabel("End Date"); 
-		
 		this.saveEventButton = new JButton("Save"); 
 		
-		
-
 		//Initialize datepickers
 
 		UtilDateModel model = new UtilDateModel();
@@ -64,7 +89,6 @@ public class NewEventPanel extends JPanel{
 		p.put("text.year", "Year");
 		datePanel = new JDatePanelImpl(model, p);
 		this.eventEndDateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		
 		
 		//GridbagLayout init
 		GridBagLayout gbl = new GridBagLayout(); 
@@ -116,14 +140,26 @@ public class NewEventPanel extends JPanel{
 		this.add(this.saveEventButton, gbc);
 	}	
 	
+	/**
+	 * Add an {@link ActionListener} to the {@link saveEventButton}
+	 * @param addButtonActionListener The Action Listener for the {@link saveEventButton}
+	 */
 	public void addSaveButtonActionListener(ActionListener addButtonActionListener){
 		this.saveEventButton.addActionListener(addButtonActionListener); 
 	}
 	
+	/**
+	 * Get the title inserted in the {@link eventTitleField}
+	 * @return String the title inserted in the {@link eventTitleField} 
+	 */
 	public String getEventTitle(){
 		return this.eventTitleField.getText();
 	}
 
+	/**
+	 * Get all the data inserted in the form
+	 * @return {@link java.util.List}&lt;{@link java.lang.String}, {@link java.lang.String}&gt; with all the fields in the form
+	 */
 	public Map<String, String> getSaveNewEventData(){
 		DateLabelFormatter dlf = new DateLabelFormatter(); 
 		Map<String, String> result = new HashMap<String, String>(); 

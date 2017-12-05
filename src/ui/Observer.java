@@ -1,12 +1,13 @@
 package ui;
-
-import java.util.List;
-
-import model.service.Subject;
-import ui.datasets.timeline.Event;
-
+/**
+ * @author Jeroen Vandevenne
+ * @version 1.0
+ */
 public interface Observer {
-
+/**
+ * Updates the View when changes happen in model
+ * @param eventsJson Events in JSON format
+ */
 	void update(String eventsJson);
 	
 }

@@ -1,16 +1,18 @@
 package ui.datasets.actor;
 
+/**
+ * @author Jeroen Vandevenne
+ * @version 1.0
+ */
 public class Actor {
 
+	/**
+	 * Name of actor
+	 */
 	public String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	/**
+	 * id of actor
+	 */
+	public int id; 
 	
 }

@@ -44,7 +44,7 @@ public class EventDetailsPanel extends JPanel{
 	
 	/**
 	 * Initates the {@link eventsInSpecificYear}, sets the {@link java.awt.GridBagConstraints} and {@link java.awt.GridBagLayout}
-	 * @param eventsInSpecificYear
+	 * @param eventsInSpecificYear {@link List}&lt;{@link ui.datasets.timeline}&gt; with the events of one year
 	 */
 	public EventDetailsPanel(List<Event> eventsInSpecificYear){
 		super(); 
