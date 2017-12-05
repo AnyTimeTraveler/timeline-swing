@@ -136,4 +136,10 @@ public class MemoryEventRepository implements EventRepository {
 		return null; 
 	}
 
+
+	@Override
+	public void addEvents(List<Event> events) {
+		this.events = events; 
+	}
+
 }

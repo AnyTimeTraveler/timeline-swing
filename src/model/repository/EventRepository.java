@@ -29,5 +29,9 @@ public interface EventRepository {
 	 * @return Event The event with the specified id
 	 */
 	public Event getEvent(int id);
+	/**
+	 * Add {@link List}&lt;{@link model.Event}&gt;
+	 */
+	public void addEvents(List<Event> events); 
 }
 

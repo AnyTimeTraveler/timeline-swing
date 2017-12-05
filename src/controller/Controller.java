@@ -10,11 +10,11 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 
-import controller.actionlisteners.AddEventButtonActionListener;
-import controller.actionlisteners.ImportEventsButtonActionListener;
-import controller.actionlisteners.SaveNewEventActionListener;
+import controller.actionlisteners.navigation.AddEventButtonActionListener;
+import controller.actionlisteners.navigation.ImportEventsButtonActionListener;
+import controller.actionlisteners.workingpanel.SaveNewEventActionListener;
+import controller.actionlisteners.workingpanel.UploadTimelineActionListener;
 import controller.mouselisteners.TimelineEventMouseListener;
-import model.service.EventService;
 import model.service.Service;
 import ui.View;
 /**
@@ -47,6 +47,7 @@ public class Controller {
 		this.addAddNewEventButtonActionListener(new AddEventButtonActionListener(this));
 		this.saveNewEventButtonActionListener(new SaveNewEventActionListener(this));
 		this.addTimelineEventActionListener(new TimelineEventMouseListener(this));
+		this.addUploadFileActionListener(new UploadTimelineActionListener(this)); 
 		
 		//Get initial data from model into view
 		init();
@@ -59,6 +60,7 @@ public class Controller {
 	 * Sends inital data to {@link View}
 	 */
 	public void init(){
+		System.out.println(this.service.getAllEvents());
 		view.setEvents(this.service.getAllEvents()); 
 	}
 	
@@ -85,6 +87,17 @@ public class Controller {
 	}
 	
 	/**
+	 * Add a new Event
+	 * @param title The title of the event
+	 * @param description The description of the event
+	 * @param startDate The start date of the event
+	 * @param endDate The end date of the event
+	 */
+	public void addEvents(String eventsInJsonFormat){
+		this.service.addEvents(eventsInJsonFormat); 
+	}
+	
+	/**
 	 * Add {@link ActionListener} to the {@link View}
 	 * @param importButtonActionListener The ActionListener for the import button
 	 */
@@ -100,13 +113,6 @@ public class Controller {
 		view.addAddNewEventButtonActionListener(addNewButtonActionListener); 
 	}
 	
-	/**
-	 * Add {@link ActionListener} to the {@link View}
-	 * @param uploadFileButtonActionListener The ActionListener for the file upload button
-	 */
-	public void addUploadFileButtonActionListener(ActionListener uploadFileButtonActionListener){
-		this.view.addUploadFileButtonActionListener(uploadFileButtonActionListener);
-	}
 	
 	/**
 	 * Add {@link ActionListener} to the {@link View}
@@ -122,6 +128,14 @@ public class Controller {
 	 */
 	public void addTimelineEventActionListener(MouseListener timelineEventMouseListener){
 		this.view.addTimelineEventActionListener(timelineEventMouseListener);
+	}
+	
+	/**
+	 * Add {@link ActionListener} to the {@link View}
+	 * @param uploadFileActionListener The {@link ActionListener} for the upload button
+	 */
+	public void addUploadFileActionListener(ActionListener uploadFileActionListener){
+		this.view.addUploadFileActionListener(uploadFileActionListener);
 	}
 	
 	/**

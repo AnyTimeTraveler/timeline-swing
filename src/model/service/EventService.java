@@ -1,7 +1,12 @@
 package model.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import model.Event;
 import model.repository.EventRepository;
@@ -74,4 +79,14 @@ public class EventService{
 	public Event getEventById(int id){
 		return this.eventRepository.getEvent(id); 
 	}
+	
+	public void addEvents(String eventsToAddInJson){
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.create();
+		List<Event> events = gson.fromJson(eventsToAddInJson,  new TypeToken<ArrayList<Event>>(){}.getType());
+		this.eventRepository.addEvents(events); 
+	}
+
 }
+
+

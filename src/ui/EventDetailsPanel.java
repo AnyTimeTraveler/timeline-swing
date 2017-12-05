@@ -2,17 +2,11 @@ package ui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Properties;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
 
 import ui.datasets.timeline.Event;
 /**
@@ -60,17 +54,26 @@ public class EventDetailsPanel extends JPanel{
 			
 		int i = 0; 
 		for(Event e : eventsInSpecificYear){
+			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 			this.eventTitleLabel = new JLabel(e.title);
-			//this.eventDescriptionLabel = new JLabel(e.description);
-			//this.eventStartDateLabel = new JLabel(e.startDate);
-			//this.eventEndDateLabel = new JLabel(e.EndDate); 
-			gbc.gridx = 0; 
-			gbc.gridy = 0+i; 
-			this.add(this.eventTitleLabel, gbc);
+			this.add(this.eventTitleLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 0));
+			this.eventDescriptionLabel = new JLabel(e.description);
+			this.add(this.eventDescriptionLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 1));
+			this.eventStartDateLabel = new JLabel(dateFormatter.format(e.startDate));
+			this.add(this.eventStartDateLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 2));
+			this.eventEndDateLabel = new JLabel(dateFormatter.format(e.EndDate)); 
+			this.add(this.eventEndDateLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 3));
 			i++; 
-		}
+	}
 	}
 	
+	private GridBagConstraints getGridBagConstraints(int listSize, int eventIndex, int attributeIndex ){
+		GridBagConstraints gbc = new GridBagConstraints(); 
+		gbc.fill = GridBagConstraints.BOTH; 
+		gbc.gridx = 0 + attributeIndex; 
+		gbc.gridy = 0+eventIndex; 
+		return gbc; 
+	}
 	
 	
 }

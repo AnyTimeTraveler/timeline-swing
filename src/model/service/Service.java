@@ -148,4 +148,13 @@ public class Service implements Subject{
 		notifyObservers(); 
 	}
 	
+	/**
+	 * Replace by new events
+	 * @param eventsInJson Events to add in JSON format
+	 */
+	public void addEvents(String eventsInJson){
+		this.eventService.addEvents(eventsInJson);
+		this.notifyObservers();
+	}
+	
 }

@@ -22,18 +22,17 @@ public class ImportPanel extends JPanel {
 	public ImportPanel(){ 
 		this.setBackground(Color.BLACK);
 		uploadButton = new JButton("upload file"); 
-		//button.addActionListener(new ImportCSVFileEventListener(this));
 		this.add(uploadButton);
 		
 		
 	}
-	
+
 	/**
 	 * Add an {@link ActionListener} to the {@link uploadButton}
-	 * @param uploadFileButtonActionListener The Action Listener for the {@link uploadButton}
+	 * @param uploadFileActionListener The Action Listener for the {@link uploadButton}
 	 */
-	public void addUploadFileButtonActionListener(ActionListener uploadFileButtonActionListener){
-		this.uploadButton.addActionListener(uploadFileButtonActionListener);
+	public void addUploadFileActionListener(ActionListener uploadFileActionListener){
+		this.uploadButton.addActionListener(uploadFileActionListener); 
 	}
 	
 	

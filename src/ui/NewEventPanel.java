@@ -147,7 +147,7 @@ public class NewEventPanel extends JPanel{
 	public void addSaveButtonActionListener(ActionListener addButtonActionListener){
 		this.saveEventButton.addActionListener(addButtonActionListener); 
 	}
-	
+
 	/**
 	 * Get the title inserted in the {@link eventTitleField}
 	 * @return String the title inserted in the {@link eventTitleField} 

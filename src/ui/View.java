@@ -70,18 +70,18 @@ public class View implements Observer{
 	
 	/**
 	 * Add an {@link ActionListener} to the {@link mainFrame}
-	 * @param uploadFileButtonActionListener The Action Listener for the {@link mainFrame}
-	 */
-	public void addUploadFileButtonActionListener(ActionListener uploadFileButtonActionListener){
-		this.mainFrame.addUploadFileButtonActionListener(uploadFileButtonActionListener);
-	}
-	
-	/**
-	 * Add an {@link ActionListener} to the {@link mainFrame}
 	 * @param saveNewEventActionListener The Action Listener for the {@link mainFrame}
 	 */
 	public void addSaveNewEventButtonActionListener(ActionListener saveNewEventActionListener){
 		this.mainFrame.addSaveNewEventButtonActionListener(saveNewEventActionListener);
+	}
+	
+	/**
+	 * Add an {@link ActionListener} to the {@link mainFrame}
+	 * @param uploadFileActionListener The Action Listener for the {@link mainFrame}
+	 */
+	public void addUploadFileActionListener(ActionListener uploadFileActionListener){
+		this.mainFrame.addUploadFileActionListener(uploadFileActionListener);
 	}
 	
 	/**

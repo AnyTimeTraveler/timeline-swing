@@ -278,20 +278,21 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Add an {@link ActionListener} to the {@link importPanel}
-	 * @param uploadFileButtonActionListener The Action Listener for the {@link importPanel}
-	 */
-	public void addUploadFileButtonActionListener(ActionListener uploadFileButtonActionListener) {
-		this.importPanel.addUploadFileButtonActionListener(uploadFileButtonActionListener);
-	}
-
-	/**
 	 * Add an {@link ActionListener} to the {@link newEventPanel}
 	 * @param saveNewEventActionListener The Action Listener for the {@link newEventPanel}
 	 */
 	public void addSaveNewEventButtonActionListener(ActionListener saveNewEventActionListener) {
 		this.newEventPanel.addSaveButtonActionListener(saveNewEventActionListener);
 	}
+	
+	/**
+	 * Add an {@link ActionListener} to the {@link newEventPanel}
+	 * @param uploadFileActionListener The Action Listener for the {@link newEventPanel}
+	 */
+	public void addUploadFileActionListener(ActionListener uploadFileActionListener) {
+		this.importPanel.addUploadFileActionListener(uploadFileActionListener);
+	}
+
 
 	/**
 	 * Get the data that the user has inputed on the {@link newEventPanel}
