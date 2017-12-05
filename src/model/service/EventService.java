@@ -25,15 +25,13 @@ public class EventService{
 		this.eventRepository = new MemoryEventRepository(); 
 	}
 	
-	public boolean addEvent(String title, String description, Date startDate, Date endDate){
+	public void addEvent(String title, String description, Date startDate, Date endDate){
 		Event event = new Event(title, description, startDate, endDate); 
-		boolean result = this.eventRepository.addEvent(event);
-		return result;
+		this.eventRepository.addEvent(event);
 	}
 	
-	public boolean removeEvent(int id){
-		boolean result = this.eventRepository.removeEvent(id);
-		return result;
+	public void removeEvent(int id){
+		this.eventRepository.removeEvent(id);
 	}
 	
 	public List<Event> getAllEvents(){

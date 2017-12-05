@@ -9,11 +9,20 @@ import java.util.Random;
 import model.Actor;
 import model.Event;
 import model.repository.exception.RepositoryException;
-
+/**
+* @author  Jeroen Vandevenne
+* @version 1.0
+*/
 public class MemoryEventRepository implements EventRepository {
 
+	/**
+	 * {@link List} to store all events
+	 */
 	private List<Event> events; 
 	
+	/**
+	 * Initialise the {@link List}&lt;{@link model.Event}&gt; events, add sample data, sort the List
+	 */
 	public MemoryEventRepository(){
 		//Inititale Arraylist of Events
 		this.events = new ArrayList<Event>(); 
@@ -46,7 +55,10 @@ public class MemoryEventRepository implements EventRepository {
 	}
 	
 	
-	//testing purposes
+	/**
+	 * Not for public use. Generate random date for sample data
+	 * @return Date Random date for testing purposes
+	 */
 	private Date getRandomDate(){
 		Random  rnd;
 	     Date    dt;
@@ -63,42 +75,52 @@ public class MemoryEventRepository implements EventRepository {
 	     return dt; 
 	}
 	
+	/**
+	 * Get all the stored events
+	 * @return {@link List}&lt;{@link model.Event}&gt;
+	 */
 	@Override
 	public List<Event> getEvents() {
 		
 		return this.events;
 	}
 
+	/**
+	 * Add a new event
+	 * @param event The new event to add
+	 */
 	@Override
-	public boolean addEvent(Event event) {
+	public void addEvent(Event event) {
 		try{
 			this.events.add(event);
-			return true;
 		}catch(RepositoryException e){
 			System.out.println("Error" + e.getMessage());
-			return false;	
 		}
 	}
 
+	/**
+	 * Remove the event with the specified id
+	 * @param id The id of the event to remove
+	 */
 	@Override
-	public boolean removeEvent(int id) {
+	public void removeEvent(int id) {
 		try{
 			//Search through all events to find matching id
 			for(int i = 0;i<this.events.size() ; i++){
 				if(id == this.events.get(i).getId()){
 				this.events.remove(i);
-				//Return true after event deleted
-				return true;
-				}
+						}
 			}
-			//Return false if no event was deleted during loop
-			return false; 
 		}catch(RepositoryException e){
 			System.out.println("Error" + e.getMessage());
-			return false;	
 		}
 	}
 
+	/**
+	 * Get the event with the specified id
+	 * @param id The id of the event to get
+	 * @return Event The event with the specified id
+	 */
 	@Override
 	public Event getEvent(int id) {
 		try{
