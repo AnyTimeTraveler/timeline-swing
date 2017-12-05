@@ -22,14 +22,14 @@ public class TimelinePanel extends JPanel {
 
 	List<Event> events = new ArrayList<Event>();
 
-	private int timelineHeight = 450;
-	private int timelineWidth = 2000;
+	private int panelHeight;
+	private int panelWidth;
 	private Color blue = new Color(29, 84, 173);
 	
 	
 	//Timeline Dimensions
 	private int getTimelineY1(){
-		return this.timelineHeight/2; 
+		return this.panelHeight/2; 
 	}
 	
 	private int getTimelineY2(){
@@ -41,7 +41,7 @@ public class TimelinePanel extends JPanel {
 	}
 	
 	private int getTimelineX2(){
-		return timelineWidth + this.getRectangleWidth()/2; 
+		return panelWidth + this.getRectangleWidth()/2; 
 	}
 	
 	//Rectangle Dimensions
@@ -51,7 +51,7 @@ public class TimelinePanel extends JPanel {
 	
 	private int getRectangleHeight(){
 		//rectangle rectangles equals 3/7th of timeline.
-		return (int) (this.timelineHeight*(3.0/7.0)); 
+		return (int) (this.panelHeight*(3.0/7.0)); 
 	}
 	
 	private int getRectangleX1(int eventSequenceNumber){
@@ -77,7 +77,7 @@ public class TimelinePanel extends JPanel {
 	//Vertical event stripe dimensions
 	private int getTimelineEventStripeHeight(){
 		//The timeline between the 2 rectangles equals 1/7th of timeline. The horizontal stripe is negligible
-		return (int) (this.timelineHeight*(1.0/7.0)/2); 
+		return (int) (this.panelHeight*(1.0/7.0)/2); 
 	}
 	
 	private int getTimelineEventStripeX1(int eventSequenceNumber){
@@ -108,7 +108,7 @@ public class TimelinePanel extends JPanel {
 	}
 	
 	private int getEventWidth(){
-		return this.timelineWidth/this.getEventsPerYear().size(); 
+		return this.panelWidth/this.getEventsPerYear().size(); 
 	}
 	
 	//Year label position
@@ -163,15 +163,10 @@ public class TimelinePanel extends JPanel {
 	
 	private Graphics2D g2;
 	
-	private int panelHeight; 
-	private int panelWidth; 
-	
 	public TimelinePanel(int panelWidth, int panelHeight) {
 		super();	
-		
-		this.panelHeight = panelHeight; 
+		this.panelHeight = (int)(panelHeight);
 		this.panelWidth = 2000;
-		this.timelineHeight = panelHeight; 
 		
 	}
 
@@ -182,7 +177,7 @@ public class TimelinePanel extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		getEventsPerYear();
+		
 		
 		super.paintComponent(g);
 		g2 = (Graphics2D) g;

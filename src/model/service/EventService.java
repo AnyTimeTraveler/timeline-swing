@@ -1,21 +1,18 @@
 package model.service;
 
 import java.util.Date;
-
-import com.google.gson.Gson;
+import java.util.List;
 
 import model.Event;
 import model.repository.EventRepository;
 import model.repository.MemoryEventRepository;
-import ui.Observer;
 
 
-public class EventService implements Subject {
+public class EventService{
 
 	private EventRepository eventRepository;
 	
-	public EventService(){
-		String repositoryType = "memory"; 
+	public EventService(String repositoryType){
 		switch(repositoryType){
 		case "memory" : 
 			this.setUpMemoryRepository();
@@ -31,45 +28,19 @@ public class EventService implements Subject {
 	public boolean addEvent(String title, String description, Date startDate, Date endDate){
 		Event event = new Event(title, description, startDate, endDate); 
 		boolean result = this.eventRepository.addEvent(event);
-		this.notifyObservers();
 		return result;
 	}
 	
 	public boolean removeEvent(int id){
 		boolean result = this.eventRepository.removeEvent(id);
-		this.notifyObservers();
 		return result;
 	}
 	
-	public String getAllEvents(){
-		Gson gson = new Gson();
-		String jsonInString = gson.toJson(this.eventRepository.getEvents());
-		return jsonInString; 
+	public List<Event> getAllEvents(){
+		return this.eventRepository.getEvents(); 
 	}
 	
-	public String getEventById(int id){
-		Gson gson = new Gson();
-		String jsonInString = gson.toJson(this.eventRepository.getEvent(id));
-		return jsonInString; 
-	}
-	
-	//Observer pattern
-	public void notifyObservers() {
-
-		for(Observer o : Subject.observers){
-			o.update(this.getAllEvents());
-		}
-	}
-
-	public void register(Observer observer) {
-		Subject.observers.add(observer);
-	}
-
-	public void removeRegister(Observer observer) {
-		for(int i = 0;i<Subject.observers.size() ; i++){
-			if(Subject.observers.get(i) == observer){
-				Subject.observers.remove(i);
-			}
-		}
+	public Event getEventById(int id){
+		return this.eventRepository.getEvent(id); 
 	}
 }

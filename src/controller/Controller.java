@@ -14,17 +14,18 @@ import controller.actionlisteners.ImportEventsButtonActionListener;
 import controller.actionlisteners.SaveNewEventActionListener;
 import controller.mouselisteners.TimelineEventMouseListener;
 import model.service.EventService;
+import model.service.Service;
 import ui.View;
 
 public class Controller {
 
 	private View view; 
-	private EventService eventService; 
+	private Service service; 
 	
-	public Controller(View view, EventService eventService){
-		this.eventService = eventService; 
+	public Controller(View view, Service service){
+		this.service = service; 
 		this.view = view; 
-		eventService.register(view);
+		service.register(view);
 		
 		//Add initial actionlisteners
 		this.addImportButtonActionListener(new ImportEventsButtonActionListener(this));
@@ -40,7 +41,7 @@ public class Controller {
 	}
 	
 	public void init(){
-		view.setEvents(this.eventService.getAllEvents()); 
+		view.setEvents(this.service.getAllEvents()); 
 	}
 	
 	private String toJson(Object toJson){
@@ -51,7 +52,7 @@ public class Controller {
 	}
 	
 	public void addEvent(String title, String description, Date startDate, Date endDate){
-		this.eventService.addEvent(title, description, startDate, endDate); 
+		this.service.addEvent(title, description, startDate, endDate); 
 	}
 	
 	public void addImportButtonActionListener(ActionListener importButtonActionListener){
@@ -88,7 +89,7 @@ public class Controller {
 		try {
 			startDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
 			endDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
-			this.eventService.addEvent(newEvent.get("title"), newEvent.get("description"), startDate, endDate); 
+			this.service.addEvent(newEvent.get("title"), newEvent.get("description"), startDate, endDate); 
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

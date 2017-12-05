@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -47,13 +48,13 @@ public class MainFrame extends JFrame{
 		
 		//Set Screen same as screen
 		screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-		frameDim = new Dimension(screenDim.width-200, screenDim.height-200); 
+		frameDim = new Dimension(screenDim.width, screenDim.height); 
 		
 		//Set Size of Frame
 		this.setSize(frameDim);
 		
 		//Initiate timelinePanel 
-		timelinePanel= new TimelinePanel(frameDim.width,frameDim.height/2);
+		timelinePanel= new TimelinePanel(frameDim.width, (int)(frameDim.height*0.57));
 		
 		//Close Application properly
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -70,14 +71,23 @@ public class MainFrame extends JFrame{
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.weighty = 0.5;
-		gbc.weightx = 1;
+		Dimension timelineDim = timelinePanel.getPreferredSize(); 
+		gbc.weighty = 0.60-(double)timelineDim.height/frameDim.height;
 		gbc.gridwidth = 2;
+		JLabel welcomeLabel = new JLabel(); 
+		welcomeLabel.setText("The events are sorted per year. Click on a box to see more details regarding that year.");
+		this.getContentPane().add(welcomeLabel, gbc);
 		
 		//Set scrollable timeline panel
 	  	this.timelinePanel.setBackground(this.defaultColor);
 	  	this.timelinePanel.setBackground(Color.white);
 	    JScrollPane scrollPane = new JScrollPane(this.timelinePanel);
+	    gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.weighty = (double)timelineDim.height/frameDim.height;
+		gbc.weightx = 1;
+		gbc.gridwidth = 2;
 	    this.getContentPane().add(scrollPane, gbc);
 		
 	    //Initialise ButtonPanel & add to frame
@@ -85,8 +95,8 @@ public class MainFrame extends JFrame{
 		
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.weighty = 0.5;
+		gbc.gridy = 2;
+		gbc.weighty = 0.19;
 		gbc.weightx = 0.1;
 		gbc.gridwidth = 1;
 		this.getContentPane().add(buttonPanel, gbc);
@@ -100,8 +110,8 @@ public class MainFrame extends JFrame{
 		
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 1;
-		gbc.gridy = 1;
-		gbc.weighty = 0.5;
+		gbc.gridy = 2;
+		gbc.weighty = 0.19;
 		gbc.weightx = 0.9;
 		this.getContentPane().add(workingPanel, gbc);
 	}
@@ -121,8 +131,6 @@ public class MainFrame extends JFrame{
 		
 		this.workingPanel = this.importPanel;  
 		this.getContentPane().add(workingPanel, gbc);
-		
-		System.out.println("CHANGE TO IMPORT PANEL");
 	}
 	
 	public void changeToAddNewEventPanel(){
