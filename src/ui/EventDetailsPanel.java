@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.text.SimpleDateFormat;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import ui.datasets.timeline.Event;
 /**
@@ -54,24 +56,34 @@ public class EventDetailsPanel extends JPanel{
 			
 		int i = 0; 
 		for(Event e : eventsInSpecificYear){
+			JPanel panel = new JPanel(); 
+			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 			this.eventTitleLabel = new JLabel(e.title);
-			this.add(this.eventTitleLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 0));
+			panel.add(this.eventTitleLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 0));
 			this.eventDescriptionLabel = new JLabel(e.description);
-			this.add(this.eventDescriptionLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 1));
+			panel.add(this.eventDescriptionLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 1));
 			this.eventStartDateLabel = new JLabel(dateFormatter.format(e.startDate));
-			this.add(this.eventStartDateLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 2));
+			panel.add(this.eventStartDateLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 2));
 			this.eventEndDateLabel = new JLabel(dateFormatter.format(e.EndDate)); 
-			this.add(this.eventEndDateLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 3));
+			panel.add(this.eventEndDateLabel, getGridBagConstraints(this.eventsInSpecificYear.size(), i, 3));
+	
+			
+			//Set panel Config
+			panel.setBackground(Color.WHITE);
+			gbc.fill = GridBagConstraints.HORIZONTAL; 
+			gbc.gridy = i; 
+			this.add(panel, gbc);
 			i++; 
 	}
 	}
 	
 	private GridBagConstraints getGridBagConstraints(int listSize, int eventIndex, int attributeIndex ){
 		GridBagConstraints gbc = new GridBagConstraints(); 
-		gbc.fill = GridBagConstraints.BOTH; 
+		gbc.fill = GridBagConstraints.HORIZONTAL; 
 		gbc.gridx = 0 + attributeIndex; 
 		gbc.gridy = 0+eventIndex; 
+		gbc.weightx = 1; 
 		return gbc; 
 	}
 	

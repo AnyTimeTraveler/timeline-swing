@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
 	 * Panel where user works on, adds events, displays event info, uploads and
 	 * exports timelines
 	 */
-	private JPanel workingPanel;
+	private JScrollPane workingPanel;
 	/**
 	 * Panel that displays the form to add a new event
 	 */
@@ -118,7 +118,8 @@ public class MainFrame extends JFrame {
 		this.welcomeLabel = new JLabel();
 
 		// Assign newEventPanel to workingpanel on init
-		this.workingPanel = this.newEventPanel;
+		
+		this.workingPanel = new JScrollPane(this.newEventPanel);
 
 		// Initiate Flexible GridBagLayout
 		GridBagLayout gbl = new GridBagLayout();
@@ -249,7 +250,7 @@ public class MainFrame extends JFrame {
 		// Remove current panel
 		this.getContentPane().remove(this.workingPanel);
 		// Assign new panel as workingPanel
-		this.workingPanel = this.importPanel;
+		this.workingPanel = new JScrollPane(this.importPanel);
 		// add new panel to frame
 		this.getContentPane().add(workingPanel, gbc);
 	}
@@ -262,7 +263,7 @@ public class MainFrame extends JFrame {
 		// Remove current panel
 		this.getContentPane().remove(this.workingPanel);
 		// Assign new panel as workingPanel
-		this.workingPanel = this.newEventPanel;
+		this.workingPanel = new JScrollPane(this.newEventPanel);
 		// add new panel to frame
 		this.getContentPane().add(workingPanel, gbc);
 	}
@@ -332,12 +333,12 @@ public class MainFrame extends JFrame {
 	public void setEventDetailsPanelByCoordinates(int x, int y) {
 		List<Event> eventsInSpecificYear = this.timelinePanel.getEventYearByCoordinates(x, y);
 		if (eventsInSpecificYear != null) {
-			GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
 			// Remove current panel
 			this.getContentPane().remove(this.workingPanel);
 			// Assing new panel as workingPanel
 			this.eventDetailsPanel = new EventDetailsPanel(eventsInSpecificYear);
-			this.workingPanel = this.eventDetailsPanel;
+			GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
+			this.workingPanel = new JScrollPane(this.eventDetailsPanel);
 			// add New panel to frame
 			this.getContentPane().add(workingPanel, gbc);
 		}

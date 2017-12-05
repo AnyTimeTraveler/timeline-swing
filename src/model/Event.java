@@ -15,7 +15,7 @@ public class Event implements Comparable<Event>{
 	/**
 	 * List of actors associated with the event
 	 */
-	private List<Actor> actors;
+	private List<String> actorsIds;
 	/**
 	 * Title of the event
 	 */
@@ -50,7 +50,7 @@ public class Event implements Comparable<Event>{
 		this.setEndDate(endDate);
 		this.setTitle(title);
 		this.setDescription(description);
-		this.actors = new ArrayList<Actor>();
+		this.actorsIds = new ArrayList<String>();
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class Event implements Comparable<Event>{
 	 * @param startDate The start date of the event
 	 * @param endDate The end date of the event
 	 */
-	public Event(List<Actor> actors, String title, String description, Date startDate, Date endDate) {
+	public Event(List<String> actors, String title, String description, Date startDate, Date endDate) {
 		id = UUID.randomUUID().toString();
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
@@ -115,24 +115,24 @@ public class Event implements Comparable<Event>{
 	 * Get List of actors associated with the event
 	 * @return {@link List}&lt;{@link model.Actor}&gt; List of all actors associated with event 
 	 */
-	public List<Actor> getActors() {
-		return actors;
+	public List<String> getActors() {
+		return actorsIds;
 	}
 	
 	/**
 	 * Add new Actor to event
 	 * @param actor New actor to add
 	 */
-	public void addActor(Actor actor) {
-		this.actors.add(actor);
+	public void addActor(String actorId) {
+		this.actorsIds.add(actorId);
 	}
 	
 	/**
 	 * Set new List of {@link model.Actor}
 	 * @param actors List of {@link model.Actor}
 	 */
-	private void setActors(List<Actor> actors){
-		this.actors = actors; 
+	private void setActors(List<String> actors){
+		this.actorsIds = actors; 
 	}
 	
 	/**
