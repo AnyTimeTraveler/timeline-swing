@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
 
@@ -28,7 +27,6 @@ public class ImportPanel extends JPanel {
 		GridBagConstraints gbc = new GridBagConstraints(); 
 		gbc.anchor = GridBagConstraints.NORTH;
 	    gbc.weighty = 1;
-		this.setBackground(Color.BLACK);
 		uploadButton = new JButton("Upload timeline"); 
 		this.add(uploadButton, gbc);
 		downloadButton = new JButton("Download timeline"); 

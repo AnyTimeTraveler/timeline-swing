@@ -113,6 +113,7 @@ public class MainFrame extends JFrame {
 		this.newEventPanel.setBackground(this.orange);
 		this.importPanel = new ImportPanel();
 		this.newEventPanel.setBackground(this.orange);
+		this.importPanel.setBackground(this.orange);
 		this.welcomeLabel = new JLabel();
 
 		// Assign newEventPanel to workingpanel on init

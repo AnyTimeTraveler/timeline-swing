@@ -93,49 +93,41 @@ public class NewEventPanel extends JPanel{
 		//GridbagLayout init
 		GridBagLayout gbl = new GridBagLayout(); 
 		GridBagConstraints gbc = new GridBagConstraints(); 
+		int numberOfFields = 5; 
 		this.setLayout(gbl);
-		gbc.anchor = GridBagConstraints.WEST;
-
 		gbc.fill = GridBagConstraints.BOTH; 
 		gbc.gridx = 0; 
 		gbc.gridy = 0; 
 		gbc.weightx = 0.3; 
-		gbc.weighty = 1;
+		gbc.weighty = 1/numberOfFields;  
 		this.add(this.eventTitleLabel, gbc); 
-		gbc.fill = GridBagConstraints.HORIZONTAL; 
 		gbc.gridx = 1; 
 		gbc.weightx = 0.7; 
 		this.add(this.eventTitleField, gbc);
-		gbc.fill = GridBagConstraints.BOTH; 
 		gbc.gridx = 0; 
 		gbc.gridy = 1; 
 		gbc.weightx = 0.3; 
 		this.add(this.eventDescriptionLabel, gbc); 
-		gbc.fill = GridBagConstraints.HORIZONTAL; 
 		gbc.gridx = 1;
 		gbc.weightx = 0.7; 
 		this.add(this.eventDescriptionField, gbc); 
-		gbc.fill = GridBagConstraints.BOTH; 
 		gbc.gridx = 0; 
 		gbc.gridy = 2; 
 		gbc.weightx = 0.3; 
 		this.add(this.eventStartDateLabel, gbc);
-		gbc.fill = GridBagConstraints.HORIZONTAL; 
 		gbc.gridx = 1;
 		gbc.weightx = 0.7; 
 		this.add(this.eventStartDateField, gbc);
-		gbc.fill = GridBagConstraints.BOTH; 
 		gbc.gridx = 0; 
 		gbc.gridy = 3; 
 		gbc.weightx = 0.3; 
 		this.add(this.eventEndDateLabel, gbc); 
-		gbc.fill = GridBagConstraints.HORIZONTAL; 
 		gbc.gridx = 1;
 		gbc.weightx = 0.7; 
 		this.add(this.eventEndDateField, gbc); 
-		gbc.fill = GridBagConstraints.NONE; 
 		gbc.gridy = 4;
 		gbc.gridx = 0;
+		gbc.gridwidth = 2;
 		
 		this.add(this.saveEventButton, gbc);
 	}	
