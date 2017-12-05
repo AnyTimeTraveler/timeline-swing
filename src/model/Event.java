@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -26,7 +27,7 @@ public class Event implements Comparable<Event>{
 	/**
 	 * Id of the event
 	 */
-	private int id;
+	private String id;
 	/**
 	 * Start date of the event
 	 */
@@ -35,10 +36,6 @@ public class Event implements Comparable<Event>{
 	 * End date of the event
 	 */
 	private Date EndDate; 
-	/**
-	 * Id generator for the event
-	 */
-	private static AtomicInteger ID_GENERATOR;
 	
 	/**
 	 * Assigns parameters to variables and generates a new id, initializes an new List of {@link model.Actor}
@@ -48,12 +45,11 @@ public class Event implements Comparable<Event>{
 	 * @param endDate The end date of the event
 	 */
 	public Event(String title, String description, Date startDate, Date endDate) {
+		id = UUID.randomUUID().toString();
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
 		this.setTitle(title);
 		this.setDescription(description);
-		ID_GENERATOR = new AtomicInteger(1000);
-		this.id = ID_GENERATOR.getAndIncrement();
 		this.actors = new ArrayList<Actor>();
 	}
 	
@@ -66,6 +62,7 @@ public class Event implements Comparable<Event>{
 	 * @param endDate The end date of the event
 	 */
 	public Event(List<Actor> actors, String title, String description, Date startDate, Date endDate) {
+		id = UUID.randomUUID().toString();
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
 		this.setActors(actors); 
@@ -110,7 +107,7 @@ public class Event implements Comparable<Event>{
 	 * Get id of the event
 	 * @return int Id of the event
 	 */
-	public int getId(){
+	public String getId(){
 		return id; 
 	}
 	

@@ -26,7 +26,7 @@ public class Event{
 	/**
 	 * Id of the event
 	 */
-	public int id;
+	public String id;
 	/**
 	 * Start date of event
 	 */

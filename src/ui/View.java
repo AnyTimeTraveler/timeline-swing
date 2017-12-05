@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import ui.datasets.actor.Actor;
 import ui.datasets.timeline.Event;
 
 /**
@@ -28,8 +29,11 @@ public class View implements Observer{
 	/**
 	 * Initialise attributes
 	 */
-	public View(){
-		mainFrame = new MainFrame(); 
+	public View(String actorsJson){
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.create();
+		List<Actor> actors = gson.fromJson(actorsJson,  new TypeToken<ArrayList<Actor>>(){}.getType());
+		mainFrame = new MainFrame(actors); 
 	}
 	
 	/**
@@ -49,7 +53,6 @@ public class View implements Observer{
 		Gson gson = gsonBuilder.create();
 		List<Event> events = gson.fromJson(timelineJson,  new TypeToken<ArrayList<Event>>(){}.getType());
 		this.mainFrame.setEvents(events);
-		System.out.println("INIT HIERIN");
 	}
 	
 	/**
@@ -157,5 +160,11 @@ public class View implements Observer{
 		this.repaint();
 	}
 	
+	public void setActors(String actorsJson){
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.create();
+		List<Actor> actors = gson.fromJson(actorsJson,  new TypeToken<ArrayList<Actor>>(){}.getType());
+		this.mainFrame.setActors(actors);
+	}
 	
 }

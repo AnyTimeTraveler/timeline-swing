@@ -59,7 +59,7 @@ public class EventService{
 	 * Remove an {@link model.Event} with an id
 	 * @param id The id of the {@link model.Event}
 	 */
-	public void removeEvent(int id){
+	public void removeEvent(String id){
 		this.eventRepository.removeEvent(id);
 	}
 	
@@ -76,7 +76,7 @@ public class EventService{
 	 * @param id The id of the {@link model.Event} to get
 	 * @return {@link model.Event} The {@link model.Event} with the specified id
 	 */
-	public Event getEventById(int id){
+	public Event getEventById(String id){
 		return this.eventRepository.getEvent(id); 
 	}
 	

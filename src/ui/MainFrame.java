@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import ui.datasets.actor.Actor;
 import ui.datasets.timeline.Event;
 
 /**
@@ -75,7 +76,7 @@ public class MainFrame extends JFrame {
 	/**
 	 * Initialise config settings and {@link setLayoutContent}
 	 */
-	public MainFrame() {
+	public MainFrame(List<Actor> actors) {
 		super();
 		// Title of application/frame
 		this.setTitle("Timeline Jeroen Vandevenne");
@@ -84,10 +85,10 @@ public class MainFrame extends JFrame {
 		this.defaultColor = Color.WHITE;
 
 		// Set initial content
-		setLayoutContent();
+		setLayoutContent(actors);
 	}
 
-	private void setLayoutContent() {
+	private void setLayoutContent(List<Actor> actors) {
 
 		// Close Application properly
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -109,7 +110,7 @@ public class MainFrame extends JFrame {
 		// Initiate Components of the frame
 		this.timelinePanel = new TimelinePanel(frameDim.width, (int) (frameDim.height * 0.57));
 		this.buttonPanel = new ButtonPanel();
-		this.newEventPanel = new NewEventPanel();
+		this.newEventPanel = new NewEventPanel(actors);
 		this.newEventPanel.setBackground(this.orange);
 		this.importPanel = new ImportPanel();
 		this.newEventPanel.setBackground(this.orange);
@@ -143,6 +144,10 @@ public class MainFrame extends JFrame {
 		// Add workingpanel to frame
 		GridBagConstraints workingPanelGbc = getWorkingPanelGridBagConstraints();
 		this.getContentPane().add(workingPanel, workingPanelGbc);
+	}
+	
+	private void setLayout(){
+		
 	}
 
 	/**
@@ -343,5 +348,9 @@ public class MainFrame extends JFrame {
 	 */
 	public void colorRectangleWithcoordinates() {
 		this.timelinePanel.colorRectangleWithcoordinates();
+	}
+	
+	public void setActors(List<Actor> actors){
+		this.newEventPanel.setActors(actors); 
 	}
 }

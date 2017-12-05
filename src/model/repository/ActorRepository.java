@@ -24,11 +24,12 @@ public interface ActorRepository {
 	 * Remove an {@link model.Actor} with a specified id
 	 * @param id The id of the Actor
 	 */
-	public void removeActor(int id);
+	public void removeActor(String id);
 	/**
 	 * Get an {@link model.Actor} with a specified id
 	 * @param id The id of the {@link model.Actor} to get
 	 * @return Actor The Actor with the specified id
 	 */
-	public Actor getActor(int id);
+	public Actor getActor(String id);
+	public List<Actor> getAllActors(); 
 }

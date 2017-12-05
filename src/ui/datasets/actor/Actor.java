@@ -13,6 +13,6 @@ public class Actor {
 	/**
 	 * id of actor
 	 */
-	public int id; 
+	public String id; 
 	
 }

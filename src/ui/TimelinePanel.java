@@ -37,6 +37,10 @@ public class TimelinePanel extends JPanel {
 	 */
 	private int panelWidth;
 	/**
+	 * Height of timeline
+	 */
+	private int timelineHeight; 
+	/**
 	 * Color of the border of the timeline
 	 */
 	private Color blue; 
@@ -54,9 +58,9 @@ public class TimelinePanel extends JPanel {
 		super();	
 		blue = new Color(29, 84, 173);
 		this.events = new ArrayList<Event>();
-		this.panelHeight = (int)(panelHeight);
+		this.panelHeight = panelHeight;
 		this.panelWidth = 2000;
-		
+		this.timelineHeight = panelHeight-100; 
 	}
 	
 	/**
@@ -64,7 +68,7 @@ public class TimelinePanel extends JPanel {
 	 * @return int Y1 value of the timeline
 	 */
 	private int getTimelineY1(){
-		return this.panelHeight/2; 
+		return this.timelineHeight/2+(this.panelHeight-this.timelineHeight)/2; 
 	}
 	/**
 	 * Get The Y2 value of the timeline
@@ -101,7 +105,7 @@ public class TimelinePanel extends JPanel {
 	 */
 	private int getRectangleHeight(){
 		//rectangle rectangles equals 3/7th of timeline.
-		return (int) (this.panelHeight*(3.0/7.0)); 
+		return (int) (this.timelineHeight*(3.0/7.0)); 
 	}
 	/**
 	 * Get The X1 value of the rectangle. This is based on the order the the events
@@ -120,10 +124,10 @@ public class TimelinePanel extends JPanel {
 		int y1; 
 		switch(direction){
 		case "up":
-			y1 = this.getTimelineX1()-(this.getRectangleWidth()/2); 
+			y1 = this.getTimelineX1()-(this.getRectangleWidth()/2)+(this.panelHeight-this.timelineHeight)/2; 
 			break; 
 		case "down":
-			y1 = this.getTimelineX1()-(this.getRectangleWidth()/2)+this.getTimelineEventStripeHeight()*2+this.getRectangleHeight()+1; 
+			y1 = this.getTimelineX1()-(this.getRectangleWidth()/2)+this.getTimelineEventStripeHeight()*2+this.getRectangleHeight()+(this.panelHeight-this.timelineHeight)/2+1; 
 			break;
 		default: 
 			y1 =  this.getTimelineX1()-(this.getRectangleWidth()/2); 
@@ -137,7 +141,7 @@ public class TimelinePanel extends JPanel {
 	 */
 	private int getTimelineEventStripeHeight(){
 		//The timeline between the 2 rectangles equals 1/7th of timeline. The horizontal stripe is negligible
-		return (int) (this.panelHeight*(1.0/7.0)/2); 
+		return (int) (this.timelineHeight*(1.0/7.0)/2); 
 	}
 	/**
 	 * Get The X1 value of the stripe. This is based on the order the the events

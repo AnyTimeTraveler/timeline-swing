@@ -41,21 +41,23 @@ public class Controller {
 	 * @param view The view of the app
 	 * @param service The Service of the app
 	 */
-	public Controller(View view, Service service){
-		this.service = service; 
-		this.view = view; 
+	public Controller(){
+		this.service = new Service(); 
+		this.view = new View(service.getAllActors()); 
 		service.register(view);
-		
-		//Add initialize actionlisteners
-		this.addImportButtonActionListener(new ImportEventsButtonActionListener(this));
-		this.addAddNewEventButtonActionListener(new AddEventButtonActionListener(this));
-		this.saveNewEventButtonActionListener(new SaveNewEventActionListener(this));
-		this.addTimelineEventActionListener(new TimelineEventMouseListener(this));
-		this.addUploadFileActionListener(new UploadTimelineActionListener(this)); 
-		this.addDownloadTimelineActionListener(new DownloadTimelineActionListener(this));
-		
+	
 		//Get initial data from model into view
 		init();
+		
+	
+		//Add initialize actionlisteners
+		this.addImportButtonActionListener(new ImportEventsButtonActionListener(this));
+				this.addAddNewEventButtonActionListener(new AddEventButtonActionListener(this));
+				this.saveNewEventButtonActionListener(new SaveNewEventActionListener(this));
+				this.addTimelineEventActionListener(new TimelineEventMouseListener(this));
+				this.addUploadFileActionListener(new UploadTimelineActionListener(this)); 
+				this.addDownloadTimelineActionListener(new DownloadTimelineActionListener(this));
+				
 		
 		//Display UI
 		this.view.setVisible();
@@ -67,6 +69,9 @@ public class Controller {
 	public void init(){
 		System.out.println(this.service.getAllEvents());
 		view.setEvents(this.service.getAllEvents()); 
+
+		System.out.println(this.service.getAllActors());
+		view.setActors(this.service.getAllActors());
 	}
 	
 	/**

@@ -103,7 +103,7 @@ public class MemoryEventRepository implements EventRepository {
 	 * @param id The id of the event to remove
 	 */
 	@Override
-	public void removeEvent(int id) {
+	public void removeEvent(String id) {
 		try{
 			//Search through all events to find matching id
 			for(int i = 0;i<this.events.size() ; i++){
@@ -122,7 +122,7 @@ public class MemoryEventRepository implements EventRepository {
 	 * @return Event The event with the specified id
 	 */
 	@Override
-	public Event getEvent(int id) {
+	public Event getEvent(String id) {
 		try{
 			for(int i = 0;i<this.events.size() ; i++){
 				if(id == this.events.get(i).getId()){

@@ -88,7 +88,7 @@ public class Service implements Subject{
 	 * @param id
 	 * The id of the {@link model.Event}
 	 */
-	public void removeEvent(int id){
+	public void removeEvent(String id){
 			this.eventService.removeEvent(id);
 			this.notifyObservers();
 	}
@@ -109,7 +109,7 @@ public class Service implements Subject{
 	 * The id of the {@link model.Event}
 	 * @return String the event as JSON
 	 */
-	public String getEventById(int id){
+	public String getEventById(String id){
 		Gson gson = new Gson();
 		String jsonInString = gson.toJson(this.eventService.getEventById(id));
 		return jsonInString; 
@@ -132,10 +132,16 @@ public class Service implements Subject{
 	 * @return String actor in Json
 	 * 
 	 */
-	public String getActor(int id){
+	public String getActor(String id){
 		Gson gson = new Gson();
 		String jsonInString = gson.toJson(this.actorService.getActor(id));
 		return jsonInString;  
+	}
+	
+	public String getAllActors(){
+		Gson gson = new Gson();
+		String jsonInString = gson.toJson(this.actorService.getAllActors());
+		return jsonInString; 
 	}
 	
 	/**
@@ -143,7 +149,7 @@ public class Service implements Subject{
 	 * @param id
 	 * The id of the {@link model.Actor} to remove
 	 */
-	public void removeActor(int id){
+	public void removeActor(String id){
 		this.actorService.removeActor(id); 
 		notifyObservers(); 
 	}

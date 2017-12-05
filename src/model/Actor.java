@@ -1,6 +1,7 @@
 
 package model;
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 /**
 * @author  Jeroen Vandevenne
@@ -15,7 +16,7 @@ public class Actor {
 	/**
 	 * The id of the Actor
 	 */
-	private int id; 
+	private String id; 
 	/**
 	 * The id generator for the Actor
 	 */
@@ -27,8 +28,7 @@ public class Actor {
 	 */
 	public Actor(String name){
 		this.setName(name);
-		ID_GENERATOR = new AtomicInteger(1000);
-		this.id = ID_GENERATOR.getAndIncrement();
+		id = UUID.randomUUID().toString();
 	}
 	
 	/**
@@ -49,9 +49,9 @@ public class Actor {
 
 	/**
 	 * Get id of Actor
-	 * @return int Id of Actor
+	 * @return String Id of Actor
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -59,7 +59,7 @@ public class Actor {
 	 * Set new id for actor
 	 * @param id int Id for actor
 	 */
-	private void setId(int id) {
+	private void setId(String id) {
 		this.id = id;
 	}
 }

@@ -21,6 +21,12 @@ public class MemoryActorRepository implements ActorRepository{
 	 */
 	public MemoryActorRepository(){
 		this.actors = new ArrayList<Actor>(); 
+		Actor a1 = new Actor("Jane");
+		Actor a2 = new Actor("Dave");
+		Actor a3 = new Actor("Bob");
+		this.actors.add(a1); 
+		this.actors.add(a2); 
+		this.actors.add(a3); 
 	}
 	/**
 	 * Get all the stored {@link model.Actor}
@@ -48,7 +54,7 @@ public class MemoryActorRepository implements ActorRepository{
 	 * @param id The id of the Actor
 	 */
 	@Override
-	public void removeActor(int id) {
+	public void removeActor(String id) {
 		for(int i = 0;i<this.actors.size() ; i++){
 			if(actors.get(i).getId() == id){
 				this.actors.remove(i);
@@ -62,7 +68,7 @@ public class MemoryActorRepository implements ActorRepository{
 	 * @return Actor The Actor with the specified id
 	 */
 	@Override
-	public Actor getActor(int id) {
+	public Actor getActor(String id) {
 		for(int i = 0;i<this.actors.size() ; i++){
 			if(actors.get(i).getId() == id){ 
 				return this.actors.get(i); 
@@ -72,6 +78,9 @@ public class MemoryActorRepository implements ActorRepository{
 	}
 
 	
-	
+	@Override
+	public List<Actor> getAllActors(){
+		return this.actors; 
+	}
 	
 }

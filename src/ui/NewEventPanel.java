@@ -1,20 +1,24 @@
 package ui;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+
+import ui.datasets.actor.Actor;
 
 /**
  * @author Jeroen Vandevenne
@@ -58,19 +62,23 @@ public class NewEventPanel extends JPanel{
 	 * Button to save and add an event
 	 */
 	private JButton saveEventButton; 
-	
+	/**
+	 * {@link List} of all {@link ui.datasets.Actor}
+	 */
+	private List<Actor> actors; 
 	/**
 	 * Initialise fields and set config setting
 	 */
-	public NewEventPanel(){
+	public NewEventPanel(List<Actor> actors){
 		super(); 
-		this.eventTitleField = new JTextField();
-		this.eventDescriptionField = new JTextField();
+		this.eventTitleField = new JTextField(30);
+		this.eventDescriptionField = new JTextField(30);
 		this.eventTitleLabel = new JLabel("Title");
 		this.eventDescriptionLabel = new JLabel("Description");
 		this.eventStartDateLabel = new JLabel("Start Date"); 
 		this.eventEndDateLabel = new JLabel("End Date"); 
 		this.saveEventButton = new JButton("Save"); 
+		this.actors = actors; 
 		
 		//Initialize datepickers
 
@@ -89,48 +97,35 @@ public class NewEventPanel extends JPanel{
 		p.put("text.year", "Year");
 		datePanel = new JDatePanelImpl(model, p);
 		this.eventEndDateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		
-		//GridbagLayout init
-		GridBagLayout gbl = new GridBagLayout(); 
-		GridBagConstraints gbc = new GridBagConstraints(); 
-		int numberOfFields = 5; 
-		this.setLayout(gbl);
-		gbc.fill = GridBagConstraints.BOTH; 
-		gbc.gridx = 0; 
-		gbc.gridy = 0; 
-		gbc.weightx = 0.3; 
-		gbc.weighty = 1/numberOfFields;  
-		this.add(this.eventTitleLabel, gbc); 
-		gbc.gridx = 1; 
-		gbc.weightx = 0.7; 
-		this.add(this.eventTitleField, gbc);
-		gbc.gridx = 0; 
-		gbc.gridy = 1; 
-		gbc.weightx = 0.3; 
-		this.add(this.eventDescriptionLabel, gbc); 
-		gbc.gridx = 1;
-		gbc.weightx = 0.7; 
-		this.add(this.eventDescriptionField, gbc); 
-		gbc.gridx = 0; 
-		gbc.gridy = 2; 
-		gbc.weightx = 0.3; 
-		this.add(this.eventStartDateLabel, gbc);
-		gbc.gridx = 1;
-		gbc.weightx = 0.7; 
-		this.add(this.eventStartDateField, gbc);
-		gbc.gridx = 0; 
-		gbc.gridy = 3; 
-		gbc.weightx = 0.3; 
-		this.add(this.eventEndDateLabel, gbc); 
-		gbc.gridx = 1;
-		gbc.weightx = 0.7; 
-		this.add(this.eventEndDateField, gbc); 
-		gbc.gridy = 4;
-		gbc.gridx = 0;
-		gbc.gridwidth = 2;
-		
-		this.add(this.saveEventButton, gbc);
+		System.out.println("ACTORS = "+this.actors);
+		String[] actorsArray = getActorNames(this.actors);   
+		   JList list = new JList(actorsArray);
+		   list.setSelectionModel(new DefaultListSelectionModel() {
+			    @Override
+			    public void setSelectionInterval(int index0, int index1) {
+			        if(super.isSelectedIndex(index0)) {
+			            super.removeSelectionInterval(index0, index1);
+			        }
+			        else {
+			            super.addSelectionInterval(index0, index1);
+			        }
+			    }
+			});
+           int[] select = {19, 20, 22};
+           list.setSelectedIndices(select);
+          
+		this.add(new JScrollPane(list)); 
 	}	
+	
+	private String[] getActorNames(List<Actor> actorList){
+		String[] result= new String[actorList.size()];
+		int i = 0; 
+		for(Actor a : actorList){
+			result[i] = a.name; 
+			i++; 
+		}
+		return result; 
+	}
 	
 	/**
 	 * Add an {@link ActionListener} to the {@link saveEventButton}
@@ -168,5 +163,9 @@ public class NewEventPanel extends JPanel{
 		
 		//return the Map
 		return result; 
+	}
+	
+	public void setActors(List<Actor> actors){
+		this.actors = actors; 
 	}
 }

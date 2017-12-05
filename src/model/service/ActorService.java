@@ -1,5 +1,7 @@
 package model.service;
 
+import java.util.List;
+
 import model.Actor;
 import model.repository.ActorRepository;
 import model.repository.MemoryActorRepository;
@@ -43,7 +45,7 @@ public class ActorService {
 	 * @param id Id of the Actor to get
 	 * @return model.Actor The {@link model.Actor} with the specified id
 	 */
-	public Actor getActor(int id){
+	public Actor getActor(String id){
 		return this.actorRepository.getActor(id); 
 	}
 	
@@ -51,8 +53,12 @@ public class ActorService {
 	 * Remove an {@link model.Actor} with a specified id
 	 * @param id The id of the {@link model.Actor} to remove
 	 */
-	public void removeActor(int id){
+	public void removeActor(String id){
 		this.actorRepository.removeActor(id); 
+	}
+	
+	public List<Actor> getAllActors(){
+		return this.actorRepository.getAllActors(); 
 	}
 	
 }

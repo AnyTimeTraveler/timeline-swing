@@ -20,15 +20,15 @@ public interface EventRepository {
 	public void addEvent(Event event);
 	/**
 	 * Remove the event with the specified id
-	 * @param id The id of the event to remove
+	 * @param String The id of the event to remove
 	 */
-	public void removeEvent(int id);
+	public void removeEvent(String id);
 	/**
 	 * Get the event with the specified id
-	 * @param id The id of the event to get
+	 * @param String The id of the event to get
 	 * @return Event The event with the specified id
 	 */
-	public Event getEvent(int id);
+	public Event getEvent(String id);
 	/**
 	 * Add {@link List}&lt;{@link model.Event}&gt;
 	 */
