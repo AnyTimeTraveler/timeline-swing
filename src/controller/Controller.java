@@ -3,6 +3,9 @@ package controller;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,6 +15,7 @@ import com.google.gson.Gson;
 
 import controller.actionlisteners.navigation.AddEventButtonActionListener;
 import controller.actionlisteners.navigation.ImportEventsButtonActionListener;
+import controller.actionlisteners.workingpanel.DownloadTimelineActionListener;
 import controller.actionlisteners.workingpanel.SaveNewEventActionListener;
 import controller.actionlisteners.workingpanel.UploadTimelineActionListener;
 import controller.mouselisteners.TimelineEventMouseListener;
@@ -48,6 +52,7 @@ public class Controller {
 		this.saveNewEventButtonActionListener(new SaveNewEventActionListener(this));
 		this.addTimelineEventActionListener(new TimelineEventMouseListener(this));
 		this.addUploadFileActionListener(new UploadTimelineActionListener(this)); 
+		this.addDownloadTimelineActionListener(new DownloadTimelineActionListener(this));
 		
 		//Get initial data from model into view
 		init();
@@ -184,4 +189,24 @@ public class Controller {
 	public void colorRectangleWithcoordinates(){
 		this.view.colorRectangleWithcoordinates(); 
 	}
+	
+	/**
+	 * Add {@link ActionListener} to the {@link View}
+	 * @param downloadTimelineActionListener The {@link ActionListener} for the view
+	 */
+	public void addDownloadTimelineActionListener(ActionListener downloadTimelineActionListener){
+		this.view.addDownloadTimelineActionListener(downloadTimelineActionListener);
+	}
+	
+	public void saveTimeline(String absolutePathDestination){
+		File file = new File(absolutePathDestination+".json");
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(absolutePathDestination+".json"))) {
+
+			String jsonToWrite = this.service.getAllEvents();
+
+			bw.write(jsonToWrite);
+	}catch(Exception e){
+		System.out.println(e.getMessage());
+	}
+}
 }

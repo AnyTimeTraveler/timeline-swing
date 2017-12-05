@@ -85,6 +85,14 @@ public class View implements Observer{
 	}
 	
 	/**
+	 * Add an {@link ActionListener} to the {@link mainFrame}
+	 * @param downloadTimelineActionListener The Action Listener for the {@link mainFrame}
+	 */
+	public void addDownloadTimelineActionListener(ActionListener downloadTimelineActionListener){
+		this.mainFrame.addDownloadTimelineActionListener(downloadTimelineActionListener);
+	}
+	
+	/**
 	 * Change {@link ui.MainFrame#workingPanel} to {@link ui.MainFrame#newEventPanel} and repaint
 	 */
 	public void changeToAddNewEventPanel(){

@@ -43,7 +43,7 @@ public class ButtonPanel extends JPanel {
 	    this.addEventButton = this.getButton("Add Event");
 	    this.add(addEventButton);
 
-	    this.importEventsButton = this.getButton("Import Events");
+	    this.importEventsButton = this.getButton("Import/Export Timeline");
 	    this.add(importEventsButton );
 	    
 	}

@@ -260,7 +260,7 @@ public class TimelinePanel extends JPanel {
 		 g2.setStroke(new BasicStroke(4.0f));
 
 		//Draw horizontal Timeline line
-			g2.draw(new Line2D.Double(this.getTimelineX1(), this.getTimelineY1(), this.getTimelineX2(), this.getTimelineY2()));
+		g2.draw(new Line2D.Double(this.getTimelineX1(), this.getTimelineY1(), this.getTimelineX2(), this.getTimelineY2()));
 			
 		 
 		boolean isOdd = false; 

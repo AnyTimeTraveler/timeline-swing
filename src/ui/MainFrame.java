@@ -287,6 +287,14 @@ public class MainFrame extends JFrame {
 	
 	/**
 	 * Add an {@link ActionListener} to the {@link newEventPanel}
+	 * @param downloadTimelineActionListener The Action Listener for the {@link newEventPanel}
+	 */
+	public void addDownloadTimelineActionListener(ActionListener downloadTimelineActionListener) {
+		this.importPanel.addDownloadTimelineActionListener(downloadTimelineActionListener);
+	}
+	
+	/**
+	 * Add an {@link ActionListener} to the {@link newEventPanel}
 	 * @param uploadFileActionListener The Action Listener for the {@link newEventPanel}
 	 */
 	public void addUploadFileActionListener(ActionListener uploadFileActionListener) {
