@@ -14,6 +14,7 @@ public class RepositoryException extends RuntimeException{
 
 	/**
 	 * Constructor with message
+	 * @param message A shown when Exception triggred
 	 */
 	public RepositoryException(String message){
 		super(message); 
@@ -21,6 +22,7 @@ public class RepositoryException extends RuntimeException{
 	
 	/**
 	 * Constructor with throwable
+	 * @param throwable Throwable to add to Exception
 	 */
 	public RepositoryException(Throwable throwable){
 		super(throwable); 
@@ -28,6 +30,8 @@ public class RepositoryException extends RuntimeException{
 	
 	/**
 	 * Constructor with params and throwable
+	 * @param message A shown when Exception triggred
+	 * @param throwable Throwable to add to Exception
 	 */
 	public RepositoryException(String message, Throwable throwable){
 		super(message, throwable); 

@@ -13,7 +13,7 @@ import controller.Controller;
 public class TimelineEventMouseListener implements MouseListener   {
 
 	/**
-	 * The {@link Controller} of the {@link App}
+	 * The {@link Controller} of the {@link app.App}
 	 */
 	private Controller controller; 
 	

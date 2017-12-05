@@ -5,11 +5,24 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.swing.JFormattedTextField.AbstractFormatter;
-
+/**
+* @author  Jeroen Vandevenne
+* @version 1.0
+*/
 public class DateLabelFormatter extends AbstractFormatter {
 
-	  private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+	/**
+	 *	Format for the date
+	 */
+	  private SimpleDateFormat dateFormatter; 
 
+	  /**
+	   * Initialises {@link dateFormatter}
+	   */
+	  public DateLabelFormatter(){
+		  dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+	  }
+	
 	    @Override
 	    public Object stringToValue(String text) throws ParseException {
 	        return dateFormatter.parseObject(text);

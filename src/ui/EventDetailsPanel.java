@@ -15,15 +15,37 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import ui.datasets.timeline.Event;
-
+/**
+* @author  Jeroen Vandevenne
+* @version 1.0
+*/
 public class EventDetailsPanel extends JPanel{
 
+	/**
+	 * Label for event title
+	 */
 	private JLabel eventTitleLabel; 
-	private JLabel eventDescriptionLabel; 
-	private JLabel eventStartDateLabel; 
+	/**
+	 * Label for event description
+	 */
+	private JLabel eventDescriptionLabel;
+	/**
+	 * Label for event start date
+	 */
+	private JLabel eventStartDateLabel;
+	/**
+	 * Label for event end date
+	 */
 	private JLabel eventEndDateLabel; 
+	/**
+	 * {@link List} that stores the events ordered by year
+	 */
 	private List<Event> eventsInSpecificYear; 
 	
+	/**
+	 * Initates the {@link eventsInSpecificYear}, sets the {@link java.awt.GridBagConstraints} and {@link java.awt.GridBagLayout}
+	 * @param eventsInSpecificYear
+	 */
 	public EventDetailsPanel(List<Event> eventsInSpecificYear){
 		super(); 
 		this.eventsInSpecificYear = eventsInSpecificYear; 
