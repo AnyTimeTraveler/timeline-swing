@@ -84,8 +84,8 @@ public class EventService{
 	public void addEvents(String eventsToAddInJson){
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		Gson gson = gsonBuilder.create();
-		Map<Integer, Event> events = gson.fromJson(eventsToAddInJson,  new TypeToken<ArrayList<Event>>(){}.getType());
-		//this.eventRepository.addEvents(events); 
+		Map<Integer, List<Event>> events = gson.fromJson(eventsToAddInJson,  new TypeToken<Map<Integer, List<Event>>>(){}.getType());
+		this.eventRepository.addEvents(events); 
 	}
 
 	public String getEventsByYear(int year){
