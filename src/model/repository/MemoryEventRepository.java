@@ -1,12 +1,12 @@
 package model.repository;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
-import model.Actor;
 import model.Event;
 import model.repository.exception.RepositoryException;
 /**
@@ -18,39 +18,42 @@ public class MemoryEventRepository implements EventRepository {
 	/**
 	 * {@link List} to store all events
 	 */
-	private List<Event> events; 
+	private Map<Integer, List<Event>> events; 
 	
 	/**
 	 * Initialise the {@link List}&lt;{@link model.Event}&gt; events, add sample data, sort the List
 	 */
 	public MemoryEventRepository(){
 		//Inititale Arraylist of Events
-		this.events = new ArrayList<Event>(); 
+		this.events = new TreeMap<Integer, List<Event>>(); 
 		//add sample events
-		Date myDate = this.getRandomDate(); 
+		/*Date myDate = this.getRandomDate(); 
 		Event event1A = new Event("KingsDay in London", "This is the first event", myDate, this.getRandomDate());
+		Actor a1 = new Actor("Jane", "1");
+		event1A.addActor(a1.getId());
 		Event event1B = new Event("Another event special", "This is the first event", myDate, this.getRandomDate());
+		Actor a2 = new Actor("Dave", "1");
+		Actor BAAAAA = new Actor("Herald", "1");
+		event1B.addActor(BAAAAA.getId());
 		Event event1C = new Event("KingsDay in London", "This is the first event", myDate, this.getRandomDate());
-		Event event1D = new Event("Another event special", "This is the first event", myDate, this.getRandomDate());
-		Event event1E = new Event("KingsDay in London", "This is the first event", myDate, this.getRandomDate());
-		Event event1F = new Event("Another event special", "This is the first event", myDate, this.getRandomDate());
+		Actor a3 = new Actor("Bob", "1");
+		event1C.addActor(a3.getId());
 		this.addEvent(event1A);
 		this.addEvent(event1B);
-		this.addEvent(event1C);
-		this.addEvent(event1D);
-		this.addEvent(event1E);
-		this.addEvent(event1F);
-		Event event2 = new Event("Incredible party", "This is the second event", this.getRandomDate(), this.getRandomDate());
+		this.addEvent(event1C);*/
+		Date myDate = this.getRandomDate(); 
+		Event event2 = new Event("AAAAAAAAA", "This is the second event",myDate, this.getRandomDate());
 		this.addEvent(event2);
-		Event event3 = new Event("Lalaland movie release", "This is the thrid event", this.getRandomDate(), this.getRandomDate());
+		Event event2B = new Event("A2A2A2A2A2A2A2A", "This is the second event",myDate, this.getRandomDate());
+		this.addEvent(event2B);
+		Event event3 = new Event("BBBBBBBBBB", "This is the thrid event", this.getRandomDate(), this.getRandomDate());
 		this.addEvent(event3);
-		Event event4 = new Event("Emmy awards", "This is the first event", this.getRandomDate(),this.getRandomDate());
+		Event event4 = new Event("CCCCCCCCCCCCC", "This is the first event", this.getRandomDate(),this.getRandomDate());
 		this.addEvent(event4);
-		Event event5 = new Event("Birthday John", "This is the second event", this.getRandomDate(), this.getRandomDate());
+		Event event5 = new Event("DDDDDDDDDDDD", "This is the second event", this.getRandomDate(), this.getRandomDate());
 		this.addEvent(event5);
-		Event event6 = new Event("Special day Queen", "This is the thrid event", this.getRandomDate(), this.getRandomDate());
+		Event event6 = new Event("EEEEEEEEEEEEEE", "This is the thrid event", this.getRandomDate(), this.getRandomDate());
 		this.addEvent(event6);
-		Collections.sort(events);
 	}
 	
 	
@@ -79,8 +82,7 @@ public class MemoryEventRepository implements EventRepository {
 	 * @return {@link List}&lt;{@link model.Event}&gt;
 	 */
 	@Override
-	public List<Event> getEvents() {
-		
+	public Map<Integer, List<Event>> getEvents() {
 		return this.events;
 	}
 
@@ -91,12 +93,18 @@ public class MemoryEventRepository implements EventRepository {
 	@Override
 	public void addEvent(Event event) {
 		try{
-			this.events.add(event);
+			if(this.events.containsKey(event.getStartYear())){
+				this.events.get(event.getStartYear()).add(event); 
+			}else{
+				List<Event> eventsFromNewYear = new ArrayList<Event>(); 
+				eventsFromNewYear.add(event);
+				this.events.put(event.getStartYear(), eventsFromNewYear); 
+			}
 		}catch(RepositoryException e){
 			System.out.println("Error" + e.getMessage());
 		}
 	}
-
+	
 	/**
 	 * Remove the event with the specified id
 	 * @param id The id of the event to remove
@@ -104,11 +112,12 @@ public class MemoryEventRepository implements EventRepository {
 	@Override
 	public void removeEvent(String id) {
 		try{
-			//Search through all events to find matching id
-			for(int i = 0;i<this.events.size() ; i++){
-				if(id == this.events.get(i).getId()){
-				this.events.remove(i);
-						}
+			for(int key: this.events.keySet()){
+				for(int i = 0;i<this.events.get(key).size() ; i++){
+					if(this.events.get(key).get(i).getId() == id){
+						this.events.get(key).remove(i);
+					}
+				}
 			}
 		}catch(RepositoryException e){
 			System.out.println("Error" + e.getMessage());
@@ -123,22 +132,29 @@ public class MemoryEventRepository implements EventRepository {
 	@Override
 	public Event getEvent(String id) {
 		try{
-			for(int i = 0;i<this.events.size() ; i++){
-				if(id == this.events.get(i).getId()){
-				return this.events.get(i);
+			for(int key: this.events.keySet()){
+				for(int i = 0;i<this.events.get(key).size() ; i++){
+					if(this.events.get(key).get(i).getId() == id){
+						return this.events.get(key).get(i); 
+					}
 				}
 			}
 		}catch(RepositoryException e){
-			System.out.println("Error: "+e.getMessage());
-			return null; 
+			System.out.println("Error" + e.getMessage());
 		}
 		return null; 
 	}
 
 
 	@Override
-	public void addEvents(List<Event> events) {
+	public void addEvents(Map<Integer, List<Event>> events) {
 		this.events = events; 
+	}
+
+
+	@Override
+	public List<Event> getEventsByYear(int year) {
+		return this.events.get(year); 
 	}
 
 }

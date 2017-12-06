@@ -18,8 +18,6 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import ui.datasets.actor.Actor;
-
 /**
  * @author Jeroen Vandevenne
  * @version 1.0
@@ -65,11 +63,11 @@ public class NewEventPanel extends JPanel{
 	/**
 	 * {@link List} of all {@link ui.datasets.Actor}
 	 */
-	private List<Actor> actors; 
+	private String actors; 
 	/**
 	 * Initialise fields and set config setting
 	 */
-	public NewEventPanel(List<Actor> actors){
+	public NewEventPanel(){
 		super(); 
 		this.eventTitleField = new JTextField(30);
 		this.eventDescriptionField = new JTextField(30);
@@ -97,7 +95,10 @@ public class NewEventPanel extends JPanel{
 		p.put("text.year", "Year");
 		datePanel = new JDatePanelImpl(model, p);
 		this.eventEndDateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		System.out.println("ACTORS = "+this.actors);
+	}	
+	
+	public void build(String actorsJson){
+		/*
 		String[] actorsArray = getActorNames(this.actors);   
 		   JList list = new JList(actorsArray);
 		   list.setSelectionModel(new DefaultListSelectionModel() {
@@ -111,12 +112,13 @@ public class NewEventPanel extends JPanel{
 			        }
 			    }
 			});
-           int[] select = {19, 20, 22};
-           list.setSelectedIndices(select);
-          
+        int[] select = {19, 20, 22};
+        list.setSelectedIndices(select);
+       
 		this.add(new JScrollPane(list)); 
-	}	
-	
+		*/
+	}
+	/*
 	private String[] getActorNames(List<Actor> actorList){
 		String[] result= new String[actorList.size()];
 		int i = 0; 
@@ -126,6 +128,7 @@ public class NewEventPanel extends JPanel{
 		}
 		return result; 
 	}
+	*/
 	
 	/**
 	 * Add an {@link ActionListener} to the {@link saveEventButton}
@@ -165,7 +168,9 @@ public class NewEventPanel extends JPanel{
 		return result; 
 	}
 	
+	/*
 	public void setActors(List<Actor> actors){
 		this.actors = actors; 
 	}
+	*/
 }

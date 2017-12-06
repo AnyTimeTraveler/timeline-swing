@@ -12,9 +12,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import ui.datasets.actor.Actor;
-import ui.datasets.timeline.Event;
-
 /**
  * @author Jeroen Vandevenne
  * @version 1.0
@@ -24,16 +21,10 @@ public class View implements Observer{
 	/**
 	 * The main frame
 	 */
-	private MainFrame mainFrame; 
+	private MainFrame mainFrame;  
 	
-	/**
-	 * Initialise attributes
-	 */
-	public View(String actorsJson){
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		Gson gson = gsonBuilder.create();
-		List<Actor> actors = gson.fromJson(actorsJson,  new TypeToken<ArrayList<Actor>>(){}.getType());
-		mainFrame = new MainFrame(actors); 
+	public View(){
+		mainFrame = new MainFrame();
 	}
 	
 	/**
@@ -49,10 +40,7 @@ public class View implements Observer{
 	 * @param timelineJson events in JSON format
 	 */
 	public void setEvents(String timelineJson){
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		Gson gson = gsonBuilder.create();
-		List<Event> events = gson.fromJson(timelineJson,  new TypeToken<ArrayList<Event>>(){}.getType());
-		this.mainFrame.setEvents(events);
+		this.mainFrame.setEvents(timelineJson);
 	}
 	
 	/**
@@ -147,9 +135,12 @@ public class View implements Observer{
 	 * @param x X coordinated that was clicked
 	 * @param y Y coordinated that was clicked
 	 */
-	public void setEventDetailsPanelByCoordinates(int x, int y){
-		this.mainFrame.setEventDetailsPanelByCoordinates(x, y);
+	public void setEventDetails(String eventsOfSpecificYear){
+		this.mainFrame.setEventDetails(eventsOfSpecificYear);
 		this.repaint();
+	}
+	public int getEventYearByCoordinates(int x, int y){
+		return this.mainFrame.getEventYearByCoordinates(x, y); 
 	}
 	
 	/**
@@ -161,10 +152,9 @@ public class View implements Observer{
 	}
 	
 	public void setActors(String actorsJson){
-		GsonBuilder gsonBuilder = new GsonBuilder();
+		/*GsonBuilder gsonBuilder = new GsonBuilder();
 		Gson gson = gsonBuilder.create();
 		List<Actor> actors = gson.fromJson(actorsJson,  new TypeToken<ArrayList<Actor>>(){}.getType());
-		this.mainFrame.setActors(actors);
+		this.mainFrame.setActors(actors);*/
 	}
-	
 }

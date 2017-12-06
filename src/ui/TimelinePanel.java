@@ -3,20 +3,25 @@ package ui;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
-import java.text.SimpleDateFormat;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.swing.JPanel;
 
-import ui.datasets.timeline.Event;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author Jeroen Vandevenne
@@ -27,7 +32,7 @@ public class TimelinePanel extends JPanel {
 	/**
 	 * List with all the events to display on the timeline. Using the view side dataset {@link ui.datasets.timeline.Event}
 	 */
-	private List<Event> events; 
+	private String events; 
 	/**
 	 * Height of the TimelinePanel
 	 */
@@ -57,7 +62,6 @@ public class TimelinePanel extends JPanel {
 	public TimelinePanel(int panelWidth, int panelHeight) {
 		super();	
 		blue = new Color(29, 84, 173);
-		this.events = new ArrayList<Event>();
 		this.panelHeight = panelHeight;
 		this.panelWidth = 2000;
 		this.timelineHeight = panelHeight-100; 
@@ -193,7 +197,9 @@ public class TimelinePanel extends JPanel {
 	 * @return int width of one event
 	 */
 	private int getEventWidth(){
-		return this.panelWidth/this.getEventsPerYear().size(); 
+		JsonElement root = new JsonParser().parse(this.events);
+		int size = root.getAsJsonObject().entrySet().size(); 
+		return this.panelWidth/size; 
 	}
 	
 	/**
@@ -214,39 +220,16 @@ public class TimelinePanel extends JPanel {
 		int y1; 
 		switch(direction){ 
 			case "up": 
-				y1 = this.getTimelineEventStripeY1() +20; 
+				y1 = this.getTimelineEventStripeY1(); 
 				break; 
 			case "down": 
-				y1 = this.getTimelineEventStripeY1() -10; 
+				y1 = this.getTimelineEventStripeY1(); 
 				break; 
 			default: 
-				y1 = this.getTimelineEventStripeY1() +10; 
+				y1 = this.getTimelineEventStripeY1(); 
 		}
 			
 		return y1; 
-	}
-	
-	
-	
-	/**
-	 * Get Data as a map ordered by year (key) where the value is a list of the events in that year
-	 * @return {@link Map}&lt;{@link Integer},{@link List}&lt;{@link ui.datasets.timeline.Event}&gt;&gt;
-	 */
-	private Map<Integer, List<Event>> getEventsPerYear(){
-		//Use of Treemap to achieve sorted values
-		Map<Integer, List<Event>> eventsPerYear= new TreeMap<Integer, List<Event>>();
-		for(Event event : this.events){
-			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy");
-			int year = Integer.parseInt(sdf2.format(event.startDate));
-			if(eventsPerYear.containsKey(year)){
-				eventsPerYear.get(year).add(event);
-			}else{
-				List<Event> newYearList = new ArrayList<Event>();
-				newYearList.add(event);
-				eventsPerYear.put(year, newYearList);
-			}
-		}		
-		return eventsPerYear; 
 	}
 
 	@Override
@@ -257,6 +240,7 @@ public class TimelinePanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		
 		g2 = (Graphics2D) g;
 		
 		// Set timeline color
@@ -265,13 +249,30 @@ public class TimelinePanel extends JPanel {
 
 		//Draw horizontal Timeline line
 		g2.draw(new Line2D.Double(this.getTimelineX1(), this.getTimelineY1(), this.getTimelineX2(), this.getTimelineY2()));
+
+		/*************JSON EXAMPLE****************/
+		JsonElement root = new JsonParser().parse(this.events);
+/*
+		for (Map.Entry<String,JsonElement> entry : root.getAsJsonObject().entrySet()) {
+			System.out.println("KEY : "+ entry.getKey());
+		   System.out.println("FIRST : "+ entry.getValue().getAsJsonArray());
+			for(int index = 0;index< entry.getValue().getAsJsonArray().size(); index++){
+				JsonArray array =  entry.getValue().getAsJsonArray(); 
+		    	System.out.println("HIEREEE: "+array.get(index).getAsJsonObject().get("title").toString()); 
+		    }
+			//JsonObject array = entry.getKey()
 			
-		 
+			//System.out.println(array.getAsJsonObject().get("actorsIds"));
+			
+			
+		}*/
+		/*************JSON EXAMPLE - END****************/
 		boolean isOdd = false; 
 		int i = 0;
-		for (Map.Entry<Integer, List<Event>> entry : this.getEventsPerYear().entrySet())
+		for (Map.Entry<String,JsonElement> entry : root.getAsJsonObject().entrySet()) {
 		{
-		    if (isOdd) {
+			System.out.println("#loop = "+i);
+			if (isOdd) {
 		    
 		    	//Draw vertical stripe
 				g2.draw(new Line2D.Double(this.getTimelineEventStripeX1(i), this.getTimelineEventStripeY1(),
@@ -289,17 +290,19 @@ public class TimelinePanel extends JPanel {
 				g2.draw(roundedRectangle);
 		    
 				//Draw year
-				g2.drawString(String.valueOf(entry.getKey()), this.getYearLabelX1(i)-15, this.getYearLabelY1("down"));
+				Font fontToReset = g2.getFont(); 
+				g.setFont(new Font("Arial", Font.BOLD, 20)); 
+				int yearWidth = g2.getFontMetrics().stringWidth(String.valueOf(entry.getKey())); 
+				int yearPaddingBottom = 20; 
+				g2.drawString(String.valueOf(entry.getKey()), this.getYearLabelX1(i)-yearWidth/2, this.getYearLabelY1("down")-yearPaddingBottom);
+				g2.setFont(fontToReset);
 				
-				
-				for(int event_i=0; event_i<entry.getValue().size(); event_i++){
-					//Draw text in rectangle
-					SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
-					String dateString = sdf1.format(entry.getValue().get(event_i).startDate);
-					g2.drawString(dateString+" : "+entry.getValue().get(event_i).title, this.getRectangleX1(i)+10, this.getRectangleY1("down")+event_i*20+20);			
-				}
-				
-				
+
+			for(int index = 0;index< entry.getValue().getAsJsonArray().size(); index++){
+					JsonArray array =  entry.getValue().getAsJsonArray(); 
+					String dateString = array.get(index).getAsJsonObject().get("title").toString(); 
+					g2.drawString(dateString, this.getRectangleX1(i)+10, this.getRectangleY1("down")+index*20+20);
+			 }
 				
 				}else{
 					//Draw vertical stripe
@@ -319,17 +322,20 @@ public class TimelinePanel extends JPanel {
 					
 			    
 					//Draw year
-					g2.drawString(String.valueOf(entry.getKey()), this.getYearLabelX1(i)-15, this.getYearLabelY1("up"));
-					
-					for(int event_i=0; event_i<entry.getValue().size(); event_i++){
-						
-						
-						
-						//Draw text in rectangle
-						SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
-						String dateString = sdf1.format(entry.getValue().get(event_i).startDate);
-						g2.drawString(dateString+" : "+entry.getValue().get(event_i).title, this.getRectangleX1(i)+10, this.getRectangleY1("up")+event_i*20+20);			
-					}
+					Font fontToReset = g2.getFont(); 
+					Font yearFont = new Font("Arial", Font.BOLD, 20); 
+					g2.setFont(yearFont); 
+					int yearWidth = g2.getFontMetrics().stringWidth(String.valueOf(entry.getKey()));
+					int yearHeight = (int) yearFont.createGlyphVector(g2.getFontRenderContext(), String.valueOf(entry.getKey())).getVisualBounds().getHeight();
+					int yearPaddingBottom = 20; 
+					g2.drawString(String.valueOf(entry.getKey()), this.getYearLabelX1(i)-yearWidth/2, this.getYearLabelY1("up")+yearPaddingBottom+yearHeight);
+					g2.setFont(fontToReset);
+					//Draw text in rectangles
+				for(int index = 0;index< entry.getValue().getAsJsonArray().size(); index++){
+						JsonArray array =  entry.getValue().getAsJsonArray(); 
+						String dateString = array.get(index).getAsJsonObject().get("title").toString(); 
+						g2.drawString(dateString, this.getRectangleX1(i)+10, this.getRectangleY1("up")+index*20+20);
+				 }
 					
 				}
 		    
@@ -342,13 +348,14 @@ public class TimelinePanel extends JPanel {
 		    	isOdd = false;
 		    }
 		}
+		}
 	}
 
 	/**
 	 * Set a new {@link List}&lt;{@link ui.datasets.timeline.Event}&gt;
 	 * @param events New {@link List}&lt;{@link ui.datasets.timeline.Event}&gt;
 	 */
-	public void setEvents(List<Event> events) {
+	public void setEvents(String events) {
 		this.events = events;
 	}
 	
@@ -366,11 +373,11 @@ public class TimelinePanel extends JPanel {
 	 * @param y Y coordinate on TimelinePanel
 	 * @return {@link List}&lt;{@link ui.datasets.timeline.Event}&gt; The List of events in specified year
 	 */
-	public List<Event> getEventYearByCoordinates(int x, int y){
+	public int getEventYearByCoordinates(int x, int y){
 		boolean isOdd = false; 
 		int i = 0;
-		for (Map.Entry<Integer, List<Event>> entry : this.getEventsPerYear().entrySet())
-		{
+		JsonElement root = new JsonParser().parse(this.events);
+		for (Map.Entry<String,JsonElement> entry : root.getAsJsonObject().entrySet()) {
 			int xMinValue =this.getRectangleX1(i); 
 	    	int xMaxValue = this.getRectangleX1(i)+this.getRectangleWidth(); 
 			int yMinValue = 0; 
@@ -385,19 +392,18 @@ public class TimelinePanel extends JPanel {
 		    }
 		    
 		    if(x>=xMinValue && x<=xMaxValue && y>=yMinValue && y<=yMaxValue){
-		    	return  entry.getValue(); 
+		    	return  Integer.parseInt(entry.getKey()); 
 		    }
-		  
-	    i++;
-	    if(isOdd == false){
-	    	isOdd = true; 
-	    }
-	    else{
-	    	isOdd = false;
-	    }
-	  
-	}
-		 return null; 
+		    i++;
+		    if(isOdd == false){
+		    	isOdd = true; 
+		    }
+		    else{
+		    	isOdd = false;
+		    }
+		}
+		
+		return 0; 
 	}
 	
 	/**

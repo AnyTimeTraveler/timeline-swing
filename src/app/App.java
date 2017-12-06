@@ -9,12 +9,24 @@ import ui.View;
 */
 public class App {
 
+	/**
+	 * The {@link View} of the app
+	 */
+	private View view;
+	/**
+	 * The {@link Service} of the app
+	 */
+	private Service service; 
+	
+	
 	private Controller controller; 
 	
 	/**
 	 * Initialises the {@link View}, {@link Service} and {@link Controller}   
 	 */
 	public App(){
-		controller = new Controller(); 
+		this.service = new Service(); 
+		this.view = new View(); 
+		controller = new Controller(view, service); 
 	}
 }

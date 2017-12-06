@@ -31,7 +31,7 @@ public class TimelineEventMouseListener implements MouseListener   {
 	 */
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		controller.colorRectangleWithcoordinates(); 
+		//controller.colorRectangleWithcoordinates(); 
 	}
 
 	/**

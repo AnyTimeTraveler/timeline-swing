@@ -3,6 +3,7 @@ package model.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -67,7 +68,7 @@ public class EventService{
 	 * Get all {@link model.Event}
 	 * @return {@link List}&lt;{@link model.Event}&gt; List of All stored event
 	 */
-	public List<Event> getAllEvents(){
+	public Map<Integer, List<Event>> getAllEvents(){
 		return this.eventRepository.getEvents(); 
 	}
 	
@@ -83,10 +84,16 @@ public class EventService{
 	public void addEvents(String eventsToAddInJson){
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		Gson gson = gsonBuilder.create();
-		List<Event> events = gson.fromJson(eventsToAddInJson,  new TypeToken<ArrayList<Event>>(){}.getType());
-		this.eventRepository.addEvents(events); 
+		Map<Integer, Event> events = gson.fromJson(eventsToAddInJson,  new TypeToken<ArrayList<Event>>(){}.getType());
+		//this.eventRepository.addEvents(events); 
 	}
 
+	public String getEventsByYear(int year){
+		Gson gson = new Gson();
+		String jsonInString = gson.toJson(this.eventRepository.getEventsByYear(year));
+		return jsonInString;  
+	}
 }
+
 
 

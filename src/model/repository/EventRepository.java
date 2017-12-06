@@ -1,6 +1,7 @@
 package model.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import model.Event;
 /**
@@ -12,7 +13,7 @@ public interface EventRepository {
 	 * Get all the stored events
 	 * @return {@link List}&lt;{@link model.Event}&gt;
 	 */
-	public List<Event> getEvents(); 
+	public Map<Integer, List<Event>> getEvents(); 
 	/**
 	 * Add a new event
 	 * @param event The new event to add
@@ -32,6 +33,7 @@ public interface EventRepository {
 	/**
 	 * Add {@link List}&lt;{@link model.Event}&gt;
 	 */
-	public void addEvents(List<Event> events); 
+	public void addEvents(Map<Integer, List<Event>> events); 
+	public List<Event> getEventsByYear(int year); 
 }
 

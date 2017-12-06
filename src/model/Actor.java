@@ -17,10 +17,6 @@ public class Actor {
 	 * The id of the Actor
 	 */
 	private String id; 
-	/**
-	 * The id generator for the Actor
-	 */
-	private static AtomicInteger ID_GENERATOR;
 
 	/**
 	 * Creates an Actor with a name and generate an id
@@ -29,6 +25,15 @@ public class Actor {
 	public Actor(String name){
 		this.setName(name);
 		id = UUID.randomUUID().toString();
+	}
+	
+	/**
+	 * Creates an Actor with a name an id
+	 * @param name The name of the actor
+	 */
+	public Actor(String name, String id){
+		this.setName(name);
+		this.id = id; 
 	}
 	
 	/**

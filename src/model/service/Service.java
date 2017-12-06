@@ -163,4 +163,8 @@ public class Service implements Subject{
 		this.notifyObservers();
 	}
 	
+	
+	public String getEventsByYear(int year){
+		return this.eventService.getEventsByYear(year);   
+	}
 }

@@ -1,10 +1,10 @@
 package model; 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
 * @author  Jeroen Vandevenne
@@ -174,6 +174,11 @@ public class Event implements Comparable<Event>{
 		return this.startDate.compareTo(event2.startDate);
 	} 
 	
+	
+	public int getStartYear(){
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+		return Integer.parseInt(formatter.format(this.startDate)); 
+	}
 	
 	
 }

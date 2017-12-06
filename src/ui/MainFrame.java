@@ -15,8 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import ui.datasets.actor.Actor;
-import ui.datasets.timeline.Event;
 
 /**
  * @author Jeroen Vandevenne
@@ -30,7 +28,7 @@ public class MainFrame extends JFrame {
 	/**
 	 * Scroll panel in which the timeline is shown
 	 */
-	private JScrollPane scrollPane; 
+	private JScrollPane scrollPane;
 	/**
 	 * Default color for whole frame
 	 */
@@ -76,19 +74,13 @@ public class MainFrame extends JFrame {
 	/**
 	 * Initialise config settings and {@link setLayoutContent}
 	 */
-	public MainFrame(List<Actor> actors) {
+	public MainFrame() {
 		super();
 		// Title of application/frame
 		this.setTitle("Timeline Jeroen Vandevenne");
 
 		// Default background color
 		this.defaultColor = Color.WHITE;
-
-		// Set initial content
-		setLayoutContent(actors);
-	}
-
-	private void setLayoutContent(List<Actor> actors) {
 
 		// Close Application properly
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -109,16 +101,20 @@ public class MainFrame extends JFrame {
 
 		// Initiate Components of the frame
 		this.timelinePanel = new TimelinePanel(frameDim.width, (int) (frameDim.height * 0.57));
+		this.timelinePanel.setBackground(Color.white);
 		this.buttonPanel = new ButtonPanel();
-		this.newEventPanel = new NewEventPanel(actors);
+		this.newEventPanel = new NewEventPanel();
 		this.newEventPanel.setBackground(this.orange);
 		this.importPanel = new ImportPanel();
 		this.newEventPanel.setBackground(this.orange);
 		this.importPanel.setBackground(this.orange);
 		this.welcomeLabel = new JLabel();
-
-		// Assign newEventPanel to workingpanel on init
 		
+		build(); 
+	}
+
+	public void build() {
+		// Assign newEventPanel to workingpanel on init
 		this.workingPanel = new JScrollPane(this.newEventPanel);
 
 		// Initiate Flexible GridBagLayout
@@ -126,14 +122,11 @@ public class MainFrame extends JFrame {
 		this.setLayout(gbl);
 
 		// Add init text to welcomeLabel
-		this.setWelcomeLabelText(
-				"The events are sorted per year. Click on a box to see more details regarding that year.");
+		this.setWelcomeLabelText("The events are sorted per year. Click on a box to see more details regarding that year.");
 		GridBagConstraints welcomeLabelGbc = getWelcomeLabelGridBagConstraints();
 		this.getContentPane().add(welcomeLabel, welcomeLabelGbc);
 
-		// Set scrollable timeline panel
-		this.timelinePanel.setBackground(this.defaultColor);
-		this.timelinePanel.setBackground(Color.white);
+		//Set scrollable timeline panel
 		scrollPane = new JScrollPane(this.timelinePanel);
 		GridBagConstraints timeLineScrollPaneGbc = this.getTimelineScrollPanelGridBagConstraints();
 		this.getContentPane().add(scrollPane, timeLineScrollPaneGbc);
@@ -146,13 +139,15 @@ public class MainFrame extends JFrame {
 		GridBagConstraints workingPanelGbc = getWorkingPanelGridBagConstraints();
 		this.getContentPane().add(workingPanel, workingPanelGbc);
 	}
-	
-	private void setLayout(){
-		
+
+	private void setLayout() {
+
 	}
 
 	/**
-	 * Generates the {@link java.awt.GridBagConstraints} for the {@link workingPanel}
+	 * Generates the {@link java.awt.GridBagConstraints} for the
+	 * {@link workingPanel}
+	 * 
 	 * @return {@link java.awt.GridBagConstraints} For the {@link workingPanel}
 	 */
 	private GridBagConstraints getWorkingPanelGridBagConstraints() {
@@ -166,7 +161,9 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Generates the {@link java.awt.GridBagConstraints} for the {@link buttonPanel}
+	 * Generates the {@link java.awt.GridBagConstraints} for the
+	 * {@link buttonPanel}
+	 * 
 	 * @return {@link java.awt.GridBagConstraints} For the {@link buttonPanel}
 	 */
 	private GridBagConstraints getButtonPanelGridBagConstraints() {
@@ -181,7 +178,9 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Generates the {@link java.awt.GridBagConstraints} for the {@link scrollPane}
+	 * Generates the {@link java.awt.GridBagConstraints} for the
+	 * {@link scrollPane}
+	 * 
 	 * @return {@link java.awt.GridBagConstraints} For the {@link scrollPane}
 	 */
 	private GridBagConstraints getTimelineScrollPanelGridBagConstraints() {
@@ -198,6 +197,7 @@ public class MainFrame extends JFrame {
 
 	/**
 	 * Generates the {@link java.awt.GridBagConstraints} for the welcomeLabel
+	 * 
 	 * @return {@link java.awt.GridBagConstraints} For the welcomeLabel
 	 */
 	private GridBagConstraints getWelcomeLabelGridBagConstraints() {
@@ -213,7 +213,9 @@ public class MainFrame extends JFrame {
 
 	/**
 	 * Set text on {@link welcomeLabel}
-	 * @param text The text displayed on the welcomeLabel
+	 * 
+	 * @param text
+	 *            The text displayed on the welcomeLabel
 	 */
 	private void setWelcomeLabelText(String text) {
 		this.welcomeLabel.setText(text);
@@ -228,7 +230,9 @@ public class MainFrame extends JFrame {
 
 	/**
 	 * Set a new dimension to the {@link frameDim}
-	 * @param dim Dimension new Dimension to assign to {@link frameDim}
+	 * 
+	 * @param dim
+	 *            Dimension new Dimension to assign to {@link frameDim}
 	 */
 	private void setFrameDim(Dimension dim) {
 		this.frameDim = dim;
@@ -236,9 +240,11 @@ public class MainFrame extends JFrame {
 
 	/**
 	 * Set new {@link List}&lt;{@link ui.datasets.timeline.Event}&gt;
-	 * @param events {@link List}&lt;{@link ui.datasets.timeline.Event}&gt; to set
+	 * 
+	 * @param events
+	 *            {@link List}&lt;{@link ui.datasets.timeline.Event}&gt; to set
 	 */
-	public void setEvents(List<Event> events) {
+	public void setEvents(String events) {
 		this.timelinePanel.setEvents(events);
 	}
 
@@ -270,7 +276,9 @@ public class MainFrame extends JFrame {
 
 	/**
 	 * Add an {@link ActionListener} to the {@link buttonPanel}
-	 * @param importButtonActionListener The Action Listener for the {@link buttonPanel}
+	 * 
+	 * @param importButtonActionListener
+	 *            The Action Listener for the {@link buttonPanel}
 	 */
 	public void addImportButtonActionListener(ActionListener importButtonActionListener) {
 		this.buttonPanel.addImportButtonActionListener(importButtonActionListener);
@@ -278,7 +286,9 @@ public class MainFrame extends JFrame {
 
 	/**
 	 * Add an {@link ActionListener} to the {@link buttonPanel}
-	 * @param addNewEventButtonActionListener The Action Listener for the {@link buttonPanel}
+	 * 
+	 * @param addNewEventButtonActionListener
+	 *            The Action Listener for the {@link buttonPanel}
 	 */
 	public void addAddNewEventButtonActionListener(ActionListener addNewEventButtonActionListener) {
 		this.buttonPanel.addAddNewEventButtonActionListener(addNewEventButtonActionListener);
@@ -286,31 +296,37 @@ public class MainFrame extends JFrame {
 
 	/**
 	 * Add an {@link ActionListener} to the {@link newEventPanel}
-	 * @param saveNewEventActionListener The Action Listener for the {@link newEventPanel}
+	 * 
+	 * @param saveNewEventActionListener
+	 *            The Action Listener for the {@link newEventPanel}
 	 */
 	public void addSaveNewEventButtonActionListener(ActionListener saveNewEventActionListener) {
 		this.newEventPanel.addSaveButtonActionListener(saveNewEventActionListener);
 	}
-	
+
 	/**
 	 * Add an {@link ActionListener} to the {@link newEventPanel}
-	 * @param downloadTimelineActionListener The Action Listener for the {@link newEventPanel}
+	 * 
+	 * @param downloadTimelineActionListener
+	 *            The Action Listener for the {@link newEventPanel}
 	 */
 	public void addDownloadTimelineActionListener(ActionListener downloadTimelineActionListener) {
 		this.importPanel.addDownloadTimelineActionListener(downloadTimelineActionListener);
 	}
-	
+
 	/**
 	 * Add an {@link ActionListener} to the {@link newEventPanel}
-	 * @param uploadFileActionListener The Action Listener for the {@link newEventPanel}
+	 * 
+	 * @param uploadFileActionListener
+	 *            The Action Listener for the {@link newEventPanel}
 	 */
 	public void addUploadFileActionListener(ActionListener uploadFileActionListener) {
 		this.importPanel.addUploadFileActionListener(uploadFileActionListener);
 	}
 
-
 	/**
 	 * Get the data that the user has inputed on the {@link newEventPanel}
+	 * 
 	 * @return {@link Map}&lt;{@link String},{@link String}&gt;
 	 */
 	public Map<String, String> getSaveNewEventData() {
@@ -319,29 +335,37 @@ public class MainFrame extends JFrame {
 
 	/**
 	 * Add an {@link MouseListener} to the {@link timelinePanel}
-	 * @param timelineEventMouseListener The Mouse Listener for the {@link timelinePanel}
+	 * 
+	 * @param timelineEventMouseListener
+	 *            The Mouse Listener for the {@link timelinePanel}
 	 */
 	public void addTimelineEventActionListener(MouseListener timelineEventMouseListener) {
 		this.timelinePanel.addTimelineEventActionListener(timelineEventMouseListener);
 	}
 
 	/**
-	 * Change working panel to {@link EventDetailsPanel} according to clicked coordinates
-	 * @param x Clicked x value
-	 * @param y Clicked y value
+	 * Change working panel to {@link EventDetailsPanel} according to clicked
+	 * coordinates
+	 * 
+	 * @param x
+	 *            Clicked x value
+	 * @param y
+	 *            Clicked y value
 	 */
-	public void setEventDetailsPanelByCoordinates(int x, int y) {
-		List<Event> eventsInSpecificYear = this.timelinePanel.getEventYearByCoordinates(x, y);
-		if (eventsInSpecificYear != null) {
+	public void setEventDetails(String eventsInSpecificYear) {
 			// Remove current panel
 			this.getContentPane().remove(this.workingPanel);
 			// Assing new panel as workingPanel
 			this.eventDetailsPanel = new EventDetailsPanel(eventsInSpecificYear);
+			this.eventDetailsPanel.setBackground(this.orange);
 			GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
 			this.workingPanel = new JScrollPane(this.eventDetailsPanel);
 			// add New panel to frame
 			this.getContentPane().add(workingPanel, gbc);
-		}
+	}
+	
+	public int getEventYearByCoordinates(int x,  int y){
+		return this.timelinePanel.getEventYearByCoordinates(x, y); 
 	}
 
 	/**
@@ -350,8 +374,8 @@ public class MainFrame extends JFrame {
 	public void colorRectangleWithcoordinates() {
 		this.timelinePanel.colorRectangleWithcoordinates();
 	}
-	
-	public void setActors(List<Actor> actors){
-		this.newEventPanel.setActors(actors); 
+
+	public void setActors(String actors) {
+		//this.newEventPanel.setActors(actors);
 	}
 }
