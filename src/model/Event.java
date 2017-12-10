@@ -187,6 +187,19 @@ public class Event implements Comparable<Event>{
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
 		return Integer.parseInt(formatter.format(this.startDate)); 
 	}
+	public List<String> getActorsIds() {
+		return actorsIds;
+	}
+	public void setActorsIds(List<String> actorsIds) {
+		this.actorsIds = actorsIds;
+	}
+	public String getActorsInvolvementDescription() {
+		return actorsInvolvementDescription;
+	}
+	public void setActorsInvolvementDescription(String actorsInvolvementDescription) {
+		this.actorsInvolvementDescription = actorsInvolvementDescription;
+	}
+	
 	
 	
 }
