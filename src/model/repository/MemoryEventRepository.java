@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
+import model.Actor;
 import model.Event;
 import model.repository.exception.RepositoryException;
 /**
@@ -26,33 +27,38 @@ public class MemoryEventRepository implements EventRepository {
 	public MemoryEventRepository(){
 		//Inititale Arraylist of Events
 		this.events = new TreeMap<Integer, List<Event>>(); 
-		//add sample events
-		/*Date myDate = this.getRandomDate(); 
-		Event event1A = new Event("KingsDay in London", "This is the first event", myDate, this.getRandomDate());
-		Actor a1 = new Actor("Jane", "1");
-		event1A.addActor(a1.getId());
-		Event event1B = new Event("Another event special", "This is the first event", myDate, this.getRandomDate());
-		Actor a2 = new Actor("Dave", "1");
-		Actor BAAAAA = new Actor("Herald", "1");
-		event1B.addActor(BAAAAA.getId());
-		Event event1C = new Event("KingsDay in London", "This is the first event", myDate, this.getRandomDate());
-		Actor a3 = new Actor("Bob", "1");
-		event1C.addActor(a3.getId());
-		this.addEvent(event1A);
-		this.addEvent(event1B);
-		this.addEvent(event1C);*/
+		
 		Date myDate = this.getRandomDate(); 
-		Event event2 = new Event("AAAAAAAAA", "This is the second event",myDate, this.getRandomDate());
+		Event event2 = new Event("AAAAAAAAA", "This is the second event",myDate, this.getRandomDate()); 
+		event2.addActor("1");
+		event2.addActor("2");
+		event2.addActor("3");
 		this.addEvent(event2);
+	
 		Event event2B = new Event("A2A2A2A2A2A2A2A", "This is the second event",myDate, this.getRandomDate());
+		event2B.addActor("1");
+		event2B.addActor("2");
+		event2B.addActor("3");
 		this.addEvent(event2B);
 		Event event3 = new Event("BBBBBBBBBB", "This is the thrid event", this.getRandomDate(), this.getRandomDate());
+		event3.addActor("1");
+		event3.addActor("2");
+		event3.addActor("3");
 		this.addEvent(event3);
 		Event event4 = new Event("CCCCCCCCCCCCC", "This is the first event", this.getRandomDate(),this.getRandomDate());
+		event4.addActor("1");
+		event4.addActor("2");
+		event4.addActor("3");
 		this.addEvent(event4);
 		Event event5 = new Event("DDDDDDDDDDDD", "This is the second event", this.getRandomDate(), this.getRandomDate());
+		event5.addActor("1");
+		event5.addActor("2");
+		event5.addActor("3");
 		this.addEvent(event5);
 		Event event6 = new Event("EEEEEEEEEEEEEE", "This is the thrid event", this.getRandomDate(), this.getRandomDate());
+		event6.addActor("1");
+		event6.addActor("2");
+		event6.addActor("3");
 		this.addEvent(event6);
 	}
 	

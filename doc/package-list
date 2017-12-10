@@ -1,6 +1,7 @@
 app
 controller
-controller.actionlisteners
+controller.actionlisteners.navigation
+controller.actionlisteners.workingpanel
 controller.mouselisteners
 launcher
 model
@@ -8,5 +9,3 @@ model.repository
 model.repository.exception
 model.service
 ui
-ui.datasets.actor
-ui.datasets.timeline

@@ -70,6 +70,7 @@ public class MainFrame extends JFrame {
 	 * Dimensions of the application
 	 */
 	private Dimension frameDim;
+	private NewActorPanel newActorPanel; 
 
 	/**
 	 * Initialise config settings and {@link setLayoutContent}
@@ -98,24 +99,22 @@ public class MainFrame extends JFrame {
 		// Center Frame on screen
 		this.setLocation(screenDim.width / 2 - this.getSize().width / 2,
 				screenDim.height / 2 - this.getSize().height / 2);
+	}
 
+	public void init(String actors) {
 		// Initiate Components of the frame
 		this.timelinePanel = new TimelinePanel(frameDim.width, (int) (frameDim.height * 0.57));
 		this.timelinePanel.setBackground(Color.white);
 		this.buttonPanel = new ButtonPanel();
-		this.newEventPanel = new NewEventPanel();
-		this.newEventPanel.setBackground(this.orange);
 		this.importPanel = new ImportPanel();
-		this.newEventPanel.setBackground(this.orange);
 		this.importPanel.setBackground(this.orange);
 		this.welcomeLabel = new JLabel();
+		this.newEventPanel = new NewEventPanel(actors);
+		this.setBackground(orange);
+		this.newActorPanel = new NewActorPanel(actors); 
 		
-		build(); 
-	}
-
-	public void build() {
 		// Assign newEventPanel to workingpanel on init
-		this.workingPanel = new JScrollPane(this.newEventPanel);
+		this.workingPanel = new JScrollPane(newEventPanel);
 
 		// Initiate Flexible GridBagLayout
 		GridBagLayout gbl = new GridBagLayout();
@@ -138,10 +137,6 @@ public class MainFrame extends JFrame {
 		// Add workingpanel to frame
 		GridBagConstraints workingPanelGbc = getWorkingPanelGridBagConstraints();
 		this.getContentPane().add(workingPanel, workingPanelGbc);
-	}
-
-	private void setLayout() {
-
 	}
 
 	/**
@@ -247,6 +242,10 @@ public class MainFrame extends JFrame {
 	public void setEvents(String events) {
 		this.timelinePanel.setEvents(events);
 	}
+	
+	public void setActors(String actorsJson){
+		this.newActorPanel.setActors(actorsJson);
+	}
 
 	/**
 	 * Change the {@link workingPanel} to {@link importPanel}
@@ -264,11 +263,12 @@ public class MainFrame extends JFrame {
 	/**
 	 * Change the {@link workingPanel} to {@link newEventPanel}
 	 */
-	public void changeToAddNewEventPanel() {
+	public void changeToAddNewEventPanel(String actors) {
 		GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
 		// Remove current panel
 		this.getContentPane().remove(this.workingPanel);
 		// Assign new panel as workingPanel
+		this.newEventPanel.setActors(actors);
 		this.workingPanel = new JScrollPane(this.newEventPanel);
 		// add new panel to frame
 		this.getContentPane().add(workingPanel, gbc);
@@ -352,16 +352,30 @@ public class MainFrame extends JFrame {
 	 * @param y
 	 *            Clicked y value
 	 */
-	public void setEventDetails(String eventsInSpecificYear) {
+	public void setEventDetails(String eventsInSpecificYear, String actorsJson) {
 			// Remove current panel
 			this.getContentPane().remove(this.workingPanel);
 			// Assing new panel as workingPanel
-			this.eventDetailsPanel = new EventDetailsPanel(eventsInSpecificYear);
+			this.eventDetailsPanel = new EventDetailsPanel(eventsInSpecificYear, actorsJson);
 			this.eventDetailsPanel.setBackground(this.orange);
 			GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
 			this.workingPanel = new JScrollPane(this.eventDetailsPanel);
 			// add New panel to frame
 			this.getContentPane().add(workingPanel, gbc);
+	}
+	
+	
+	public void changeToAddNewActorPanel(String actors){
+		// Remove current panel
+		this.getContentPane().remove(this.workingPanel);
+		// Assing new panel as workingPanel
+		this.newActorPanel = new NewActorPanel(actors);
+		this.newActorPanel.setBackground(this.orange);
+		this.newActorPanel.setBackground(this.orange);
+		GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
+		this.workingPanel = new JScrollPane(this.newActorPanel);
+		// add New panel to frame
+		this.getContentPane().add(workingPanel, gbc);
 	}
 	
 	public int getEventYearByCoordinates(int x,  int y){
@@ -374,8 +388,18 @@ public class MainFrame extends JFrame {
 	public void colorRectangleWithcoordinates() {
 		this.timelinePanel.colorRectangleWithcoordinates();
 	}
-
-	public void setActors(String actors) {
-		//this.newEventPanel.setActors(actors);
+	
+	public void addAddActorButtonActionListener(ActionListener addActorButtonActionListener) {
+		this.buttonPanel.addAddActorButtonActionListener(addActorButtonActionListener);
 	}
+	
+
+	public void addSaveActorButtonActionListener(ActionListener saveActorButtonActionListener){
+		this.newActorPanel.addSaveActorButtonActionListener(saveActorButtonActionListener); 
+	}
+	
+	public String getNewActorData(){
+		return this.newActorPanel.getNewActorData(); 
+	}
+	
 }

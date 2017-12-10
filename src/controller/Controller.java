@@ -12,14 +12,12 @@ import java.util.Date;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
+import controller.actionlisteners.navigation.AddActorButtonActionListener;
 import controller.actionlisteners.navigation.AddEventButtonActionListener;
 import controller.actionlisteners.navigation.ImportEventsButtonActionListener;
 import controller.actionlisteners.workingpanel.DownloadTimelineActionListener;
+import controller.actionlisteners.workingpanel.SaveNewActorActionListener;
 import controller.actionlisteners.workingpanel.SaveNewEventActionListener;
 import controller.actionlisteners.workingpanel.UploadTimelineActionListener;
 import controller.mouselisteners.TimelineEventMouseListener;
@@ -55,16 +53,17 @@ public class Controller {
 		service.register(view);
 
 		// Send initial data from model into view
-		this.setInitialData();
+		this.init(this.service.getAllActors());
 
 		// Initialize actionlisteners on view
 		this.addImportButtonActionListener(new ImportEventsButtonActionListener(this));
 		this.addAddNewEventButtonActionListener(new AddEventButtonActionListener(this));
-		this.saveNewEventButtonActionListener(new SaveNewEventActionListener(this));
 		this.addTimelineEventActionListener(new TimelineEventMouseListener(this));
 		this.addUploadFileActionListener(new UploadTimelineActionListener(this));
 		this.addDownloadTimelineActionListener(new DownloadTimelineActionListener(this));
-
+		this.addAddActorButtonActionListener(new AddActorButtonActionListener(this)); 
+		this.addSaveActorButtonActionListener(new SaveNewActorActionListener(this));
+		
 		// Display UI
 		this.view.setVisible();
 	}
@@ -72,7 +71,7 @@ public class Controller {
 	/**
 	 * Sends inital data to {@link View}
 	 */
-	public void setInitialData() {
+	public void init(String actors) {
 		/*
 		JsonElement root = new JsonParser().parse(this.service.getAllEvents());
 
@@ -85,12 +84,11 @@ public class Controller {
 			//JsonObject array = entry.getKey()
 			
 			//System.out.println(array.getAsJsonObject().get("actorsIds"));
-			
+			 
 			
 		}*/
-		
+		this.view.init(actors);
 		view.setEvents(this.service.getAllEvents());
-		
 	}
 
 	/**
@@ -193,7 +191,9 @@ public class Controller {
 	 * {@link ui.NewEventPanel}
 	 */
 	public void changeToAddNewEventPanel() {
-		this.view.changeToAddNewEventPanel();
+		String actorsJson = this.service.getAllActors(); 
+		this.view.changeToAddNewEventPanel(actorsJson);
+		this.saveNewEventButtonActionListener(new SaveNewEventActionListener(this));
 	}
 
 	/**
@@ -219,6 +219,22 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
+	
+	public void saveNewActor() {
+		String actor = this.view.getActorData(); 
+		this.service.addActor(actor);
+		System.out.println("NIEWE ACTOR ==== "+actor);
+		/*Map<String, String> newEvent = this.view.getSaveNewEventData();
+		Date startDate;
+		Date endDate;
+		try {
+			startDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
+			endDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
+			this.service.addEvent(newEvent.get("title"), newEvent.get("description"), startDate, endDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}*/
+	}
 
 	/**
 	 * Change the working panel in the {@link View} to the
@@ -231,8 +247,16 @@ public class Controller {
 	 */
 	public void openEventDetailsPanel(int x, int y) {
 		int year = this.view.getEventYearByCoordinates(x, y); 
-		String eventsOfSpecificYear = this.service.getEventsByYear(year); 
-		this.view.setEventDetails(eventsOfSpecificYear);
+		String eventsOfSpecificYear =""; 
+		String actorsJson = ""; 
+		try{
+		eventsOfSpecificYear = this.service.getEventsByYear(year); 
+		actorsJson = this.service.getAllActors(); 
+		this.view.setEventDetails(eventsOfSpecificYear, actorsJson);
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
+		}
 	}
 
 	/**
@@ -253,6 +277,15 @@ public class Controller {
 		this.view.addDownloadTimelineActionListener(downloadTimelineActionListener);
 	}
 
+	public void addAddActorButtonActionListener(ActionListener addActorButtonActionListener) {
+		this.view.addAddActorButtonActionListener(addActorButtonActionListener);
+	}
+	
+	public void addSaveActorButtonActionListener(ActionListener saveActorButtonActionListener){
+		this.view.addSaveActorButtonActionListener(saveActorButtonActionListener); 
+	}
+	
+	
 	public void saveTimeline(String absolutePathDestination) {
 		File file = new File(absolutePathDestination + ".json");
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(absolutePathDestination + ".json"))) {
@@ -263,5 +296,10 @@ public class Controller {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	public void changeToAddNewActorPanel(){
+		String actors = this.service.getAllActors(); 
+		this.view.changeToAddNewActorPanel(actors);
 	}
 }

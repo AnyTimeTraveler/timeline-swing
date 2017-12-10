@@ -43,7 +43,7 @@ public class Service implements Subject{
 	 */
 		public void notifyObservers() {
 			for(Observer o : Subject.observers){
-				o.update(this.getAllEvents());
+				o.update(this.getAllEvents(), this.getAllActors());
 			}
 		}
 
@@ -120,7 +120,7 @@ public class Service implements Subject{
 	 * @param actor
 	 * The {@link model.Actor} to be added
 	 */
-	public void addActor(Actor actor){
+	public void addActor(String actor){
 		this.actorService.addActor(actor); 
 		notifyObservers(); 
 	}
@@ -141,6 +141,7 @@ public class Service implements Subject{
 	public String getAllActors(){
 		Gson gson = new Gson();
 		String jsonInString = gson.toJson(this.actorService.getAllActors());
+		System.out.println("JSON = "+jsonInString);
 		return jsonInString; 
 	}
 	

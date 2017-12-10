@@ -43,6 +43,10 @@ public class View implements Observer{
 		this.mainFrame.setEvents(timelineJson);
 	}
 	
+	public void setActors(String actorsJson){
+		this.mainFrame.setActors(actorsJson); 
+	}
+	
 	/**
 	 * Add an {@link ActionListener} to the {@link mainFrame}
 	 * @param importButtonActionListener The Action Listener for the {@link mainFrame}
@@ -86,14 +90,14 @@ public class View implements Observer{
 	/**
 	 * Change {@link ui.MainFrame#workingPanel} to {@link ui.MainFrame#newEventPanel} and repaint
 	 */
-	public void changeToAddNewEventPanel(){
-		this.mainFrame.changeToAddNewEventPanel();
+	public void changeToAddNewEventPanel(String actors){
+		this.mainFrame.changeToAddNewEventPanel(actors);
 		this.repaint();
 		
 	}
 	/**
 	 * Change {@link ui.MainFrame#workingPanel} to {@link ui.MainFrame#importPanel} and repaint
-	 */
+	 */ 
 	public void changeToImportPanel(){
 		this.mainFrame.changeToImportPanel();
 		this.repaint();
@@ -108,9 +112,10 @@ public class View implements Observer{
 	}
 	
 	@Override
-	public void update(String eventsJson) {
+	public void update(String eventsJson, String actorsJson) {
 		System.out.println("EVENTSJSON : "+ eventsJson);
 		this.setEvents(eventsJson);
+		this.setActors(actorsJson); 
 		this.repaint();
 	}
 	
@@ -135,8 +140,8 @@ public class View implements Observer{
 	 * @param x X coordinated that was clicked
 	 * @param y Y coordinated that was clicked
 	 */
-	public void setEventDetails(String eventsOfSpecificYear){
-		this.mainFrame.setEventDetails(eventsOfSpecificYear);
+	public void setEventDetails(String eventsOfSpecificYear, String actorsJson){
+		this.mainFrame.setEventDetails(eventsOfSpecificYear, actorsJson);
 		this.repaint();
 	}
 	public int getEventYearByCoordinates(int x, int y){
@@ -150,11 +155,27 @@ public class View implements Observer{
 		this.mainFrame.colorRectangleWithcoordinates();
 		this.repaint();
 	}
-	
-	public void setActors(String actorsJson){
-		/*GsonBuilder gsonBuilder = new GsonBuilder();
-		Gson gson = gsonBuilder.create();
-		List<Actor> actors = gson.fromJson(actorsJson,  new TypeToken<ArrayList<Actor>>(){}.getType());
-		this.mainFrame.setActors(actors);*/
+	public void addAddActorButtonActionListener(ActionListener addActorButtonActionListener) {
+		this.mainFrame.addAddActorButtonActionListener(addActorButtonActionListener);
 	}
+	
+	public void addSaveActorButtonActionListener(ActionListener saveActorButtonActionListener){
+		this.mainFrame.addSaveActorButtonActionListener(saveActorButtonActionListener); 
+	}
+	
+	public void changeToAddNewActorPanel(String actors){
+		this.mainFrame.changeToAddNewActorPanel(actors);
+		this.repaint();
+	}
+	
+
+public void init(String actors){
+		this.mainFrame.init(actors);
 }
+
+public String getActorData(){
+	return this.mainFrame.getNewActorData();  
+}
+
+}
+

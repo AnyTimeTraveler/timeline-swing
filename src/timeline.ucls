@@ -13,7 +13,7 @@
   <class id="2" language="java" name="controller.mouselisteners.TimelineEventMouseListener" project="timeline-swing" 
     file="/timeline-swing/src/controller/mouselisteners/TimelineEventMouseListener.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="168" width="213" x="472" y="443"/>    
+    <position height="-1" width="-1" x="132" y="421"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -31,7 +31,7 @@
   </class>  
   <class id="4" language="java" name="model.Event" project="timeline-swing" file="/timeline-swing/src/model/Event.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="438" width="225" x="452" y="2247"/>    
+    <position height="-1" width="-1" x="410" y="2516"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -58,7 +58,7 @@
   </interface>  
   <class id="7" language="java" name="model.repository.MemoryEventRepository" project="timeline-swing" 
     file="/timeline-swing/src/model/repository/MemoryEventRepository.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="186" width="165" x="145" y="1435"/>    
+    <position height="-1" width="-1" x="173" y="1664"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -85,7 +85,7 @@
   </class>  
   <class id="10" language="java" name="model.service.EventService" project="timeline-swing" 
     file="/timeline-swing/src/model/service/EventService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="186" width="208" x="145" y="831"/>    
+    <position height="-1" width="-1" x="191" y="848"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -94,7 +94,7 @@
   </class>  
   <class id="11" language="java" name="model.service.ActorService" project="timeline-swing" 
     file="/timeline-swing/src/model/service/ActorService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="132" width="126" x="767" y="1435"/>    
+    <position height="-1" width="-1" x="744" y="1641"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -103,7 +103,7 @@
   </class>  
   <class id="12" language="java" name="model.service.Service" project="timeline-swing" 
     file="/timeline-swing/src/model/service/Service.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="276" width="208" x="725" y="443"/>    
+    <position height="-1" width="-1" x="543" y="585"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -184,7 +184,7 @@
   </class>  
   <interface id="21" language="java" name="ui.Observer" project="timeline-swing" 
     file="/timeline-swing/src/ui/Observer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="78" width="114" x="590" y="1435"/>    
+    <position height="-1" width="-1" x="1043" y="932"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -200,25 +200,19 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="ui.datasets.actor.Actor" project="timeline-swing" 
-    file="/timeline-swing/src/ui/datasets/actor/Actor.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1766" y="2318"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="24" language="java" name="ui.datasets.timeline.Event" project="timeline-swing" 
-    file="/timeline-swing/src/ui/datasets/timeline/Event.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1776" y="2145"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <dependency id="25">    
+  <association id="23">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="24" name="newEventPanel">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="25" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="26">    
     <bendpoint x="923" y="831"/>    
     <bendpoint x="923" y="1435"/>    
     <bendpoint x="923" y="2039"/>    
@@ -226,343 +220,245 @@
     <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <dependency id="26">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="12"/>  
-  </dependency>  
   <dependency id="27">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="22"/>  
-  </dependency>  
-  <association id="28">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="29" name="controller">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="30" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="31">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="13"/>  
-  </realization>  
-  <association id="32">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="33" name="eventService">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="34" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="35">    
     <bendpoint x="902" y="2039"/>    
     <bendpoint x="902" y="2247"/>    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <dependency id="36">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="8"/>  
+  <dependency id="28">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="7"/>  
   </dependency>  
-  <realization id="37">    
-    <bendpoint x="755" y="831"/>    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="21"/>  
+  <realization id="29">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="13"/>  
   </realization>  
-  <association id="38">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="39" name="actors">        
-        <position height="0" width="0" x="-468" y="14"/>      
-      </attribute>      
-      <multiplicity id="40" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-468" y="14"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="41">    
-    <bendpoint x="734" y="831"/>    
-    <bendpoint x="734" y="1435"/>    
-    <bendpoint x="656" y="2039"/>    
+  <dependency id="30">    
+    <bendpoint x="713" y="831"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="31">    
     <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <association id="42">    
-    <bendpoint x="881" y="2039"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="43" name="actorRepository">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="44" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="45">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="46" name="eventsInSpecificYear">        
-        <position height="0" width="0" x="-470" y="22"/>      
-      </attribute>      
-      <multiplicity id="47" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-470" y="22"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="48">    
+  <realization id="32">    
+    <bendpoint x="1136" y="912"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="21"/>  
+  </realization>  
+  <dependency id="33">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="34">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <association id="35">    
     <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="49" name="buttonPanel">        
+      <attribute id="36" name="buttonPanel">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="50" minimum="0" maximum="1">        
+      <multiplicity id="37" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="51">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <association id="52">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="53" name="importPanel">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="54" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="55">    
-    <bendpoint x="300" y="2039"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="56" name="events">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="57" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="58">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="59" name="newEventPanel">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="60" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="61">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="62" name="service"/>      
-      <multiplicity id="63" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="64">    
-    <bendpoint x="522" y="1435"/>    
-    <bendpoint x="522" y="2039"/>    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="65">    
-    <bendpoint x="713" y="831"/>    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <realization id="66">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <dependency id="67">    
+  <dependency id="38">    
     <end type="SOURCE" refId="13"/>    
     <end type="TARGET" refId="21"/>  
   </dependency>  
-  <dependency id="68">    
-    <bendpoint x="2244" y="1435"/>    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <association id="69">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="70" name="mainFrame">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="71" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="72">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="73" name="actors"/>      
-      <multiplicity id="74" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="75">    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="76" name="events">        
-        <position height="0" width="0" x="-470" y="22"/>      
-      </attribute>      
-      <multiplicity id="77" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-470" y="22"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="78">    
-    <bendpoint x="776" y="831"/>    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="79" name="actorService">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="80" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="81">    
-    <bendpoint x="2566" y="831"/>    
-    <bendpoint x="2566" y="1435"/>    
-    <bendpoint x="2348" y="2062"/>    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <dependency id="82">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <dependency id="83">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <association id="84">    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="85" name="actors"/>      
-      <multiplicity id="86" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="87">    
-    <bendpoint x="707" y="2247"/>    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="88" name="actors">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="89" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="90">    
+  <association id="39">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="91" name="view"/>      
-      <multiplicity id="92" minimum="0" maximum="1"/>    
+      <attribute id="40" name="view">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="41" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="20" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="93">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <association id="94">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="95" name="timelinePanel">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="96" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="97">    
+  <association id="42">    
     <bendpoint x="340" y="1435"/>    
     <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="98" name="eventRepository">        
+      <attribute id="43" name="eventRepository">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="99" minimum="0" maximum="1">        
+      <multiplicity id="44" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="100">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <dependency id="101">    
+  <association id="45">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="46" name="service">        
+        <position height="0" width="0" x="-286" y="4"/>      
+      </attribute>      
+      <multiplicity id="47" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-286" y="4"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="48">    
     <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="102">    
-    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <association id="103">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="104" name="eventDetailsPanel">        
+  <dependency id="49">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <association id="50">    
+    <bendpoint x="707" y="2247"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="51" name="actors">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="105" minimum="0" maximum="1">        
+      <multiplicity id="52" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="53">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <association id="54">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="55" name="importPanel">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="56" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="57">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="58" name="mainFrame">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="59" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="60">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="61">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="62">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="63">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <realization id="64">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <association id="65">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="66" name="controller">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="67" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="68">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="69">    
+    <bendpoint x="776" y="831"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="70" name="actorService">        
+        <position height="0" width="0" x="-86" y="140"/>      
+      </attribute>      
+      <multiplicity id="71" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-86" y="140"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="72">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="73" name="eventService">        
+        <position height="0" width="0" x="-58" y="-76"/>      
+      </attribute>      
+      <multiplicity id="74" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-58" y="-76"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="75">    
+    <bendpoint x="881" y="2039"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="76" name="actorRepository">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="77" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="78">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="79" name="eventDetailsPanel">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="80" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="106">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <realization id="107">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="6"/>  
-  </realization>  
-  <dependency id="108">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="20"/>  
-  </dependency>  
-  <dependency id="109">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="7"/>  
+  <association id="81">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="82" name="timelinePanel">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="83" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="84">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

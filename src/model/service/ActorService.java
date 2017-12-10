@@ -36,8 +36,9 @@ public class ActorService {
 	 * Add a new actor
 	 * @param actor Actor to add
 	 */
-	public void addActor(Actor actor){
-		this.actorRepository.addActor(actor); 
+	public void addActor(String actor){
+		System.out.println("NIUEW ACTOR = "+actor);
+		//this.actorRepository.addActor(actor); 
 	}
 	
 	/**

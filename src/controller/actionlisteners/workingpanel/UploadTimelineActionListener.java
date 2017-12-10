@@ -36,6 +36,7 @@ public class UploadTimelineActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("UploadTimelineActionListener");
 		String eventsInJsonFormat = ""; 
 		final JFileChooser fc = new JFileChooser();
 		        int returnVal = fc.showOpenDialog((Component)e.getSource());

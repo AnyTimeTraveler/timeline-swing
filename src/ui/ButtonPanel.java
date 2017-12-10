@@ -26,6 +26,7 @@ public class ButtonPanel extends JPanel {
 	/**
 	 * Button to navigate to {@link ui.NewEventPanel}
 	 */
+	private JButton addActorButton; 
 	private JButton addEventButton;
 	
 	/**
@@ -45,6 +46,9 @@ public class ButtonPanel extends JPanel {
 
 	    this.importEventsButton = this.getButton("Import/Export Timeline");
 	    this.add(importEventsButton );
+	    
+	    this.addActorButton = this.getButton("Add Actor"); 
+	    this.add(this.addActorButton);
 	    
 	}
 	
@@ -76,6 +80,10 @@ public class ButtonPanel extends JPanel {
 	 */
 	public void addAddNewEventButtonActionListener(ActionListener addNewEventButtonActionListener){
 		this.addEventButton.addActionListener(addNewEventButtonActionListener); 
+	}
+	
+	public void addAddActorButtonActionListener(ActionListener addActorButtonActionListener){
+		this.addActorButton.addActionListener(addActorButtonActionListener); 
 	}
 	
 }

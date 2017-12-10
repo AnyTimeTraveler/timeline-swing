@@ -21,6 +21,7 @@ public class AddEventButtonActionListener implements ActionListener {
 	 * @param controller The {@link Controller} of the {@link app.App}
 	 */
 	public AddEventButtonActionListener(Controller controller){
+		System.out.println("AddEventButtonActionListener");
 		this.controller = controller; 
 	}
 	

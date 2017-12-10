@@ -94,6 +94,3 @@ public class EventService{
 		return jsonInString;  
 	}
 }
-
-
-

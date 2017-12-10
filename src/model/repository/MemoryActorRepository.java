@@ -21,9 +21,9 @@ public class MemoryActorRepository implements ActorRepository{
 	 */
 	public MemoryActorRepository(){
 		this.actors = new ArrayList<Actor>(); 
-		Actor a1 = new Actor("Jane");
-		Actor a2 = new Actor("Dave");
-		Actor a3 = new Actor("Bob");
+		Actor a1 = new Actor("Jane", "1");
+		Actor a2 = new Actor("Dave", "2");
+		Actor a3 = new Actor("Bob", "3");
 		this.actors.add(a1); 
 		this.actors.add(a2); 
 		this.actors.add(a3); 

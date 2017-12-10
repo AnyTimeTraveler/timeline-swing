@@ -297,13 +297,16 @@ public class TimelinePanel extends JPanel {
 				g2.drawString(String.valueOf(entry.getKey()), this.getYearLabelX1(i)-yearWidth/2, this.getYearLabelY1("down")-yearPaddingBottom);
 				g2.setFont(fontToReset);
 				
-
+				g2.setFont(new Font("default", Font.BOLD, 16));
 			for(int index = 0;index< entry.getValue().getAsJsonArray().size(); index++){
 					JsonArray array =  entry.getValue().getAsJsonArray(); 
-					String dateString = array.get(index).getAsJsonObject().get("title").toString(); 
-					g2.drawString(dateString, this.getRectangleX1(i)+10, this.getRectangleY1("down")+index*20+20);
+					String date = array.get(index).getAsJsonObject().get("startDate").toString().substring(1, array.get(index).getAsJsonObject().get("startDate").toString().length() - 12);
+					String title = array.get(index).getAsJsonObject().get("title").toString().substring(1, array.get(index).getAsJsonObject().get("title").toString().length() - 1);
+					String dateString = date +" : " + title; 
+			
+					g2.drawString(dateString, this.getRectangleX1(i)+15, this.getRectangleY1("down")+index*20+25);
 			 }
-				
+				g2.setFont(fontToReset);
 				}else{
 					//Draw vertical stripe
 					g2.draw(new Line2D.Double(this.getTimelineEventStripeX1(i), this.getTimelineEventStripeY1(),
@@ -331,11 +334,18 @@ public class TimelinePanel extends JPanel {
 					g2.drawString(String.valueOf(entry.getKey()), this.getYearLabelX1(i)-yearWidth/2, this.getYearLabelY1("up")+yearPaddingBottom+yearHeight);
 					g2.setFont(fontToReset);
 					//Draw text in rectangles
+					g2.setFont(new Font("default", Font.BOLD, 16));
 				for(int index = 0;index< entry.getValue().getAsJsonArray().size(); index++){
 						JsonArray array =  entry.getValue().getAsJsonArray(); 
-						String dateString = array.get(index).getAsJsonObject().get("title").toString(); 
-						g2.drawString(dateString, this.getRectangleX1(i)+10, this.getRectangleY1("up")+index*20+20);
+						String date = array.get(index).getAsJsonObject().get("startDate").toString().substring(1, array.get(index).getAsJsonObject().get("startDate").toString().length() - 12);
+						String title = array.get(index).getAsJsonObject().get("title").toString().substring(1, array.get(index).getAsJsonObject().get("title").toString().length() - 1);
+						String dateString = date +" : " + title; 
+						
+						
+						
+						g2.drawString(dateString, this.getRectangleX1(i)+15, this.getRectangleY1("up")+index*20+25);
 				 }
+				g2.setFont(fontToReset);
 					
 				}
 		    
