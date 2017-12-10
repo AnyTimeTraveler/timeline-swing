@@ -24,7 +24,6 @@ public class View implements Observer{
 	private MainFrame mainFrame;  
 	
 	public View(){
-		mainFrame = new MainFrame();
 	}
 	
 	/**
@@ -68,6 +67,7 @@ public class View implements Observer{
 	 * @param saveNewEventActionListener The Action Listener for the {@link mainFrame}
 	 */
 	public void addSaveNewEventButtonActionListener(ActionListener saveNewEventActionListener){
+		System.out.println("Add the actionL in VIEW");
 		this.mainFrame.addSaveNewEventButtonActionListener(saveNewEventActionListener);
 	}
 	
@@ -113,7 +113,6 @@ public class View implements Observer{
 	
 	@Override
 	public void update(String eventsJson, String actorsJson) {
-		System.out.println("EVENTSJSON : "+ eventsJson);
 		this.setEvents(eventsJson);
 		this.setActors(actorsJson); 
 		this.repaint();
@@ -125,6 +124,7 @@ public class View implements Observer{
 	 */
 	public Map<String, String> getSaveNewEventData(){
 		return mainFrame.getSaveNewEventData();
+		
 	}
 	
 	/**
@@ -168,13 +168,21 @@ public class View implements Observer{
 		this.repaint();
 	}
 	
+	public void setData(String events, String actors){
+		mainFrame = new MainFrame(events, actors);
+	}
+	
 
-public void init(String actors){
-		this.mainFrame.init(actors);
+public void init(){
+	this.mainFrame.init();
 }
 
 public String getActorData(){
 	return this.mainFrame.getNewActorData();  
+}
+
+public void clearNewEventFields(){
+	this.mainFrame.clearNewEventFields(); 
 }
 
 }

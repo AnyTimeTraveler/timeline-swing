@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -68,9 +69,6 @@ public class NewEventPanel extends JPanel{
 	 * Button to save and add an event
 	 */
 	private JButton saveEventButton; 
-	/**
-	 * {@link List} of all {@link ui.datasets.Actor}
-	 */
 	private String actors; 
 	/**
 	 * Initialise fields and set config setting
@@ -79,9 +77,8 @@ public class NewEventPanel extends JPanel{
 	private JLabel actorsDescriptionLabel; 
 	public NewEventPanel(String actors){
 		super(); 
-		
-		this.eventTitleField = new JTextField(30);
-		this.eventDescriptionField = new JTextField(30);
+		this.eventTitleField = new JTextField();
+		this.eventDescriptionField = new JTextField();
 		this.eventTitleLabel = new JLabel("Title");
 		this.eventDescriptionLabel = new JLabel("Description");
 		this.eventStartDateLabel = new JLabel("Start Date"); 
@@ -90,6 +87,7 @@ public class NewEventPanel extends JPanel{
 		this.actorsLabel = new JLabel("Select actors you want to add to the event"); 
 		this.actorsDescriptionLabel = new JLabel("Enter info about these actors' involvement"); 
 		this.actorsDescriptionField = new JTextField(); 
+		this.actors = actors; 
 		
 	
 		//Initialize datepickers
@@ -109,7 +107,8 @@ public class NewEventPanel extends JPanel{
 		p.put("text.year", "Year");
 		datePanel = new JDatePanelImpl(model, p);
 		this.eventEndDateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		String[] actorsArray = getActorNames(actors);   
+		
+		String[] actorsArray = getActorNames(this.actors);   
 		 list = new JList(actorsArray);
 		   list.setSelectionModel(new DefaultListSelectionModel() {
 			    @Override
@@ -122,53 +121,59 @@ public class NewEventPanel extends JPanel{
 			        }
 			    }
 			});
-        int[] select = {19, 20, 22};
-        list.setSelectedIndices(select);
-        GridBagLayout gbl = new GridBagLayout();
-        this.setLayout(gbl);
-        GridBagConstraints gbc = new GridBagConstraints(); 
-        gbc.weightx = 1; 
-        gbc.weighty = 1; 
-        gbc.gridx = 0; 
-        gbc.gridy = 0;  
+      int[] select = {19, 20, 22};
+      list.setSelectedIndices(select);
+      GridBagLayout gbl = new GridBagLayout();
+      this.setLayout(gbl);
+      
+      GridBagConstraints gbc = new GridBagConstraints(); 
+      gbc.fill = GridBagConstraints.BOTH; 
+      gbc.weightx = 1; 
+      gbc.weighty = 1; 
+      gbc.gridx = 0; 
+      gbc.gridy = 0;  
 		this.add(this.eventTitleLabel, gbc); 
 		gbc.gridx = 1; 
-        gbc.gridy = 0; 
+      gbc.gridy = 0; 
 		this.add(this.eventTitleField, gbc); 
 		gbc.gridx = 0; 
-        gbc.gridy = 1; 
+      gbc.gridy = 1; 
 		this.add(this.eventDescriptionLabel, gbc); 
 		gbc.gridx = 1; 
-        gbc.gridy = 1; 
+      gbc.gridy = 1; 
 		this.add(this.eventDescriptionField, gbc); 
 		gbc.gridx = 0; 
-        gbc.gridy = 2; 
+      gbc.gridy = 2; 
 		this.add(this.eventStartDateLabel, gbc); 
 		gbc.gridx = 1; 
-        gbc.gridy = 2; 
+      gbc.gridy = 2; 
 		this.add(this.eventStartDateField, gbc); 
 		gbc.gridx = 0; 
-        gbc.gridy = 3; 
+      gbc.gridy = 3; 
 		this.add(this.eventEndDateLabel, gbc); 
 		gbc.gridx = 1; 
-        gbc.gridy = 3; 
+      gbc.gridy = 3; 
 		this.add(this.eventEndDateField, gbc); 
 		gbc.gridx = 0; 
 		gbc.gridy = 5; 
 		
 		this.add(this.saveEventButton, gbc); 
 		gbc.gridx = 2; 
-        gbc.gridy = 0; 
-       gbc.fill = GridBagConstraints.BOTH; 
-        this.add(this.actorsLabel, gbc); 
-        gbc.gridy = 1; 
+      gbc.gridy = 0; 
+     gbc.fill = GridBagConstraints.BOTH; 
+      this.add(this.actorsLabel, gbc); 
+      gbc.gridy = 1; 
 		this.add(new JScrollPane(list), gbc); 
 		  gbc.gridy = 2;
 		  this.add(this.actorsDescriptionLabel, gbc);
 		  gbc.gridy = 3; 
 		  this.add(this.actorsDescriptionField, gbc); 
+		
+		
+		
+		
+		
 	}	
-	
 	private String[] getActorNames(String actorList){
 		JsonElement root = new JsonParser().parse(actorList);
 		JsonElement actorsJsonElement = root.getAsJsonArray(); 
@@ -186,6 +191,7 @@ public class NewEventPanel extends JPanel{
 	 * @param addButtonActionListener The Action Listener for the {@link saveEventButton}
 	 */
 	public void addSaveButtonActionListener(ActionListener addButtonActionListener){
+		System.out.println("New event Panel add AL");
 		this.saveEventButton.addActionListener(addButtonActionListener); 
 	}
 
@@ -208,20 +214,28 @@ public class NewEventPanel extends JPanel{
 		result.put("description", this.eventDescriptionField.getText()); 
 		result.put("startDate", eventStartDateField.getJFormattedTextField().getText()); 
 		result.put("endDate", eventStartDateField.getJFormattedTextField().getText()); 
-		
-		//Clear inserted data from view
-		this.eventTitleField.setText("");
-		this.eventDescriptionField.setText("");
-		this.eventStartDateField.getJFormattedTextField().setText("");
-		this.eventEndDateField.getJFormattedTextField().setText("");
-		
-		System.out.println("A LISSSSST: "+list.getSelectedValue()); 
-		
+		result.put("actorsInvolvement", this.actorsDescriptionField.getText()); 
+		result.put("actorsIds", list.getSelectedValuesList().toString()); 
 		//return the Map
 		return result; 
 	}
 	
 	public void setActors(String actors){
 		this.actors = actors; 
+		DefaultListModel listModel=new DefaultListModel();
+		String[] actorsArray = getActorNames(actors); 
+		for(int i = 0;i<actorsArray.length ; i++){
+		listModel.addElement(actorsArray[i]);
+		}
+		this.list.setModel(listModel);
+		this.actors = actors; 
 	}
+	
+	public void clearNewEventFields(){
+		this.eventTitleField.setText("");
+		this.eventDescriptionField.setText("");
+		this.eventStartDateField.getJFormattedTextField().setText("");
+		this.eventEndDateField.getJFormattedTextField().setText("");
+	}
+	
 }

@@ -51,8 +51,8 @@ public class EventService{
 	 * @param startDate The start date of the {@link model.Event}
 	 * @param endDate The end date of the {@link model.Event}
 	 */
-	public void addEvent(String title, String description, Date startDate, Date endDate){
-		Event event = new Event(title, description, startDate, endDate); 
+	public void addEvent(String title, String description, Date startDate, Date endDate, String[] actorIds, String actorsInvolvementDescription){
+		Event event = new Event(title, description, startDate, endDate, actorIds, actorsInvolvementDescription); 
 		this.eventRepository.addEvent(event);
 	}
 	

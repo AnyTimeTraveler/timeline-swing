@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.List;
@@ -40,9 +41,11 @@ public class EventDetailsPanel extends JPanel {
 	/**
 	 * {@link List} that stores the events ordered by year
 	 */
-	private String eventsInSpecificYear;
 	private GridBagConstraints gbc;
 
+	private String eventsInSpecificYear; 
+	private String actorsJson; 
+	
 	/**
 	 * Initates the {@link eventsInSpecificYear}, sets the
 	 * {@link java.awt.GridBagConstraints} and {@link java.awt.GridBagLayout}
@@ -51,63 +54,102 @@ public class EventDetailsPanel extends JPanel {
 	 *            {@link List}&lt;{@link ui.datasets.timeline}&gt; with the
 	 *            events of one year
 	 */
+	
 	public EventDetailsPanel(String eventsInSpecificYear, String actorsJson) {
 		super();
-		this.eventsInSpecificYear = eventsInSpecificYear;
 		this.eventTitleLabel = new JLabel("Title");
 		this.eventDescriptionLabel = new JLabel("Description");
 		this.eventStartDateLabel = new JLabel("Start Date");
 		this.eventEndDateLabel = new JLabel("End Date");
 		this.gbc = new GridBagConstraints();
-		// GridbagLayout init
+		this.eventsInSpecificYear = eventsInSpecificYear; 
+		this.actorsJson = actorsJson; 
+	}
+
+	public void init() {
+
+		//Set layout
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
-		
+
 		int i = 0;
 		JsonElement root = new JsonParser().parse(this.eventsInSpecificYear);
 		JsonArray array = root.getAsJsonArray();
+		String detailLine = ""; 
+		String startDate = ""; 
+		String endDate = ""; 
+		String title = ""; 
+		String description = ""; 
+		String relatedActorsString = "";
+		String actorsInvolvement = ""; 
 		for (int index = 0; index < array.size(); index++) {
 			JsonObject object = array.get(index).getAsJsonObject();
-			GridBagConstraints gridbagc = new GridBagConstraints();
 			GridBagLayout gridBaglay = new GridBagLayout();
-			;
-			JPanel panel = new JPanel();
-			panel.setLayout(gridBaglay);
-			this.eventTitleLabel = new JLabel(object.get("title").toString());
-			panel.add(this.eventTitleLabel, gridbagc);
-			this.eventDescriptionLabel = new JLabel(object.get("description").toString());
-			panel.add(this.eventDescriptionLabel, gridbagc);
-			String startDate = object.get("startDate").toString().substring(1, object.get("startDate").toString().length() - 12);
-			this.eventStartDateLabel = new JLabel(startDate);
-			panel.add(this.eventStartDateLabel, gridbagc);
-			this.eventEndDateLabel = new JLabel(object.get("EndDate").toString());
-			// Get actors by comaring their ids
-			JsonElement actors = new JsonParser().parse(actorsJson);
+			startDate = object.get("startDate").toString().substring(1,
+					object.get("startDate").toString().length() - 12);
+			endDate = object.get("EndDate").toString().substring(1,
+					object.get("EndDate").toString().length() - 12);
+			
+			title = object.get("title").toString().substring(1,
+					object.get("title").toString().length() - 1);
+			description = object.get("description").toString().substring(1,
+					object.get("description").toString().length() - 1);
+	
+			
+			JsonElement actors = new JsonParser().parse(this.actorsJson);
 			JsonArray actorsArray = actors.getAsJsonArray();
 			for (int j = 0; j < actorsArray.size(); j++) {
 				JsonObject actorsObject = actorsArray.get(j).getAsJsonObject();
-				
+
 				JsonArray thisActorIdsArray = object.get("actorsIds").getAsJsonArray();
-				String relatedActorsString = ""; 
+				
 				for (int k = 0; k < thisActorIdsArray.size(); k++) {
+			
 					JsonObject thisActorIdsObject = actorsArray.get(k).getAsJsonObject();
-					relatedActorsString = relatedActorsString +thisActorIdsObject.get("name").toString()+", "; 
-				}
-				JLabel relatedActorsLabel = new JLabel(); 
-				relatedActorsLabel.setText(relatedActorsString);
-				panel.setBorder(new EmptyBorder(20, 20, 20, 20)); 
-				panel.setBackground(Color.WHITE);
-				panel.add(relatedActorsLabel,gridbagc); 
+					if(thisActorIdsObject.get("name").toString().equals(actorsObject.get("name").toString())){
+						String properName = thisActorIdsObject.get("name").toString().substring(1,
+								thisActorIdsObject.get("name").toString().length() - 1);
+
+						relatedActorsString = relatedActorsString + properName + ", ";	
+					}
+				}			
 			}
+			JPanel panel = new JPanel();
+			panel.setLayout(gridBaglay);
+			panel.setFont(new Font("Arial", Font.PLAIN, 14));
+			GridBagConstraints gridbagc = new GridBagConstraints();
+			gridbagc.weightx = 1; 
+			gridbagc.fill = GridBagConstraints.BOTH;
+			gridbagc.gridy = 0; 
+			JLabel dates = new JLabel(startDate + " - "+endDate+ "  :  "+title);
+			dates.setFont(new Font("Arial", Font.BOLD, 16));
+			dates.setBorder(new EmptyBorder(20, 20, 10, 20)); 
+			panel.add(dates, gridbagc);
+			gridbagc.gridy = 1;  
+			JLabel descLabel = new JLabel("Description:  "+description); 
+			descLabel.setBorder(new EmptyBorder(10, 20, 10, 20)); 
+			panel.add(descLabel, gridbagc);
+			gridbagc.gridy = 2; 
+			JLabel relatedActorsLabel = new JLabel("Actors:  "+relatedActorsString);
+			relatedActorsLabel.setBorder(new EmptyBorder(10, 20, 10, 20)); 
+			panel.add(relatedActorsLabel, gridbagc);
+			gridbagc.gridy = 3; 
+			JLabel actorsInvolvementLabel = new JLabel("Involvement Actors:  "+actorsInvolvement);
+			actorsInvolvementLabel.setBorder(new EmptyBorder(10, 20, 20, 20)); 
+			panel.add(actorsInvolvementLabel, gridbagc);
+			
 		
+			panel.setBackground(Color.white);
+			panel.setBorder(BorderFactory.createLineBorder(new Color (240, 129, 15), 10, false)); 
 			// Set panel Config
 			gbc.gridy = i;
-			
-			
+			gbc.fill = GridBagConstraints.BOTH;
+			gbc.weightx = 1; 
 			this.add(panel, gbc);
 			i++;
 
 		}
+
 	}
 
 }

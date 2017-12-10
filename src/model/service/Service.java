@@ -78,8 +78,9 @@ public class Service implements Subject{
 		 * @param endDate
 		 * The end date of event
 		 */
-	public void addEvent(String title, String description, Date startDate, Date endDate){
-			this.eventService.addEvent(title, description, startDate, endDate);
+	public void addEvent(String title, String description, Date startDate, Date endDate, String[] actors, String actorsInvolvementDescription ){
+		String[] actorIds = this.actorService.getActorIds(actors); 	
+		this.eventService.addEvent(title, description, startDate, endDate, actorIds, actorsInvolvementDescription);
 			this.notifyObservers();
 		}
 		

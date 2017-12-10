@@ -2,6 +2,10 @@ package model.service;
 
 import java.util.List;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import model.Actor;
 import model.repository.ActorRepository;
 import model.repository.MemoryActorRepository;
@@ -37,8 +41,10 @@ public class ActorService {
 	 * @param actor Actor to add
 	 */
 	public void addActor(String actor){
-		System.out.println("NIUEW ACTOR = "+actor);
-		//this.actorRepository.addActor(actor); 
+		JsonElement actors = new JsonParser().parse(actor);
+		JsonObject actorsObject= actors.getAsJsonObject(); 
+		String name = actorsObject.get("name").toString().substring(1, actorsObject.get("name").toString().length()-1);
+		this.actorRepository.addActor(new Actor(name)); 
 	}
 	
 	/**
@@ -62,4 +68,15 @@ public class ActorService {
 		return this.actorRepository.getAllActors(); 
 	}
 	
+	public String[] getActorIds(String[] actors){
+		String[] ids = new String[actors.length]; 
+		for(int i = 0; i<actors.length; i++){
+			for(int j = 0;j<this.actorRepository.getAllActors().size() ; j++){
+				if(actors[i].equals(this.actorRepository.getAllActors().get(j).getName())){
+					ids[i] = this.actorRepository.getAllActors().get(j).getId(); 
+				}
+			}
+		}
+		return ids; 
+	}
 }

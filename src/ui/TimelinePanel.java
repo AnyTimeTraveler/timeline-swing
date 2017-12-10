@@ -59,12 +59,13 @@ public class TimelinePanel extends JPanel {
 	 * @param panelWidth Width of the TimelinePanel
 	 * @param panelHeight Height of the TimelinePanel
 	 */
-	public TimelinePanel(int panelWidth, int panelHeight) {
+	public TimelinePanel(int panelWidth, int panelHeight, String events) {
 		super();	
 		blue = new Color(29, 84, 173);
 		this.panelHeight = panelHeight;
 		this.panelWidth = 2000;
 		this.timelineHeight = panelHeight-100; 
+		this.events = events; 
 	}
 	
 	/**

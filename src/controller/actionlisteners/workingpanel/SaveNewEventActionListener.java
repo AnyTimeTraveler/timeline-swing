@@ -30,7 +30,6 @@ public class SaveNewEventActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) { 
-		System.out.println("SaveNewEventActionListener");
 		this.controller.saveNewEvent();
 	}
 

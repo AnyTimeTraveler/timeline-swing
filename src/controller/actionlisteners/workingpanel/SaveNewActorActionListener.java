@@ -10,7 +10,7 @@ public class SaveNewActorActionListener implements ActionListener{
 	private Controller controller; 
 	
 	public SaveNewActorActionListener(Controller controller){
-		this.controller = controller; 
+		this.controller = controller;
 	}
 	
 	@Override

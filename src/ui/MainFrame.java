@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-
 /**
  * @author Jeroen Vandevenne
  * @version 1.0
@@ -70,12 +69,12 @@ public class MainFrame extends JFrame {
 	 * Dimensions of the application
 	 */
 	private Dimension frameDim;
-	private NewActorPanel newActorPanel; 
+	private NewActorPanel newActorPanel;
 
 	/**
 	 * Initialise config settings and {@link setLayoutContent}
 	 */
-	public MainFrame() {
+	public MainFrame(String events, String actors) {
 		super();
 		// Title of application/frame
 		this.setTitle("Timeline Jeroen Vandevenne");
@@ -99,20 +98,20 @@ public class MainFrame extends JFrame {
 		// Center Frame on screen
 		this.setLocation(screenDim.width / 2 - this.getSize().width / 2,
 				screenDim.height / 2 - this.getSize().height / 2);
-	}
 
-	public void init(String actors) {
-		// Initiate Components of the frame
-		this.timelinePanel = new TimelinePanel(frameDim.width, (int) (frameDim.height * 0.57));
+		// Initialise Components of the frame
+		this.timelinePanel = new TimelinePanel(frameDim.width, (int) (frameDim.height * 0.57), events);
 		this.timelinePanel.setBackground(Color.white);
 		this.buttonPanel = new ButtonPanel();
 		this.importPanel = new ImportPanel();
 		this.importPanel.setBackground(this.orange);
 		this.welcomeLabel = new JLabel();
 		this.newEventPanel = new NewEventPanel(actors);
-		this.setBackground(orange);
-		this.newActorPanel = new NewActorPanel(actors); 
-		
+		this.newActorPanel = new NewActorPanel(actors);
+	}
+
+	public void init() {
+
 		// Assign newEventPanel to workingpanel on init
 		this.workingPanel = new JScrollPane(newEventPanel);
 
@@ -121,11 +120,12 @@ public class MainFrame extends JFrame {
 		this.setLayout(gbl);
 
 		// Add init text to welcomeLabel
-		this.setWelcomeLabelText("The events are sorted per year. Click on a box to see more details regarding that year.");
+		this.setWelcomeLabelText(
+				"The events are sorted per year. Click on a box to see more details regarding that year.");
 		GridBagConstraints welcomeLabelGbc = getWelcomeLabelGridBagConstraints();
 		this.getContentPane().add(welcomeLabel, welcomeLabelGbc);
 
-		//Set scrollable timeline panel
+		// Set scrollable timeline panel
 		scrollPane = new JScrollPane(this.timelinePanel);
 		GridBagConstraints timeLineScrollPaneGbc = this.getTimelineScrollPanelGridBagConstraints();
 		this.getContentPane().add(scrollPane, timeLineScrollPaneGbc);
@@ -242,9 +242,10 @@ public class MainFrame extends JFrame {
 	public void setEvents(String events) {
 		this.timelinePanel.setEvents(events);
 	}
-	
-	public void setActors(String actorsJson){
-		this.newActorPanel.setActors(actorsJson);
+
+	public void setActors(String actorsJson) {
+		this.newActorPanel.setActors(actorsJson); 
+		this.newEventPanel.setActors(actorsJson);
 	}
 
 	/**
@@ -268,7 +269,7 @@ public class MainFrame extends JFrame {
 		// Remove current panel
 		this.getContentPane().remove(this.workingPanel);
 		// Assign new panel as workingPanel
-		this.newEventPanel.setActors(actors);
+		this.newEventPanel.setActors(actors); 
 		this.workingPanel = new JScrollPane(this.newEventPanel);
 		// add new panel to frame
 		this.getContentPane().add(workingPanel, gbc);
@@ -301,6 +302,7 @@ public class MainFrame extends JFrame {
 	 *            The Action Listener for the {@link newEventPanel}
 	 */
 	public void addSaveNewEventButtonActionListener(ActionListener saveNewEventActionListener) {
+		System.out.println("MainFrame add AL");
 		this.newEventPanel.addSaveButtonActionListener(saveNewEventActionListener);
 	}
 
@@ -353,23 +355,23 @@ public class MainFrame extends JFrame {
 	 *            Clicked y value
 	 */
 	public void setEventDetails(String eventsInSpecificYear, String actorsJson) {
-			// Remove current panel
-			this.getContentPane().remove(this.workingPanel);
-			// Assing new panel as workingPanel
-			this.eventDetailsPanel = new EventDetailsPanel(eventsInSpecificYear, actorsJson);
-			this.eventDetailsPanel.setBackground(this.orange);
-			GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
-			this.workingPanel = new JScrollPane(this.eventDetailsPanel);
-			// add New panel to frame
-			this.getContentPane().add(workingPanel, gbc);
-	}
-	
-	
-	public void changeToAddNewActorPanel(String actors){
 		// Remove current panel
 		this.getContentPane().remove(this.workingPanel);
 		// Assing new panel as workingPanel
-		this.newActorPanel = new NewActorPanel(actors);
+		this.eventDetailsPanel = new EventDetailsPanel(eventsInSpecificYear, actorsJson);
+		this.eventDetailsPanel.init();
+		this.eventDetailsPanel.setBackground(this.orange);
+		GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
+		this.workingPanel = new JScrollPane(this.eventDetailsPanel);
+		// add New panel to frame
+		this.getContentPane().add(workingPanel, gbc);
+	}
+
+	public void changeToAddNewActorPanel(String actors) {
+		// Remove current panel
+		this.getContentPane().remove(this.workingPanel);
+		// Assing new panel as workingPanel
+		this.setActors(actors);
 		this.newActorPanel.setBackground(this.orange);
 		this.newActorPanel.setBackground(this.orange);
 		GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
@@ -377,9 +379,9 @@ public class MainFrame extends JFrame {
 		// add New panel to frame
 		this.getContentPane().add(workingPanel, gbc);
 	}
-	
-	public int getEventYearByCoordinates(int x,  int y){
-		return this.timelinePanel.getEventYearByCoordinates(x, y); 
+
+	public int getEventYearByCoordinates(int x, int y) {
+		return this.timelinePanel.getEventYearByCoordinates(x, y);
 	}
 
 	/**
@@ -388,18 +390,20 @@ public class MainFrame extends JFrame {
 	public void colorRectangleWithcoordinates() {
 		this.timelinePanel.colorRectangleWithcoordinates();
 	}
-	
+
 	public void addAddActorButtonActionListener(ActionListener addActorButtonActionListener) {
 		this.buttonPanel.addAddActorButtonActionListener(addActorButtonActionListener);
 	}
-	
 
-	public void addSaveActorButtonActionListener(ActionListener saveActorButtonActionListener){
-		this.newActorPanel.addSaveActorButtonActionListener(saveActorButtonActionListener); 
+	public void addSaveActorButtonActionListener(ActionListener saveActorButtonActionListener) {
+		this.newActorPanel.addSaveActorButtonActionListener(saveActorButtonActionListener);
 	}
-	
-	public String getNewActorData(){
-		return this.newActorPanel.getNewActorData(); 
+
+	public String getNewActorData() {
+		return this.newActorPanel.getNewActorData();
 	}
-	
+
+	public void clearNewEventFields(){
+		this.newEventPanel.clearNewEventFields(); 
+	}
 }

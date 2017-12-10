@@ -51,9 +51,10 @@ public class Controller {
 		this.service = service;
 		this.view = view;
 		service.register(view);
-
+		
 		// Send initial data from model into view
-		this.init(this.service.getAllActors());
+		this.view.setData(this.service.getAllEvents(), this.service.getAllActors());
+		this.init();
 
 		// Initialize actionlisteners on view
 		this.addImportButtonActionListener(new ImportEventsButtonActionListener(this));
@@ -63,6 +64,8 @@ public class Controller {
 		this.addDownloadTimelineActionListener(new DownloadTimelineActionListener(this));
 		this.addAddActorButtonActionListener(new AddActorButtonActionListener(this)); 
 		this.addSaveActorButtonActionListener(new SaveNewActorActionListener(this));
+		this.addSaveNewEventButtonActionListener(new SaveNewEventActionListener(this)); 
+
 		
 		// Display UI
 		this.view.setVisible();
@@ -71,24 +74,8 @@ public class Controller {
 	/**
 	 * Sends inital data to {@link View}
 	 */
-	public void init(String actors) {
-		/*
-		JsonElement root = new JsonParser().parse(this.service.getAllEvents());
-
-		for (Map.Entry<String,JsonElement> entry : root.getAsJsonObject().entrySet()) {
-			System.out.println("KEY : "+ entry.getKey());
-		   System.out.println("FIRST : "+ entry.getValue().getAsJsonArray());
-			for(int i = 0;i< entry.getValue().getAsJsonArray().size(); i++){
-				JsonArray array =  entry.getValue().getAsJsonArray(); 
-		    }
-			//JsonObject array = entry.getKey()
-			
-			//System.out.println(array.getAsJsonObject().get("actorsIds"));
-			 
-			
-		}*/
-		this.view.init(actors);
-		view.setEvents(this.service.getAllEvents());
+	public void init() {
+		this.view.init();
 	}
 
 	/**
@@ -116,8 +103,8 @@ public class Controller {
 	 * @param endDate
 	 *            The end date of the event
 	 */
-	public void addEvent(String title, String description, Date startDate, Date endDate) {
-		this.service.addEvent(title, description, startDate, endDate);
+	public void addEvent(String title, String description, Date startDate, Date endDate, String[] actors, String actorsDescription) {
+		this.service.addEvent(title, description, startDate, endDate, actors, actorsDescription);
 	}
 
 	/**
@@ -162,7 +149,7 @@ public class Controller {
 	 * @param saveNewEventActionListener
 	 *            The ActionListener for the save new event button
 	 */
-	public void saveNewEventButtonActionListener(ActionListener saveNewEventActionListener) {
+	public void addSaveNewEventButtonActionListener(ActionListener saveNewEventActionListener) {
 		this.view.addSaveNewEventButtonActionListener(saveNewEventActionListener);
 	}
 
@@ -193,7 +180,7 @@ public class Controller {
 	public void changeToAddNewEventPanel() {
 		String actorsJson = this.service.getAllActors(); 
 		this.view.changeToAddNewEventPanel(actorsJson);
-		this.saveNewEventButtonActionListener(new SaveNewEventActionListener(this));
+		this.addSaveNewEventButtonActionListener(new SaveNewEventActionListener(this));
 	}
 
 	/**
@@ -209,31 +196,20 @@ public class Controller {
 	 */
 	public void saveNewEvent() {
 		Map<String, String> newEvent = this.view.getSaveNewEventData();
-		Date startDate;
-		Date endDate;
 		try {
-			startDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
-			endDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
-			this.service.addEvent(newEvent.get("title"), newEvent.get("description"), startDate, endDate);
+			Date startDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
+			Date endDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("endDate"));
+			String[] actors =newEvent.get("actorsIds").substring(1, newEvent.get("actorsIds").length()-1).split(", "); 
+			this.service.addEvent(newEvent.get("title"), newEvent.get("description"), startDate, endDate, actors, newEvent.get("actorsInvolvement"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		this.view.clearNewEventFields(); 
 	}
 	
 	public void saveNewActor() {
 		String actor = this.view.getActorData(); 
 		this.service.addActor(actor);
-		System.out.println("NIEWE ACTOR ==== "+actor);
-		/*Map<String, String> newEvent = this.view.getSaveNewEventData();
-		Date startDate;
-		Date endDate;
-		try {
-			startDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
-			endDate = new SimpleDateFormat("dd-MM-yyyy").parse(newEvent.get("startDate"));
-			this.service.addEvent(newEvent.get("title"), newEvent.get("description"), startDate, endDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}*/
 	}
 
 	/**
@@ -250,7 +226,9 @@ public class Controller {
 		String eventsOfSpecificYear =""; 
 		String actorsJson = ""; 
 		try{
+			
 		eventsOfSpecificYear = this.service.getEventsByYear(year); 
+		System.out.println("CONT: "+eventsOfSpecificYear);
 		actorsJson = this.service.getAllActors(); 
 		this.view.setEventDetails(eventsOfSpecificYear, actorsJson);
 		}

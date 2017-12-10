@@ -2,6 +2,7 @@ package model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +37,7 @@ public class Event implements Comparable<Event>{
 	 * End date of the event
 	 */
 	private Date EndDate; 
-	
+	private String actorsInvolvementDescription; 
 	/**
 	 * Assigns parameters to variables and generates a new id, initializes an new List of {@link model.Actor}
 	 * @param title The title of the event
@@ -44,15 +45,23 @@ public class Event implements Comparable<Event>{
 	 * @param startDate The start date of the event
 	 * @param endDate The end date of the event
 	 */
+	public Event(String title, String description, Date startDate, Date endDate, String[] actorIds, String actorsInvolvementDescription) {
+		id = UUID.randomUUID().toString();
+		this.setStartDate(startDate);
+		this.setEndDate(endDate);
+		this.setTitle(title);
+		this.setDescription(description);
+		this.actorsIds = new ArrayList<String>(Arrays.asList(actorIds)); 
+		this.actorsInvolvementDescription = actorsInvolvementDescription; 
+	}
 	public Event(String title, String description, Date startDate, Date endDate) {
 		id = UUID.randomUUID().toString();
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
 		this.setTitle(title);
 		this.setDescription(description);
-		this.actorsIds = new ArrayList<String>();
+		this.actorsIds = new ArrayList<String>(); 
 	}
-	
 	/**
 	 * Assigns parameters to variables and generates a new id
 	 * @param actors List of Actors associated with the event 
@@ -69,7 +78,6 @@ public class Event implements Comparable<Event>{
 		this.setTitle(title);
 		this.setDescription(description);
 	}
-	
 	
 	/**
 	 * Get Start date of event

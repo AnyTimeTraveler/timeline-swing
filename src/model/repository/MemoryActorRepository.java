@@ -46,7 +46,9 @@ public class MemoryActorRepository implements ActorRepository{
 		try{
 		this.actors.add(actor); 
 		}catch(Exception e){
+			System.out.println(e.getMessage());
 		}	
+		System.out.println("All actorsss   "+this.getAllActors());
 	}
 
 	/**

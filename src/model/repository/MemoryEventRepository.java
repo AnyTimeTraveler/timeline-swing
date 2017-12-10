@@ -109,6 +109,9 @@ public class MemoryEventRepository implements EventRepository {
 		}catch(RepositoryException e){
 			System.out.println("Error" + e.getMessage());
 		}
+		if(this.getEvents().containsKey(2017)){
+		System.out.println("ALL EVENTS CURRENTLY ADDED: "+ this.getEvents().get(2017).get(0).getActors());
+		}
 	}
 	
 	/**

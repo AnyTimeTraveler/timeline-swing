@@ -34,23 +34,28 @@ public class ButtonPanel extends JPanel {
 	 */
 	public ButtonPanel(){
 		super();
-		
-		this.setBackground(Color.WHITE);
-		this.buttonBackground = new Color(29, 84, 173);
-		
-		GridLayout experimentLayout = new GridLayout(3,0);
-		this.setLayout(experimentLayout);
-		  
-	    this.addEventButton = this.getButton("Add Event");
-	    this.add(addEventButton);
 
-	    this.importEventsButton = this.getButton("Import/Export Timeline");
-	    this.add(importEventsButton );
-	    
-	    this.addActorButton = this.getButton("Add Actor"); 
-	    this.add(this.addActorButton);
-	    
+		//Color buttons
+		this.buttonBackground = new Color(29, 84, 173);
+	
+		//Initialise Buttons
+		 this.addEventButton = this.getButton("Add Event");
+		 this.importEventsButton = this.getButton("Import/Export Timeline");
+		 this.addActorButton = this.getButton("Add Actor"); 
+		 
+		//Set Background color 
+			this.setBackground(Color.WHITE);
+			
+			//Set layout
+			GridLayout layout = new GridLayout(3,0);
+			this.setLayout(layout);
+			 
+			//Add buttons to layout
+		    this.add(this.addEventButton);
+		    this.add(this.importEventsButton);
+		    this.add(this.addActorButton);  
 	}
+
 	
 	/**
 	 * Generate a new Button with a speficied name and default styling

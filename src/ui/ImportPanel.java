@@ -28,6 +28,10 @@ public class ImportPanel extends JPanel {
 	 * Initialise {@link uploadButton} and set config setting
 	 */
 	public ImportPanel(){ 
+		uploadButton = new JButton("Upload timeline"); 
+		downloadButton = new JButton("Download timeline"); 
+		
+
 		GridBagLayout gbl = new GridBagLayout(); 
 		this.setLayout(gbl);
 		GridBagConstraints gbc = new GridBagConstraints(); 
@@ -35,16 +39,16 @@ public class ImportPanel extends JPanel {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 	    gbc.weighty = 1;
 	    gbc.weightx = 1; 
-		uploadButton = new JButton("Upload timeline"); 
+		
 		uploadButton.setPreferredSize(new Dimension(150, 50));
 		uploadButton.setBackground(Color.white);
-		
 		this.add(uploadButton, gbc);
-		downloadButton = new JButton("Download timeline"); 
+	
 		downloadButton.setPreferredSize(new Dimension(150, 50));
 		downloadButton.setBackground(Color.white);
 		this.add(downloadButton, gbc); 
 	}
+
 
 	/**
 	 * Add an {@link ActionListener} to the {@link uploadButton}
