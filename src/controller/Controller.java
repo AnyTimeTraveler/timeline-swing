@@ -228,8 +228,9 @@ public class Controller {
 		try{
 			
 		eventsOfSpecificYear = this.service.getEventsByYear(year); 
-		System.out.println("CONT: "+eventsOfSpecificYear);
 		actorsJson = this.service.getAllActors(); 
+		System.out.println("All events in that year = "+eventsOfSpecificYear);
+		System.out.println("All actors : "+actorsJson);
 		this.view.setEventDetails(eventsOfSpecificYear, actorsJson);
 		}
 		catch(Exception e){
