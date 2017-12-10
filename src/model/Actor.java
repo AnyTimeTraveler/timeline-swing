@@ -24,7 +24,7 @@ public class Actor {
 	 */
 	public Actor(String name){
 		this.setName(name);
-		id = UUID.randomUUID().toString();
+		this.setId(UUID.randomUUID().toString());
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class Actor {
 	 */
 	public Actor(String name, String id){
 		this.setName(name);
-		this.id = id; 
+		this.setId(id);
 	}
 	
 	/**
@@ -49,6 +49,9 @@ public class Actor {
 	 * @param name New name of Actor
 	 */
 	private void setName(String name) {
+		if(name == null || name.isEmpty()){
+			throw new IllegalArgumentException("The name cannot be null of empty"); 
+		}
 		this.name = name;
 	}
 
@@ -65,6 +68,9 @@ public class Actor {
 	 * @param id int Id for actor
 	 */
 	private void setId(String id) {
+		if(id == null || id.isEmpty()){
+			throw new IllegalArgumentException("The id cannot be null"); 
+		}
 		this.id = id;
 	}
 }

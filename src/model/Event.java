@@ -92,6 +92,9 @@ public class Event implements Comparable<Event>{
 	 * @param startDate New start date of the event
 	 */
 	public void setStartDate(Date startDate) {
+		if(startDate == null){
+			throw new IllegalArgumentException("The start date cannot be null"); 
+		}
 		this.startDate = startDate;
 	}
 
@@ -108,7 +111,10 @@ public class Event implements Comparable<Event>{
 	 * @param endDate New end date of the event
 	 */
 	public void setEndDate(Date endDate) {
-		EndDate = endDate;
+		if(endDate == null){
+			throw new IllegalArgumentException("The end date cannot be null"); 
+		}
+		this.EndDate = endDate;
 	}
 
 	/**
@@ -132,6 +138,10 @@ public class Event implements Comparable<Event>{
 	 * @param actor New actor to add
 	 */
 	public void addActor(String actorId) {
+	if(actorId == null || actorId.isEmpty()){
+		throw new IllegalArgumentException("The actorId cannot be null of empty"); 
+	}
+		
 		this.actorsIds.add(actorId);
 	}
 	
@@ -140,6 +150,9 @@ public class Event implements Comparable<Event>{
 	 * @param actors List of {@link model.Actor}
 	 */
 	private void setActors(List<String> actors){
+		if(actors == null){
+			throw new IllegalArgumentException("The actors cannot be null"); 
+		}
 		this.actorsIds = actors; 
 	}
 	
@@ -156,6 +169,9 @@ public class Event implements Comparable<Event>{
 	 * @param title New title for Event
 	 */
 	private void setTitle(String title) {
+		if(title == null || title.isEmpty()){
+			throw new IllegalArgumentException("The title cannot be null or empty"); 
+		}
 		this.title = title;
 	}
 	/**
@@ -170,6 +186,9 @@ public class Event implements Comparable<Event>{
 	 * @param description New description
 	 */
 	private void setDescription(String description) {
+		if(description == null || description.isEmpty()){
+			throw new IllegalArgumentException("The description cannot be null or empty"); 
+		}
 		this.description = description;
 	}
 
@@ -191,12 +210,19 @@ public class Event implements Comparable<Event>{
 		return actorsIds;
 	}
 	public void setActorsIds(List<String> actorsIds) {
+		if(actorsIds == null){
+			throw new IllegalArgumentException("The actorsIds cannot be null"); 
+		}
+		
 		this.actorsIds = actorsIds;
 	}
 	public String getActorsInvolvementDescription() {
 		return actorsInvolvementDescription;
 	}
 	public void setActorsInvolvementDescription(String actorsInvolvementDescription) {
+		if(actorsInvolvementDescription == null || actorsInvolvementDescription.isEmpty()){
+			throw new IllegalArgumentException("The actorsInvolvementDescription cannot be null or empty"); 
+		}
 		this.actorsInvolvementDescription = actorsInvolvementDescription;
 	}
 	
