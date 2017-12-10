@@ -27,16 +27,26 @@ public class Service implements Subject{
 	 */
 	private EventService eventService; 
 	
-	
+	 private static Service instance;
+	    
 	/**
 	 * Initializes new services
 	 */
-	public Service(){
+	private Service(){
 		/* Initialises a new ActorService */
 		this.actorService = new ActorService("memory"); 
 		/* Initialises a new ActorService */
 		this.eventService = new EventService("memory"); 
 	}
+	
+	public static Service getInstance(){
+        if(instance == null){
+            instance = new Service();
+        }
+        return instance;
+    }
+	
+	
 	
 	/**
 	 * Update all the registered {@link ui.Observer}

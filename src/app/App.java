@@ -25,7 +25,7 @@ public class App {
 	 * Initialises the {@link View}, {@link Service} and {@link Controller}   
 	 */
 	public App(){
-		this.service = new Service(); 
+		this.service = Service.getInstance(); 
 		this.view = new View(); 
 		controller = new Controller(view, service); 
 	}
