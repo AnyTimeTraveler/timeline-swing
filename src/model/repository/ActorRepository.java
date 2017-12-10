@@ -32,4 +32,5 @@ public interface ActorRepository {
 	 */
 	public Actor getActor(String id);
 	public List<Actor> getAllActors(); 
+	public void addActors(List<Actor> actors); 
 }

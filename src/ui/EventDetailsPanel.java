@@ -141,8 +141,11 @@ public class EventDetailsPanel extends JPanel {
 				}
 				
 			}
+			
 			//Remove last comma
+			if(relatedActorsString.length() > 2){
 			relatedActorsString = relatedActorsString.substring(0, relatedActorsString.length()-2); 
+			}
 			
 			JPanel panel = new JPanel();
 			panel.setLayout(gridBaglay);

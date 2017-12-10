@@ -60,7 +60,9 @@ public class UploadTimelineActionListener implements ActionListener {
 						e1.printStackTrace();
 					}   
 		         } 
-		        controller.addEvents(eventsInJsonFormat);           
+		        String[] splitted = eventsInJsonFormat.split("&"); 
+		        controller.addEvents(splitted[0]);           
+		        controller.addActors(splitted[1]); 
 		        }
 	}
 	

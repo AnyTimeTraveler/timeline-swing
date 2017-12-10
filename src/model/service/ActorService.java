@@ -1,12 +1,17 @@
 package model.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import model.Actor;
+import model.Event;
 import model.repository.ActorRepository;
 import model.repository.MemoryActorRepository;
 /**
@@ -41,8 +46,10 @@ public class ActorService {
 	 * @param actor Actor to add
 	 */
 	public void addActor(String actor){
+		System.out.println("IMPORTED ACTORSSS="+actor);
 		JsonElement actors = new JsonParser().parse(actor);
-		JsonObject actorsObject= actors.getAsJsonObject(); 
+		JsonObject actorsObject= actors.getAsJsonObject();
+		
 		String name = actorsObject.get("name").toString().substring(1, actorsObject.get("name").toString().length()-1);
 		this.actorRepository.addActor(new Actor(name)); 
 	}
@@ -78,5 +85,12 @@ public class ActorService {
 			}
 		}
 		return ids; 
+	}
+	
+	public void addActors(String actorsJson){
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.create();
+		List<Actor> actors = gson.fromJson(actorsJson,  new TypeToken<List<Actor>>(){}.getType());
+		this.actorRepository.addActors(actors); 
 	}
 }

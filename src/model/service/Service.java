@@ -165,6 +165,10 @@ public class Service implements Subject{
 		this.notifyObservers();
 	}
 	
+	public void addActors(String actors){
+		this.actorService.addActors(actors);
+		this.notifyObservers();
+	}
 	
 	public String getEventsByYear(int year){
 		return this.eventService.getEventsByYear(year);   

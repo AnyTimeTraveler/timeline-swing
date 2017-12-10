@@ -84,5 +84,9 @@ public class MemoryActorRepository implements ActorRepository{
 	public List<Actor> getAllActors(){
 		return this.actors; 
 	}
+	@Override
+	public void addActors(List<Actor> actors) {
+		this.actors = actors; 
+	}
 	
 }

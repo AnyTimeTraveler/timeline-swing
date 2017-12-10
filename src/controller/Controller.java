@@ -122,6 +122,10 @@ public class Controller {
 	public void addEvents(String eventsInJsonFormat) {
 		this.service.addEvents(eventsInJsonFormat);
 	}
+public void addActors(String actors){
+	System.out.println("TGIHSSSSS : "+actors);
+	this.service.addActors(actors);
+}
 
 	/**
 	 * Add {@link ActionListener} to the {@link View}
@@ -269,7 +273,7 @@ public class Controller {
 		File file = new File(absolutePathDestination + ".json");
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(absolutePathDestination + ".json"))) {
 
-			String jsonToWrite = this.service.getAllEvents();
+			String jsonToWrite = this.service.getAllEvents()+"&"+System.lineSeparator()+this.service.getAllActors();
 
 			bw.write(jsonToWrite);
 		} catch (Exception e) {
