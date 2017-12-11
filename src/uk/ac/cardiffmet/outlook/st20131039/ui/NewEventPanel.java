@@ -263,7 +263,7 @@ public class NewEventPanel extends JPanel {
 		result.put("title", this.eventTitleField.getText());
 		result.put("description", this.eventDescriptionField.getText());
 		result.put("startDate", eventStartDateField.getJFormattedTextField().getText());
-		result.put("endDate", eventStartDateField.getJFormattedTextField().getText());
+		result.put("endDate", eventEndDateField.getJFormattedTextField().getText());
 		result.put("actorsInvolvement", this.actorsDescriptionField.getText());
 		result.put("actorsIds", list.getSelectedValuesList().toString());
 
