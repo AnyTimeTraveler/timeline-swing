@@ -47,6 +47,7 @@ public class Controller {
 	 * @param service
 	 *            The Service of the app
 	 */
+	
 	public Controller(View view, Service service) {
 		this.service = service;
 		this.view = view;
