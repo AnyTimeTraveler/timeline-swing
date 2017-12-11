@@ -20,67 +20,80 @@ import javax.swing.JScrollPane;
  * @version 1.0
  */
 public class MainFrame extends JFrame {
+
 	/**
 	 * Panel that displays the timeline
 	 */
 	private TimelinePanel timelinePanel;
+
 	/**
 	 * Scroll panel in which the timeline is shown
 	 */
 	private JScrollPane scrollPane;
-	/**
-	 * Default color for whole frame
-	 */
-	private Color defaultColor;
+
 	/**
 	 * Custom orange color
 	 */
 	private Color orange = new Color(240, 129, 15);
+
 	/**
 	 * Panel where user works on, adds events, displays event info, uploads and
 	 * exports timelines
 	 */
 	private JScrollPane workingPanel;
+
 	/**
 	 * Panel that displays the form to add a new event
 	 */
 	private NewEventPanel newEventPanel;
+
 	/**
 	 * Panel to import a new File
 	 */
 	private ImportPanel importPanel;
+
 	/**
 	 * Panel that contains the selection buttons
 	 */
 	private ButtonPanel buttonPanel;
+
 	/**
 	 * Label with welcome text
 	 */
 	private JLabel welcomeLabel;
+
 	/**
 	 * Panel that contains event details when an event is clicked
 	 */
 	private EventDetailsPanel eventDetailsPanel;
+
 	/**
 	 * Dimensions of the screen
 	 */
 	private Dimension screenDim;
+
 	/**
-	 * Dimensions of the application
+	 * Dimensions of the frame
 	 */
 	private Dimension frameDim;
+
+	/**
+	 * Panel in which a new actor can be added
+	 */
 	private NewActorPanel newActorPanel;
 
 	/**
-	 * Initialise config settings and {@link setLayoutContent}
+	 * Initialise events and actors and set Frame config settings
+	 * 
+	 * @param events
+	 *            All events in Json format
+	 * @param actors
+	 *            All actors in Json format
 	 */
 	public MainFrame(String events, String actors) {
 		super();
 		// Title of application/frame
 		this.setTitle("Timeline Jeroen Vandevenne");
-
-		// Default background color
-		this.defaultColor = Color.WHITE;
 
 		// Close Application properly
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -234,17 +247,22 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Set new {@link List}&lt;{@link ui.datasets.timeline.Event}&gt;
+	 * Set new Json events
 	 * 
 	 * @param events
-	 *            {@link List}&lt;{@link ui.datasets.timeline.Event}&gt; to set
+	 *            Json format of all events
+	 * 
 	 */
 	public void setEvents(String events) {
 		this.timelinePanel.setEvents(events);
 	}
 
+	/**
+	 * Set new actors on view
+	 * @param actorsJson Json format of all actors
+	 */
 	public void setActors(String actorsJson) {
-		this.newActorPanel.setActors(actorsJson); 
+		this.newActorPanel.setActors(actorsJson);
 		this.newEventPanel.setActors(actorsJson);
 	}
 
@@ -252,25 +270,34 @@ public class MainFrame extends JFrame {
 	 * Change the {@link workingPanel} to {@link importPanel}
 	 */
 	public void changeToImportPanel() {
+		
 		GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
+		
 		// Remove current panel
 		this.getContentPane().remove(this.workingPanel);
+		
 		// Assign new panel as workingPanel
 		this.workingPanel = new JScrollPane(this.importPanel);
+		
 		// add new panel to frame
 		this.getContentPane().add(workingPanel, gbc);
 	}
 
 	/**
 	 * Change the {@link workingPanel} to {@link newEventPanel}
+	 * @param actors Json of all actors
 	 */
 	public void changeToAddNewEventPanel(String actors) {
+		
 		GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
+		
 		// Remove current panel
 		this.getContentPane().remove(this.workingPanel);
+		
 		// Assign new panel as workingPanel
-		this.newEventPanel.setActors(actors); 
+		this.newEventPanel.setActors(actors);
 		this.workingPanel = new JScrollPane(this.newEventPanel);
+		
 		// add new panel to frame
 		this.getContentPane().add(workingPanel, gbc);
 	}
@@ -302,25 +329,24 @@ public class MainFrame extends JFrame {
 	 *            The Action Listener for the {@link newEventPanel}
 	 */
 	public void addSaveNewEventButtonActionListener(ActionListener saveNewEventActionListener) {
-		System.out.println("MainFrame add AL");
 		this.newEventPanel.addSaveButtonActionListener(saveNewEventActionListener);
 	}
 
 	/**
-	 * Add an {@link ActionListener} to the {@link newEventPanel}
+	 * Add an {@link ActionListener} to the {@link importPanel}
 	 * 
 	 * @param downloadTimelineActionListener
-	 *            The Action Listener for the {@link newEventPanel}
+	 *            The Action Listener for the {@link importPanel}
 	 */
 	public void addDownloadTimelineActionListener(ActionListener downloadTimelineActionListener) {
 		this.importPanel.addDownloadTimelineActionListener(downloadTimelineActionListener);
 	}
 
 	/**
-	 * Add an {@link ActionListener} to the {@link newEventPanel}
+	 * Add an {@link ActionListener} to the {@link importPanel}
 	 * 
 	 * @param uploadFileActionListener
-	 *            The Action Listener for the {@link newEventPanel}
+	 *            The Action Listener for the {@link importPanel}
 	 */
 	public void addUploadFileActionListener(ActionListener uploadFileActionListener) {
 		this.importPanel.addUploadFileActionListener(uploadFileActionListener);
@@ -355,55 +381,83 @@ public class MainFrame extends JFrame {
 	 *            Clicked y value
 	 */
 	public void setEventDetails(String eventsInSpecificYear, String actorsJson) {
+		
 		// Remove current panel
 		this.getContentPane().remove(this.workingPanel);
+		
 		// Assing new panel as workingPanel
 		this.eventDetailsPanel = new EventDetailsPanel(eventsInSpecificYear, actorsJson);
 		this.eventDetailsPanel.init();
 		this.eventDetailsPanel.setBackground(this.orange);
 		GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
 		this.workingPanel = new JScrollPane(this.eventDetailsPanel);
+		
 		// add New panel to frame
 		this.getContentPane().add(workingPanel, gbc);
 	}
 
+	/**
+	 * Change working panel to {@link NewActorPanel}
+	 * @param actors Json of all actors
+	 */
 	public void changeToAddNewActorPanel(String actors) {
+		
 		// Remove current panel
 		this.getContentPane().remove(this.workingPanel);
+		
 		// Assing new panel as workingPanel
 		this.setActors(actors);
 		this.newActorPanel.setBackground(this.orange);
 		this.newActorPanel.setBackground(this.orange);
 		GridBagConstraints gbc = this.getWorkingPanelGridBagConstraints();
 		this.workingPanel = new JScrollPane(this.newActorPanel);
+		
 		// add New panel to frame
 		this.getContentPane().add(workingPanel, gbc);
 	}
 
+	/**
+	 * Get the year that corresponds with certain coordinates on the timeline
+	 * @param x X value on {@link TimelinePanel}
+	 * @param y Y value on {@link TimelinePanel}
+	 * @return int year
+	 */
 	public int getEventYearByCoordinates(int x, int y) {
 		return this.timelinePanel.getEventYearByCoordinates(x, y);
 	}
 
 	/**
-	 * Color a rectangle according to clicked coordinated
+	 * Add an {@link ActionListener} to the {@link buttonPanel}
+	 * 
+	 * @param addActorButtonActionListener
+	 *            The Action Listener for the {@link buttonPanel}
 	 */
-	public void colorRectangleWithcoordinates() {
-		this.timelinePanel.colorRectangleWithcoordinates();
-	}
-
 	public void addAddActorButtonActionListener(ActionListener addActorButtonActionListener) {
 		this.buttonPanel.addAddActorButtonActionListener(addActorButtonActionListener);
 	}
 
+	/**
+	 * Add an {@link ActionListener} to the {@link newActorPanel}
+	 * 
+	 * @param saveActorButtonActionListener
+	 *            The Action Listener for the {@link newActorPanel}
+	 */
 	public void addSaveActorButtonActionListener(ActionListener saveActorButtonActionListener) {
 		this.newActorPanel.addSaveActorButtonActionListener(saveActorButtonActionListener);
 	}
 
+	/**
+	 * Get the data that the user has entered on the {@link NewActorPanel}
+	 * @return Json of New Actor
+	 */
 	public String getNewActorData() {
 		return this.newActorPanel.getNewActorData();
 	}
 
-	public void clearNewEventFields(){
-		this.newEventPanel.clearNewEventFields(); 
+	/**
+	 * Clear All the fields in the {@link NewEventPanel}
+	 */
+	public void clearNewEventFields() {
+		this.newEventPanel.clearNewEventFields();
 	}
 }

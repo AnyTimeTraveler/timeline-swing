@@ -30,25 +30,30 @@ import com.google.gson.reflect.TypeToken;
 public class TimelinePanel extends JPanel {
 
 	/**
-	 * List with all the events to display on the timeline. Using the view side dataset {@link ui.datasets.timeline.Event}
+	 * Json String with all the events to display on the timeline.
 	 */
 	private String events; 
+	
 	/**
 	 * Height of the TimelinePanel
 	 */
 	private int panelHeight;
+	
 	/**
 	 * Width of the TimelinePanel
 	 */
 	private int panelWidth;
+	
 	/**
 	 * Height of timeline
 	 */
 	private int timelineHeight; 
+	
 	/**
 	 * Color of the border of the timeline
 	 */
 	private Color blue; 
+	
 	/**
 	 * Timeline graphics
 	 */
@@ -58,6 +63,7 @@ public class TimelinePanel extends JPanel {
 	 * Initialises params and set default config
 	 * @param panelWidth Width of the TimelinePanel
 	 * @param panelHeight Height of the TimelinePanel
+	 * @param events All events to display
 	 */
 	public TimelinePanel(int panelWidth, int panelHeight, String events) {
 		super();	
@@ -75,6 +81,7 @@ public class TimelinePanel extends JPanel {
 	private int getTimelineY1(){
 		return this.timelineHeight/2+(this.panelHeight-this.timelineHeight)/2; 
 	}
+	
 	/**
 	 * Get The Y2 value of the timeline
 	 * @return int Y2 value of the timeline
@@ -82,6 +89,7 @@ public class TimelinePanel extends JPanel {
 	private int getTimelineY2(){
 		return this.getTimelineY1(); 
 	}
+	
 	/**
 	 * Get The X1 value of the timeline
 	 * @return int X1 value of the timeline
@@ -89,6 +97,7 @@ public class TimelinePanel extends JPanel {
 	private int getTimelineX1(){
 		return this.getRectangleWidth()/2; 
 	}
+	
 	/**
 	 * Get The X2 value of the timeline
 	 * @return int X2 value of the timeline
@@ -104,6 +113,7 @@ public class TimelinePanel extends JPanel {
 	private int getRectangleWidth(){
 		return this.getEventWidth(); 
 	}
+	
 	/**
 	 * Get The height value of the rectangle.
 	 * @return int height value of the rectangle
@@ -112,6 +122,7 @@ public class TimelinePanel extends JPanel {
 		//rectangle rectangles equals 3/7th of timeline.
 		return (int) (this.timelineHeight*(3.0/7.0)); 
 	}
+	
 	/**
 	 * Get The X1 value of the rectangle. This is based on the order the the events
 	 * @param eventSequenceNumber number of event in array
@@ -120,6 +131,7 @@ public class TimelinePanel extends JPanel {
 	private int getRectangleX1(int eventSequenceNumber){
 		return eventSequenceNumber*this.getEventWidth(); 
 	}
+	
 	/**
 	 * Get The Y1 value of the rectangle. This is based on the position of the event
 	 * @param direction up or down depending on position in array
@@ -148,6 +160,7 @@ public class TimelinePanel extends JPanel {
 		//The timeline between the 2 rectangles equals 1/7th of timeline. The horizontal stripe is negligible
 		return (int) (this.timelineHeight*(1.0/7.0)/2); 
 	}
+	
 	/**
 	 * Get The X1 value of the stripe. This is based on the order the the events
 	 * @param eventSequenceNumber position of event in array
@@ -156,6 +169,7 @@ public class TimelinePanel extends JPanel {
 	private int getTimelineEventStripeX1(int eventSequenceNumber){
 		return this.getTimelineX1()+eventSequenceNumber*this.getEventWidth(); 
 	}
+	
 	/**
 	 * Get The X2 value of the stripe. This is based on the order the the events
 	 * @param eventSequenceNumber The position of event in array
@@ -251,23 +265,7 @@ public class TimelinePanel extends JPanel {
 		//Draw horizontal Timeline line
 		g2.draw(new Line2D.Double(this.getTimelineX1(), this.getTimelineY1(), this.getTimelineX2(), this.getTimelineY2()));
 
-		/*************JSON EXAMPLE****************/
 		JsonElement root = new JsonParser().parse(this.events);
-/*
-		for (Map.Entry<String,JsonElement> entry : root.getAsJsonObject().entrySet()) {
-			System.out.println("KEY : "+ entry.getKey());
-		   System.out.println("FIRST : "+ entry.getValue().getAsJsonArray());
-			for(int index = 0;index< entry.getValue().getAsJsonArray().size(); index++){
-				JsonArray array =  entry.getValue().getAsJsonArray(); 
-		    	System.out.println("HIEREEE: "+array.get(index).getAsJsonObject().get("title").toString()); 
-		    }
-			//JsonObject array = entry.getKey()
-			
-			//System.out.println(array.getAsJsonObject().get("actorsIds"));
-			
-			
-		}*/
-		/*************JSON EXAMPLE - END****************/
 		boolean isOdd = false; 
 		int i = 0;
 		for (Map.Entry<String,JsonElement> entry : root.getAsJsonObject().entrySet()) {
@@ -342,16 +340,16 @@ public class TimelinePanel extends JPanel {
 						String title = array.get(index).getAsJsonObject().get("title").toString().substring(1, array.get(index).getAsJsonObject().get("title").toString().length() - 1);
 						String dateString = date +" : " + title; 
 						
-						
-						
 						g2.drawString(dateString, this.getRectangleX1(i)+15, this.getRectangleY1("up")+index*20+25);
 				 }
 				g2.setFont(fontToReset);
 					
 				}
 		    
-		    
+		    //Increment loop
 		    i++;
+		    
+		    //Toggle odd
 		    if(isOdd == false){
 		    	isOdd = true; 
 		    }
@@ -363,8 +361,8 @@ public class TimelinePanel extends JPanel {
 	}
 
 	/**
-	 * Set a new {@link List}&lt;{@link ui.datasets.timeline.Event}&gt;
-	 * @param events New {@link List}&lt;{@link ui.datasets.timeline.Event}&gt;
+	 * Set new Json String of events
+	 * @param events Json of all events 
 	 */
 	public void setEvents(String events) {
 		this.events = events;
@@ -394,6 +392,7 @@ public class TimelinePanel extends JPanel {
 			int yMinValue = 0; 
 			int yMaxValue = 0; 
 			
+			//Check odd to know whether coordinate is situated above or under timeline
 		    if (isOdd) {
 		    	yMinValue = this.getRectangleY1("down"); 
 		    	yMaxValue = this.getRectangleY1("down")+this.getRectangleHeight(); 
@@ -405,7 +404,11 @@ public class TimelinePanel extends JPanel {
 		    if(x>=xMinValue && x<=xMaxValue && y>=yMinValue && y<=yMaxValue){
 		    	return  Integer.parseInt(entry.getKey()); 
 		    }
+		    
+		    //Increment loop
 		    i++;
+		    
+		    //Toggle odd
 		    if(isOdd == false){
 		    	isOdd = true; 
 		    }
@@ -413,24 +416,6 @@ public class TimelinePanel extends JPanel {
 		    	isOdd = false;
 		    }
 		}
-		
 		return 0; 
 	}
-	
-	/**
-	 * Color a rectangle at specified coordinates
-	 */
-	public void colorRectangleWithcoordinates(){
-		g2.setColor(Color.RED);
-		RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(
-				this.getRectangleX1(0),
-				this.getRectangleY1("up"), 
-				this.getRectangleWidth(),
-				this.getRectangleHeight(), 
-				25, 
-				25);
-		g2.draw(roundedRectangle);
-		g2.setColor(Color.BLACK);
-	}
-	
 }

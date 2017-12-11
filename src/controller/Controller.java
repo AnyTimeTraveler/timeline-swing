@@ -243,14 +243,6 @@ public void addActors(String actors){
 	}
 
 	/**
-	 * Color a certain Rectangle
-	 */
-	// TODO implement coordinates
-	public void colorRectangleWithcoordinates() {
-		this.view.colorRectangleWithcoordinates();
-	}
-
-	/**
 	 * Add {@link ActionListener} to the {@link View}
 	 * 
 	 * @param downloadTimelineActionListener

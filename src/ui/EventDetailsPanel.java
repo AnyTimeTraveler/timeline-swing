@@ -26,35 +26,47 @@ public class EventDetailsPanel extends JPanel {
 	 * Label for event title
 	 */
 	private JLabel eventTitleLabel;
+
 	/**
 	 * Label for event description
 	 */
 	private JLabel eventDescriptionLabel;
+
 	/**
 	 * Label for event start date
 	 */
 	private JLabel eventStartDateLabel;
+
 	/**
 	 * Label for event end date
 	 */
 	private JLabel eventEndDateLabel;
+
 	/**
-	 * {@link List} that stores the events ordered by year
+	 * GridBagConstraints that define the position of each event in a specific
+	 * year
 	 */
 	private GridBagConstraints gbc;
 
+	/**
+	 * Json String of all the events in the chosen year
+	 */
 	private String eventsInSpecificYear;
+
+	/**
+	 * Json String of all the stored actors
+	 */
 	private String actorsJson;
 
 	/**
-	 * Initates the {@link eventsInSpecificYear}, sets the
-	 * {@link java.awt.GridBagConstraints} and {@link java.awt.GridBagLayout}
+	 * Initates the {@link eventsInSpecificYear} and {@link actorsJson} andother
+	 * variables.
 	 * 
 	 * @param eventsInSpecificYear
-	 *            {@link List}&lt;{@link ui.datasets.timeline}&gt; with the
-	 *            events of one year
+	 *            Json with events of one year
+	 * @param actorsJson
+	 *            Json with all the actors in application
 	 */
-
 	public EventDetailsPanel(String eventsInSpecificYear, String actorsJson) {
 		super();
 		this.eventTitleLabel = new JLabel("Title");
@@ -66,12 +78,16 @@ public class EventDetailsPanel extends JPanel {
 		this.actorsJson = actorsJson;
 	}
 
+	/**
+	 * Sets Layout and adds components to panel
+	 */
 	public void init() {
 
 		// Set layout
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
 
+		// Parse JSON to Jlabels
 		int i = 0;
 		JsonElement root = new JsonParser().parse(this.eventsInSpecificYear);
 		JsonArray array = root.getAsJsonArray();
@@ -83,7 +99,7 @@ public class EventDetailsPanel extends JPanel {
 		String relatedActorsString = "";
 		String actorsInvolvement = "";
 		for (int index = 0; index < array.size(); index++) {
-			relatedActorsString = ""; 
+			relatedActorsString = "";
 			JsonObject object = array.get(index).getAsJsonObject();
 			GridBagLayout gridBaglay = new GridBagLayout();
 
@@ -127,26 +143,27 @@ public class EventDetailsPanel extends JPanel {
 			JsonElement actors = new JsonParser().parse(this.actorsJson);
 			JsonArray actorsArray = actors.getAsJsonArray();
 			for (int j = 0; j < actorsArray.size(); j++) {
-				JsonObject actorsObject = actorsArray.get(j).getAsJsonObject(); 
-				String id1 = actorsObject.get("id").toString(); 
-				String name1 = actorsObject.get("name").toString().substring(1, actorsObject.get("name").toString().length()-1);
-				JsonElement thisEventActorsElement = object.get("actorsIds"); 
-				JsonArray thisEventActorsArray = thisEventActorsElement.getAsJsonArray(); 
-				for(int a= 0; a<thisEventActorsArray.size(); a++){
-					String id2 = thisEventActorsArray.get(a).toString(); 
-					
-					if(id1.equals(id2)){
-						relatedActorsString = relatedActorsString +name1 + ", ";
+				JsonObject actorsObject = actorsArray.get(j).getAsJsonObject();
+				String id1 = actorsObject.get("id").toString();
+				String name1 = actorsObject.get("name").toString().substring(1,
+						actorsObject.get("name").toString().length() - 1);
+				JsonElement thisEventActorsElement = object.get("actorsIds");
+				JsonArray thisEventActorsArray = thisEventActorsElement.getAsJsonArray();
+				for (int a = 0; a < thisEventActorsArray.size(); a++) {
+					String id2 = thisEventActorsArray.get(a).toString();
+
+					if (id1.equals(id2)) {
+						relatedActorsString = relatedActorsString + name1 + ", ";
 					}
 				}
-				
+
 			}
-			
-			//Remove last comma
-			if(relatedActorsString.length() > 2){
-			relatedActorsString = relatedActorsString.substring(0, relatedActorsString.length()-2); 
+
+			// Remove last comma
+			if (relatedActorsString.length() > 2) {
+				relatedActorsString = relatedActorsString.substring(0, relatedActorsString.length() - 2);
 			}
-			
+
 			JPanel panel = new JPanel();
 			panel.setLayout(gridBaglay);
 			panel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -173,13 +190,15 @@ public class EventDetailsPanel extends JPanel {
 
 			panel.setBackground(Color.white);
 			panel.setBorder(BorderFactory.createLineBorder(new Color(240, 129, 15), 10, false));
+
 			// Set panel Config
 			gbc.gridy = i;
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.weightx = 1;
 			this.add(panel, gbc);
-			i++;
 
+			// Increment loop
+			i++;
 		}
 
 	}
