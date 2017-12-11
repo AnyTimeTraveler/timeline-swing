@@ -1,7 +1,6 @@
 package model.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,9 +10,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import model.Actor;
-import model.Event;
 import model.repository.ActorRepository;
-import model.repository.MemoryActorRepository;
+import model.repository.ActorRepositoryFactory;
 /**
 * @author  Jeroen Vandevenne
 * @version 1.0
@@ -30,15 +28,7 @@ public class ActorService {
 	 * @param repositoryType The type of repository to be used
 	 */
 	public ActorService(String repositoryType){
-		switch(repositoryType){
-		case "memory": 
-			this.actorRepository = new MemoryActorRepository(); 
-		break; 
-		default:
-			this.actorRepository = new MemoryActorRepository(); 
-			break; 
-		}
-		
+		this.actorRepository = ActorRepositoryFactory.getActorRepository(repositoryType);
 	}
 	
 	/**

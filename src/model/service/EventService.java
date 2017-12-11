@@ -11,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 
 import model.Event;
 import model.repository.EventRepository;
+import model.repository.EventRepositoryFactory;
 import model.repository.MemoryEventRepository;
 
 /**
@@ -29,19 +30,7 @@ public class EventService{
 	 * @param repositoryType The type of repository to be used
 	 */
 	public EventService(String repositoryType){
-		switch(repositoryType){
-		case "memory" : 
-			this.setUpMemoryRepository();
-			break; 
-		default: this.setUpMemoryRepository();
-		}
-	}
-	
-	/**
-	 * Initialises a new {@link  model.repository.MemoryEventRepository}
-	 */
-	private void setUpMemoryRepository(){
-		this.eventRepository = new MemoryEventRepository(); 
+		this.eventRepository = EventRepositoryFactory.getEventRepository(repositoryType);
 	}
 	
 	/**
