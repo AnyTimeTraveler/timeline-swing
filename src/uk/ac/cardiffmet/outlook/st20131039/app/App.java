@@ -10,15 +10,17 @@ import uk.ac.cardiffmet.outlook.st20131039.ui.View;
 public class App {
 
 	/**
-	 * The {@link View} of the app
+	 * The {@link View} of the App
 	 */
 	private View view;
 	/**
-	 * The {@link Service} of the app
+	 * The {@link Service} of the App
 	 */
 	private Service service; 
 	
-	
+	/**
+	 * The {@link Controller} of the App
+	 */
 	private Controller controller; 
 	
 	/**

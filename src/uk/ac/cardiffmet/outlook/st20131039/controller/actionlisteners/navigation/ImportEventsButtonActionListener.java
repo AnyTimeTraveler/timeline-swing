@@ -21,7 +21,6 @@ public class ImportEventsButtonActionListener implements ActionListener {
 	 * @param controller The {@link Controller} of the {@link uk.ac.cardiffmet.outlook.st20131039.app.App}
 	 */
 	public ImportEventsButtonActionListener(Controller controller){
-		System.out.println("ImportEventsButtonActionListener");
 		this.controller = controller; 
 	}
 	

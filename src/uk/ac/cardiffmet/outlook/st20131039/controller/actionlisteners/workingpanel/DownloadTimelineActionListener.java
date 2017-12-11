@@ -29,7 +29,6 @@ public class DownloadTimelineActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		System.out.println("DownloadTimelineActionListener");
 		 JFileChooser fileChooser = new JFileChooser();
 		    int returnVal = fileChooser.showSaveDialog((Component) arg0.getSource());
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {

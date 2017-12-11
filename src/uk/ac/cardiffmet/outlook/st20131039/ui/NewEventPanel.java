@@ -117,7 +117,7 @@ public class NewEventPanel extends JPanel {
 		this.actorsDescriptionLabel = new JLabel("Enter info about these actors' involvement");
 		this.actorsDescriptionField = new JTextField();
 		this.actors = actors;
-
+		
 		// Initialize datepickers
 
 		UtilDateModel model = new UtilDateModel();

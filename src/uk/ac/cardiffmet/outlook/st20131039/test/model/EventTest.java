@@ -1,6 +1,6 @@
 package uk.ac.cardiffmet.outlook.st20131039.test.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +18,8 @@ public class EventTest {
 	private Date startDate; 
 	private Date endDate;
 	private String name; 
+	private String[] actorIds; 
+	private String actorDescription; 
 	
 	@Before
 	public void setUp(){
@@ -27,49 +29,53 @@ public class EventTest {
 		startDate = new Date(); 
 		endDate = new Date(); 
 		name = "James"; 
+		actorIds = new String[2];
+		actorIds[0] = "1";
+		actorIds[1] = "2"; 
+		actorDescription = "Leader"; 	
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
 	public void createEventWithEmptyNameThrowException(){
 		this.name = ""; 
-		Event event = new Event(this.actors, this.name, this.description, this.startDate, this.endDate); 
+		Event event = new Event(this.name, this.description, this.startDate, this.endDate, actorIds, actorDescription); 
 	}
 
 	@Test (expected=IllegalArgumentException.class)
 	public void createEventWithNullValueNameThrowException(){
-		Event event = new Event(this.actors, null, this.description, this.startDate, this.endDate); 
+		Event event = new Event(null, this.description, this.startDate, this.endDate, actorIds, actorDescription); 
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
 	public void createEventWithNullValueActorsThrowException(){
-		Event event = new Event(null, this.name, this.description, this.startDate, this.endDate); 
+		Event event = new Event(this.name, this.description, this.startDate, this.endDate, actorIds, actorDescription); 
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
 	public void createEventWithNullValueDescriptionThrowException(){
-		Event event = new Event(this.actors, this.name, null, this.startDate, this.endDate); 
+		Event event = new Event( this.name, null, this.startDate, this.endDate, actorIds, actorDescription); 
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
 	public void createEventWithEmptyDescriptionThrowException(){
 		this.description = ""; 
-		Event event = new Event(this.actors, this.name, this.description, this.startDate, this.endDate); 
+		Event event = new Event( this.name, this.description, this.startDate, this.endDate, actorIds, actorDescription); 
 	}
 
 	@Test (expected=IllegalArgumentException.class)
 	public void createEventWithNullValueStartDateThrowException(){
-		Event event = new Event(this.actors, this.name, this.description, null, this.endDate); 
+		Event event = new Event(this.name, this.description, null, this.endDate, actorIds, actorDescription); 
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
 	public void createEventWithNullValueEndDateThrowException(){
-		Event event = new Event(this.actors, this.name, this.description, this.startDate, null); 
+		Event event = new Event(this.name, this.description, this.startDate, null, actorIds, actorDescription); 
 	}
 	
 	@Test
 	public void createValidEvent(){
 		System.out.println(this.actors);
-		Event event = new Event(this.actors, this.name, this.description, this.startDate, this.endDate); 
+		Event event = new Event(this.name, this.description, this.startDate, this.endDate, actorIds, actorDescription); 
 		assertEquals(this.actors, event.getActors()); 
 		assertEquals(this.name, event.getTitle());
 		assertEquals(this.description, event.getDescription());

@@ -27,11 +27,10 @@ public class TimelineEventMouseListener implements MouseListener   {
 
 	
 	/**
-	 * Color rectangle with specified coordinates on hover 
+	 * Nothing implemented on mouse exit event
 	 */
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		//controller.colorRectangleWithcoordinates(); 
 	}
 
 	/**
@@ -39,7 +38,6 @@ public class TimelineEventMouseListener implements MouseListener   {
 	 */
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 	/**
@@ -47,8 +45,7 @@ public class TimelineEventMouseListener implements MouseListener   {
 	 */
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	/**
@@ -56,8 +53,7 @@ public class TimelineEventMouseListener implements MouseListener   {
 	 */
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**

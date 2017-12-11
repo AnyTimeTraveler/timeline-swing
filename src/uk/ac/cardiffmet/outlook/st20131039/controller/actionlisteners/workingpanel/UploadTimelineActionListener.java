@@ -36,7 +36,6 @@ public class UploadTimelineActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("UploadTimelineActionListener");
 		String eventsInJsonFormat = ""; 
 		final JFileChooser fc = new JFileChooser();
 		        int returnVal = fc.showOpenDialog((Component)e.getSource());
@@ -60,6 +59,8 @@ public class UploadTimelineActionListener implements ActionListener {
 						e1.printStackTrace();
 					}   
 		         } 
+		        
+		        //Split file on "&" sign. This can be improved in the future by storing the full Data as JSON
 		        String[] splitted = eventsInJsonFormat.split("&"); 
 		        controller.addEvents(splitted[0]);           
 		        controller.addActors(splitted[1]); 

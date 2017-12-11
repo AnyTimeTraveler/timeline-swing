@@ -17,33 +17,45 @@ public class Event implements Comparable<Event>{
 	 * List of actors associated with the event
 	 */
 	private List<String> actorsIds;
+	
 	/**
 	 * Title of the event
 	 */
 	private String title; 
+	
 	/**
 	 * Description of the event
 	 */
 	private String description;
+	
 	/**
 	 * Id of the event
 	 */
 	private String id;
+	
 	/**
 	 * Start date of the event
 	 */
 	private Date startDate; 
+	
 	/**
 	 * End date of the event
 	 */
 	private Date EndDate; 
-	private String actorsInvolvementDescription; 
+	
 	/**
-	 * Assigns parameters to variables and generates a new id, initializes an new List of {@link uk.ac.cardiffmet.outlook.st20131039.model.Actor}
+	 * Description about how the actors where involved in the event
+	 */
+	private String actorsInvolvementDescription; 
+	
+	/**
+	 * Construc a new Event
 	 * @param title The title of the event
 	 * @param description The description of the event
 	 * @param startDate The start date of the event
 	 * @param endDate The end date of the event
+	 * @param actorIds The ids of the involved actors
+	 * @param actorsInvolvementDescription The description about how the actors where involved
 	 */
 	public Event(String title, String description, Date startDate, Date endDate, String[] actorIds, String actorsInvolvementDescription) {
 		id = UUID.randomUUID().toString();
@@ -54,31 +66,7 @@ public class Event implements Comparable<Event>{
 		this.actorsIds = new ArrayList<String>(Arrays.asList(actorIds)); 
 		this.actorsInvolvementDescription = actorsInvolvementDescription; 
 	}
-	public Event(String title, String description, Date startDate, Date endDate) {
-		id = UUID.randomUUID().toString();
-		this.setStartDate(startDate);
-		this.setEndDate(endDate);
-		this.setTitle(title);
-		this.setDescription(description);
-		this.actorsIds = new ArrayList<String>(); 
-	}
-	/**
-	 * Assigns parameters to variables and generates a new id
-	 * @param actors List of Actors associated with the event 
-	 * @param title The title of the event
-	 * @param description The description of the event
-	 * @param startDate The start date of the event
-	 * @param endDate The end date of the event
-	 */
-	public Event(List<String> actors, String title, String description, Date startDate, Date endDate) {
-		id = UUID.randomUUID().toString();
-		this.setStartDate(startDate);
-		this.setEndDate(endDate);
-		this.setActors(actors); 
-		this.setTitle(title);
-		this.setDescription(description);
-	}
-	
+
 	/**
 	 * Get Start date of event
 	 * @return Date start date of event
@@ -146,8 +134,8 @@ public class Event implements Comparable<Event>{
 	}
 	
 	/**
-	 * Set new List of {@link uk.ac.cardiffmet.outlook.st20131039.model.Actor}
-	 * @param actors List of {@link uk.ac.cardiffmet.outlook.st20131039.model.Actor}
+	 * Set new List of actor Ids
+	 * @param actors List of actor Ids
 	 */
 	private void setActors(List<String> actors){
 		if(actors == null){
@@ -202,23 +190,28 @@ public class Event implements Comparable<Event>{
 	} 
 	
 	
+	/**
+	 * Get year out of Date
+	 * @return int year
+	 */
 	public int getStartYear(){
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
 		return Integer.parseInt(formatter.format(this.startDate)); 
 	}
-	public List<String> getActorsIds() {
-		return actorsIds;
-	}
-	public void setActorsIds(List<String> actorsIds) {
-		if(actorsIds == null){
-			throw new IllegalArgumentException("The actorsIds cannot be null"); 
-		}
-		
-		this.actorsIds = actorsIds;
-	}
+
+	/**
+	 * Get Actors Involvement Description
+	 * @return String Actors Involvement Description
+	 */
 	public String getActorsInvolvementDescription() {
 		return actorsInvolvementDescription;
 	}
+	
+	/**
+	 * Set new Actors Involvement Description
+	 * @param actorsInvolvementDescription new Actors Involvement Description
+	 * @throws IllegalArgumentException
+	 */
 	public void setActorsInvolvementDescription(String actorsInvolvementDescription) {
 		if(actorsInvolvementDescription == null || actorsInvolvementDescription.isEmpty()){
 			throw new IllegalArgumentException("The actorsInvolvementDescription cannot be null or empty"); 

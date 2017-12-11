@@ -25,62 +25,8 @@ public class MemoryEventRepository implements EventRepository {
 	 * Initialise the {@link List}&lt;{@link uk.ac.cardiffmet.outlook.st20131039.model.Event}&gt; events, add sample data, sort the List
 	 */
 	public MemoryEventRepository(){
-		//Inititale Arraylist of Events
+		//Inititale TreeMap of Events
 		this.events = new TreeMap<Integer, List<Event>>(); 
-		
-		Date myDate = this.getRandomDate(); 
-		Event event2 = new Event("AAAAAAAAA", "This is the second event",myDate, this.getRandomDate()); 
-		event2.addActor("1");
-		event2.addActor("2");
-		event2.addActor("3");
-		this.addEvent(event2);
-	
-		Event event2B = new Event("A2A2A2A2A2A2A2A", "This is the second event",myDate, this.getRandomDate());
-		event2B.addActor("1");
-		event2B.addActor("2");
-		event2B.addActor("3");
-		this.addEvent(event2B);
-		Event event3 = new Event("BBBBBBBBBB", "This is the thrid event", this.getRandomDate(), this.getRandomDate());
-		event3.addActor("1");
-		event3.addActor("2");
-		event3.addActor("3");
-		this.addEvent(event3);
-		Event event4 = new Event("CCCCCCCCCCCCC", "This is the first event", this.getRandomDate(),this.getRandomDate());
-		event4.addActor("1");
-		event4.addActor("2");
-		event4.addActor("3");
-		this.addEvent(event4);
-		Event event5 = new Event("DDDDDDDDDDDD", "This is the second event", this.getRandomDate(), this.getRandomDate());
-		event5.addActor("1");
-		event5.addActor("2");
-		event5.addActor("3");
-		this.addEvent(event5);
-		Event event6 = new Event("EEEEEEEEEEEEEE", "This is the thrid event", this.getRandomDate(), this.getRandomDate());
-		event6.addActor("1");
-		event6.addActor("2");
-		event6.addActor("3");
-		this.addEvent(event6);
-	}
-	
-	
-	/**
-	 * Not for public use. Generate random date for sample data
-	 * @return Date Random date for testing purposes
-	 */
-	private Date getRandomDate(){
-		Random  rnd;
-	     Date    dt;
-	     long    ms;
-	     // Get a new random instance, seeded from the clock
-	     rnd = new Random();
-	     // Get an Epoch value roughly between 1940 and 2010
-	     // -946771200000L = January 1, 1940
-	     // Add up to 70 years to it (using modulus on the next long)
-	     ms = -946771200000L + (Math.abs(rnd.nextLong()) % (70L * 365 * 24 * 60 * 60 * 1000));
-
-	     // Construct a date
-	     dt = new Date(ms);
-	     return dt; 
 	}
 	
 	/**
@@ -107,12 +53,9 @@ public class MemoryEventRepository implements EventRepository {
 				this.events.put(event.getStartYear(), eventsFromNewYear); 
 			}
 		}catch(RepositoryException e){
-			System.out.println("Error" + e.getMessage());
-		}
-		if(this.getEvents().containsKey(2017)){
-		System.out.println("ALL EVENTS CURRENTLY ADDED: "+ this.getEvents().get(2017).get(0).getActors());
 		}
 	}
+	
 	
 	/**
 	 * Remove the event with the specified id
