@@ -30,6 +30,7 @@ public class Actor {
 	/**
 	 * Creates an Actor with a name an id
 	 * @param name The name of the actor
+	 * @param id int
 	 */
 	public Actor(String name, String id){
 		this.setName(name);

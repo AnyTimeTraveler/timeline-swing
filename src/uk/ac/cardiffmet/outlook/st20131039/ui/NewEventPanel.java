@@ -103,6 +103,8 @@ public class NewEventPanel extends JPanel {
 
 	/**
 	 * Initialise fields and set config setting
+	 * @param actors JSON of actors
+	 *
 	 */
 	public NewEventPanel(String actors) {
 		super();
@@ -274,7 +276,7 @@ public class NewEventPanel extends JPanel {
 	/**
 	 * Set new actors on the class variable and on the JList
 	 * 
-	 * @param actors
+	 * @param actors JSON of actors
 	 */
 	public void setActors(String actors) {
 		// Set class variable

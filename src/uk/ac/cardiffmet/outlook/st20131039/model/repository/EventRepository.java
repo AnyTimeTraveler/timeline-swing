@@ -29,7 +29,7 @@ public interface EventRepository {
 	/**
 	 * Remove the event with the specified id
 	 * 
-	 * @param String
+	 * @param id String
 	 *            The id of the event to remove
 	 */
 	public void removeEvent(String id);
@@ -37,15 +37,15 @@ public interface EventRepository {
 	/**
 	 * Get the event with the specified id
 	 * 
-	 * @param String
+	 * @param id String
 	 *            The id of the event to get
 	 * @return Event The event with the specified id
 	 */
 	public Event getEvent(String id);
 
 	/**
-	 * Add
-	 * {@link List}&lt;{@link uk.ac.cardiffmet.outlook.st20131039.model.Event}&gt;
+	 * Add events to the repo
+	 * @param events Map with key year and value a List of Event
 	 */
 	public void addEvents(Map<Integer, List<Event>> events);
 

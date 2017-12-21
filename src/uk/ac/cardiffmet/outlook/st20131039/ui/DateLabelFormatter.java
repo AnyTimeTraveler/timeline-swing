@@ -27,7 +27,7 @@ public class DateLabelFormatter extends AbstractFormatter {
 	  
 	  /**
 	   * Returns an object (calendar)  from the date String if the correct string is given. 
-	   * @throws ParseException
+	   * @throws ParseException exception
 	   */
 	    @Override
 	    public Object stringToValue(String text) throws ParseException {
@@ -37,7 +37,7 @@ public class DateLabelFormatter extends AbstractFormatter {
 	    
 	    /**
 	     * Returns a string when an object (calendar) is given 
-	     * @throws ParseException
+	     * @throws ParseException exception
 	     */
 	    @Override
 	    public String valueToString(Object value) throws ParseException {

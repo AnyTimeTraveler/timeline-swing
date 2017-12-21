@@ -380,7 +380,7 @@ public class TimelinePanel extends JPanel {
 	 * Get Event that is associated with coordinates on the Panel
 	 * @param x X coordinate on TimelinePanel
 	 * @param y Y coordinate on TimelinePanel
-	 * @return {@link List}&lt;{@link ui.datasets.timeline.Event}&gt; The List of events in specified year
+	 * @return int year
 	 */
 	public int getEventYearByCoordinates(int x, int y){
 		boolean isOdd = false; 

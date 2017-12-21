@@ -123,7 +123,7 @@ public class Event implements Comparable<Event>{
 	
 	/**
 	 * Add new Actor to event
-	 * @param actor New actor to add
+	 * @param actorId int New actor to add
 	 */
 	public void addActor(String actorId) {
 	if(actorId == null || actorId.isEmpty()){
@@ -210,7 +210,7 @@ public class Event implements Comparable<Event>{
 	/**
 	 * Set new Actors Involvement Description
 	 * @param actorsInvolvementDescription new Actors Involvement Description
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException Exception
 	 */
 	public void setActorsInvolvementDescription(String actorsInvolvementDescription) {
 		if(actorsInvolvementDescription == null || actorsInvolvementDescription.isEmpty()){

@@ -372,13 +372,9 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Change working panel to {@link EventDetailsPanel} according to clicked
-	 * coordinates
-	 * 
-	 * @param x
-	 *            Clicked x value
-	 * @param y
-	 *            Clicked y value
+	 * Set details of a specific year
+	 * @param eventsInSpecificYear the year to set the details for
+	 * @param actorsJson the actors in the DB
 	 */
 	public void setEventDetails(String eventsInSpecificYear, String actorsJson) {
 		

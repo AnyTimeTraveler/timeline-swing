@@ -49,6 +49,7 @@ public class NewActorPanel extends JPanel {
 
 	/**
 	 * Initialise fields and set config setting
+	 * @param actors JSON of actors 
 	 */
 	public NewActorPanel(String actors) {
 		super();

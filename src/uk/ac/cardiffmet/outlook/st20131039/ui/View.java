@@ -111,6 +111,11 @@ public class View implements Observer {
 	 * Change {@link uk.ac.cardiffmet.outlook.st20131039.ui.MainFrame#workingPanel} to
 	 * {@link uk.ac.cardiffmet.outlook.st20131039.ui.MainFrame#newEventPanel} and repaint
 	 */
+	/**
+	 * Change {@link uk.ac.cardiffmet.outlook.st20131039.ui.MainFrame#workingPanel} to
+	 * {@link uk.ac.cardiffmet.outlook.st20131039.ui.MainFrame#newEventPanel} and repaint
+	 * @param actors JSON of actors
+	 */
 	public void changeToAddNewEventPanel(String actors) {
 		this.mainFrame.changeToAddNewEventPanel(actors);
 		this.repaint();
@@ -162,15 +167,11 @@ public class View implements Observer {
 		this.mainFrame.addTimelineEventActionListener(timelineEventMouseListener);
 	}
 
-	/**
-	 * Change {@link uk.ac.cardiffmet.outlook.st20131039.ui.MainFrame#workingPanel} to
-	 * {@link uk.ac.cardiffmet.outlook.st20131039.ui.MainFrame#eventDetailsPanel} and repaint
-	 * 
-	 * @param x
-	 *            X coordinated that was clicked
-	 * @param y
-	 *            Y coordinated that was clicked
-	 */
+/**
+ * Set events details in one specific year
+ * @param eventsOfSpecificYear the year to set the details
+ * @param actorsJson actors in JSON format
+ */
 	public void setEventDetails(String eventsOfSpecificYear, String actorsJson) {
 		this.mainFrame.setEventDetails(eventsOfSpecificYear, actorsJson);
 		this.repaint();
@@ -210,8 +211,8 @@ public class View implements Observer {
 	}
 
 	/**
-	 * Change {@link uk.ac.cardiffmet.outlook.st20131039.ui.MainFrame#workingPanel} to
-	 * {@link uk.ac.cardiffmet.outlook.st20131039.ui.MainFrame#NewActorPanel} and repaint
+	 * Change working panel to newActorPanel
+	 * @param actors JSON of actors
 	 */
 	public void changeToAddNewActorPanel(String actors) {
 		this.mainFrame.changeToAddNewActorPanel(actors);
