@@ -32,7 +32,9 @@ public class EventTest {
 		actorIds = new String[2];
 		actorIds[0] = "1";
 		actorIds[1] = "2"; 
-		actorDescription = "Leader"; 	
+		actorDescription = "Leader"; 
+		this.actors.add("1"); 
+		this.actors.add("2");
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
@@ -44,11 +46,6 @@ public class EventTest {
 	@Test (expected=IllegalArgumentException.class)
 	public void createEventWithNullValueNameThrowException(){
 		Event event = new Event(null, this.description, this.startDate, this.endDate, actorIds, actorDescription); 
-	}
-	
-	@Test (expected=IllegalArgumentException.class)
-	public void createEventWithNullValueActorsThrowException(){
-		Event event = new Event(this.name, this.description, this.startDate, this.endDate, actorIds, actorDescription); 
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
@@ -74,13 +71,13 @@ public class EventTest {
 	
 	@Test
 	public void createValidEvent(){
-		System.out.println(this.actors);
 		Event event = new Event(this.name, this.description, this.startDate, this.endDate, actorIds, actorDescription); 
+		
 		assertEquals(this.actors, event.getActors()); 
 		assertEquals(this.name, event.getTitle());
 		assertEquals(this.description, event.getDescription());
 		assertEquals(this.startDate, event.getStartDate());
-		assertEquals(this.endDate, event.getEndDate()); 
+		assertEquals(this.endDate, event.getEndDate());
 	}
 	
 	
